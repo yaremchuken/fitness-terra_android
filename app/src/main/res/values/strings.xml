@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FitnessTerra</string>
+    <string name="app_name" translatable="false">Fitness Terra</string>
+    <string name="how_to_do_it">How to do it</string>
+    <string name="advises">Advises</string>
 </resources>
