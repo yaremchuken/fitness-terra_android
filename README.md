@@ -1,8 +1,8 @@
 ### Fitness Terra
 
-<p align="center">
-  <img src="app_preview.png" />
-</p>
+<div align="center">
+  <img src="app_preview.png" height="400" />
+</div>
 
 ## Table Of Contents
 
@@ -11,8 +11,6 @@
 * [Getting Started](#getting-started)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
-* [Authors](#authors)
-* [Acknowledgements](#acknowledgements)
 
 ## About The Project
 
