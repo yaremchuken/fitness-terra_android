@@ -1,6 +1,8 @@
 ### Fitness Terra
 
-![Fitness Terra](app_preview.png)
+<p align="center">
+  <img src="app_preview.png" />
+</p>
 
 ## Table Of Contents
 
