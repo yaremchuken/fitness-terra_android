@@ -10,11 +10,6 @@ data class ExerciseSet(
     val exercise: Exercise,
 
     /**
-     * Pauses between exercises in seconds.
-     */
-    val rests: List<Long>,
-
-    /**
      * Amount of weight used in sets in grams.
      */
     val weight: Long = 0,
@@ -29,5 +24,10 @@ data class ExerciseSet(
      * Durations of exercise performing in seconds.
      * Not used if the repeats is specified.
      */
-    val durations: List<Long> = listOf()
+    val durations: List<Long> = listOf(),
+
+    /**
+     * Pauses between exercises in seconds.
+     */
+    val rests: List<Long> = listOf()
 )

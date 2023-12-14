@@ -5,13 +5,21 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.IOException
 
-fun Context.bitmap(fileName: String): Bitmap {
-    return try {
-        with(assets.open(fileName)) {
+const val EXTENSION_PNG = ".png"
+
+/**
+ * Load bitmap from assets folder.
+ * It's assumed that images have .png extension by default.
+ */
+fun Context.bitmap(path: String, filename: String?): Bitmap? {
+    return if (filename == null) {
+        null
+    } else try {
+        with(assets.open("$path/$filename$EXTENSION_PNG")) {
             BitmapFactory.decodeStream(this)
         }
     } catch (e: IOException) {
-        throw RuntimeException("Unable to load bitmap $fileName")
+        throw RuntimeException("Unable to load bitmap $path/$filename$EXTENSION_PNG")
     }
 }
 

@@ -1,7 +1,7 @@
 ### Fitness Terra
 
 <div align="center">
-  <img src="app_preview.png" height="400" />
+  <img src="app_preview-exercise_details.png" height="400" />
 </div>
 
 ## Table Of Contents
