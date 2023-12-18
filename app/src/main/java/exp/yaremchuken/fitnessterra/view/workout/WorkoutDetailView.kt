@@ -32,10 +32,13 @@ import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.model.Exercise
 import exp.yaremchuken.fitnessterra.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.model.Workout
+import exp.yaremchuken.fitnessterra.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.model.WorkoutType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
-import exp.yaremchuken.fitnessterra.view.exercise.exerciseStub
+import exp.yaremchuken.fitnessterra.view.exercise.exerciseBackStub
+import exp.yaremchuken.fitnessterra.view.exercise.exerciseBicepsStub
+import kotlin.time.Duration.Companion.seconds
 
 @Preview
 @Composable
@@ -46,15 +49,12 @@ fun WorkoutDetailView(
 ) {
     val scrollState = rememberScrollState()
 
-    val workoutPreview = Utils.getExercisePreview(LocalContext.current, workout.sets[0].exercise.id)
+    val workoutPreview = Utils.getExercisePreview(LocalContext.current, workout.sections[0].sets[0].exercise.id)
 
-    // (it.repeats.sum() * 2) - lets make assumption that it takes two seconds for one repetition
-    val totalTimeSecs =
-        workout.rests.sum() +
-        workout.sets.sumOf { it.durations.sum() + it.rests.sum() + (it.repeats.sum() * 2) }
-
+    val totalDuration = Workout.totalDuration(workout)
     val workoutStats =
-        "${Utils.formatToTime(totalTimeSecs)} • ${workout.sets.size} ${stringResource(id = R.string.exercises_short)}"
+        "${Utils.formatToTime(totalDuration)} • " +
+        "${workout.sections.sumOf { it.sets.size }} ${stringResource(id = R.string.exercises_count_title)}"
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -80,10 +80,10 @@ fun WorkoutDetailView(
                 Modifier
                     .align(Alignment.TopStart)
                     .padding(top = 12.dp, start = 12.dp)
-                    .width(24.dp)
-                    .height(24.dp)
+                    .width(30.dp)
+                    .height(30.dp)
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_btn_back), contentDescription = null)
+                Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = null)
             }
         }
         Column(
@@ -107,8 +107,15 @@ fun WorkoutDetailView(
                     .verticalScroll(scrollState)
                     .padding(horizontal = 20.dp)
             ) {
-                workout.sets.forEach {
-                    ExerciseSetEntryView({ showExerciseDetails(it.exercise) }, it)
+                workout.sections.forEach { section ->
+                    Text(
+                        text = section.title,
+                        Modifier.padding(top = 12.dp, bottom = 12.dp),
+                        style = Typography.titleLarge
+                    )
+                    section.sets.forEach {
+                        ExerciseSetEntryView({ showExerciseDetails(it.exercise) }, it)
+                    }
                 }
             }
         }
@@ -122,7 +129,7 @@ fun WorkoutDetailView(
                 onClick = { beginWorkout() },
                 Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 20.dp),
+                    .padding(vertical = 10.dp, horizontal = 50.dp),
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
@@ -136,23 +143,40 @@ fun WorkoutDetailView(
 
 val workoutStub = Workout(
     id = 0,
-    title = "Бицепсы",
+    title = "Спина и бицепс",
     type = WorkoutType.STRENGTH,
-    sets = listOf(
-        ExerciseSet(
-            exercise = exerciseStub,
-            weight = 500,
-            repeats = listOf(10, 10, 10),
-            durations = listOf(),
-            rests = listOf(30, 30)
+    sections = listOf(
+        WorkoutSection(
+            "Спина",
+            listOf(
+                ExerciseSet(
+                    exercise = exerciseBackStub,
+                    weight = 1200,
+                    repeats = listOf(12,10,10,8,6),
+                    durations = listOf(),
+                    recovery = listOf(30.seconds)
+                )
+            )
         ),
-        ExerciseSet(
-            exercise = exerciseStub,
-            weight = 500,
-            repeats = listOf(10, 10, 10),
-            durations = listOf(),
-            rests = listOf(30, 30)
+        WorkoutSection(
+            "Бицепс",
+            listOf(
+                ExerciseSet(
+                    exercise = exerciseBicepsStub,
+                    weight = 500,
+                    repeats = listOf(10,10,10),
+                    durations = listOf(),
+                    recovery = listOf(30.seconds)
+                ),
+                ExerciseSet(
+                    exercise = exerciseBicepsStub,
+                    weight = 500,
+                    repeats = listOf(10,10,10),
+                    durations = listOf(),
+                    recovery = listOf(30.seconds)
+                )
+            )
         )
     ),
-    rests = listOf(60)
+    recovery = listOf(30.seconds)
 )

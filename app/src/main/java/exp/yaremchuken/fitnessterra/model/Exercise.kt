@@ -29,10 +29,15 @@ data class Exercise(
     /**
      * Steps of exercise performing.
      */
-    val steps: List<String>,
+    val steps: List<String> = listOf(),
 
     /**
      * Tips and advises about exercise perform.
      */
-    val advise: String?
+    val advise: String?,
+
+    /**
+     * Some warnings about incorrect performing of exercise and danger it can present.
+     */
+    val warnings: List<String> = listOf()
 )

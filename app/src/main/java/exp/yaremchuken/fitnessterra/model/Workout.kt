@@ -1,5 +1,7 @@
 package exp.yaremchuken.fitnessterra.model
 
+import kotlin.time.Duration
+
 data class Workout(
     /**
      * Workout unique identification.
@@ -17,12 +19,34 @@ data class Workout(
     val type: WorkoutType,
 
     /**
-     * Exercises included in this workout.
+     * Sections included in this workout.
      */
-    val sets: List<ExerciseSet>,
+    val sections: List<WorkoutSection> = listOf(),
 
     /**
-     * Pauses between exercise sets in seconds.
+     * Amount ot time to rest between workout sections.
+     * List must be empty, or contain single or sections.size-1 values,
+     * single value means that all rests have same duration.
      */
-    val rests: List<Int>
-)
+    val recovery: List<Duration> = listOf()
+) {
+    companion object {
+        fun totalDuration(workout: Workout): Duration {
+            var total = Duration.ZERO
+            if (workout.sections.isNotEmpty()) {
+                total = total.plus(
+                    workout.sections
+                        .map { WorkoutSection.totalDuration(it) }
+                        .reduce { acc, duration -> acc.plus(duration) }
+                )
+            }
+            if (workout.recovery.size == 1) {
+                total = total.plus(workout.recovery[0].times(workout.sections.size - 1))
+            } else if (workout.recovery.isNotEmpty()) {
+                total = total.plus(workout.recovery.reduce { acc, duration -> acc.plus(duration) })
+            }
+
+            return total
+        }
+    }
+}

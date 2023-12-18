@@ -44,7 +44,7 @@ import exp.yaremchuken.fitnessterra.utils.Utils
 @Preview
 @Composable
 fun ExerciseDetailView(
-    exercise: Exercise = exerciseStub
+    exercise: Exercise = exerciseBackStub
 ) {
     val scrollState = rememberScrollState()
     val visualStatesScrollState = rememberScrollState()
@@ -87,10 +87,10 @@ fun ExerciseDetailView(
                 Modifier
                     .align(Alignment.TopStart)
                     .padding(top = 12.dp, start = 12.dp)
-                    .width(24.dp)
-                    .height(24.dp)
+                    .width(30.dp)
+                    .height(30.dp)
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_btn_back), contentDescription = null)
+                Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = null)
             }
         }
         Text(
@@ -200,16 +200,41 @@ fun ExerciseDetailView(
                     style = Typography.bodyMedium
                 )
             }
-            Spacer(modifier = Modifier.padding(bottom = 12.dp))
+            if (exercise.warnings.isNotEmpty()) {
+                Text(
+                    text = stringResource(id = R.string.safety_precautions_title),
+                    Modifier.padding(vertical = 12.dp),
+                    style = Typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                exercise.warnings.forEach {
+                    Row(
+                        Modifier.padding(bottom = 8.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_warning),
+                            contentDescription = null,
+                            Modifier
+                                .height(20.dp)
+                                .padding(horizontal = 5.dp)
+                        )
+                        Text(
+                            text = it,
+                            style = Typography.bodyMedium
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.padding(bottom = 20.dp))
         }
     }
 }
 
-val exerciseStub = Exercise(
+val exerciseBicepsStub = Exercise(
     id = 0,
     title = "Сгибание на бицепс стоя",
     description = "Данное упражнение является самым популярным упражнением на мышцы бицепса. Упражнения изолирующее. Может выполняться как со штангой, так и с гантелями. Существует разновидность упражнения, когда вместо обычно штанги используется штанга с изогнутым грифом (более эффективный и безопасный способ).",
-    muscleGroup = MuscleGroup.CHEST,
+    muscleGroup = MuscleGroup.BICEPS,
     equipment = EquipmentType.BARBELL,
     steps = listOf(
         "Встаньте прямо, предварительно взяв в руку штангу. Руки должны находится на уровне плеч. Хват снизу. Локти находятся близко к телу. Это будет вашей стартовой позицией",
@@ -218,4 +243,25 @@ val exerciseStub = Exercise(
         "Вдохните и медленно начните опускать штангу в стартовое положение",
         "Выполните движение необходимо количество раз"
     ),
-    advise = "Вы можете попробовать выполнение данного упражнения узким хватом.")
+    advise = "Вы можете попробовать выполнение данного упражнения узким хватом."
+)
+
+val exerciseBackStub = Exercise(
+    id = 1,
+    title = "Тяга гантелей в наклоне",
+    description = "Упражнение на среднюю область спины",
+    muscleGroup = MuscleGroup.BACK,
+    equipment = EquipmentType.BARBELL,
+    steps = listOf(
+        "Возьмите в обе руки гантели, ладони должны быть обращены к туловищу. Слегка согните колени и наклоните туловище вперед, сгибаясь в пояснице до тех пор, пока спина не будет практически параллельна полу, при этом держите спину прямо. Следите за тем, чтобы голова была поднята вверх. Руки должны свисать перпендикулярно полу и туловищу. Это Ваше исходное положение",
+        "Находясь в таком положении, на выдохе притяните гантели к себе, локти должны быть прижаты к телу (частью руки от локтя до кисти не делайте никаких усилий, кроме как просто удерживайте вес). На пике этого движения, напрягите мышцы спины и на секунду зафиксируйте тело в таком положении",
+        "На вдохе медленно опустите вес в исходную позицию",
+        "Выполните необходимое количество повторений"
+    ),
+    advise = "Вы можете выполнять это упражнение, используя вместо гантелей трос нижнего блока с V- образной рукоятью или штангу. Также можно делать это упражнение с использованием супинированного или нейтрального хвата.",
+    warnings = listOf(
+        "Это упражнение не рекомендуется выполнять людям, у которых есть проблемы со спиной. В данном случае лучше выбрать упражнение Тяга на низком блоке.",
+        "Ни в коем случае не прогибайте спину, т.к. это может привести к травме спины.",
+        "Будьте внимательны в выборе веса для упражнения. Если сомневаетесь, то лучше выберите меньший вес, чем больший."
+    )
+)

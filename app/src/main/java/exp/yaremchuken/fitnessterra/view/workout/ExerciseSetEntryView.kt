@@ -31,7 +31,7 @@ import exp.yaremchuken.fitnessterra.utils.Utils
 @Composable
 fun ExerciseSetEntryView(
     onClick: () -> Unit = {},
-    exerciseSet: ExerciseSet = workoutStub.sets[0]
+    exerciseSet: ExerciseSet = workoutStub.sections[0].sets[0]
 ) {
     val preview = Utils.getExercisePreview(LocalContext.current, exerciseSet.exercise.id)
 
@@ -45,13 +45,13 @@ fun ExerciseSetEntryView(
         } else if (exerciseSet.repeats.sorted()[0] == exerciseSet.repeats.sorted()[exerciseSet.repeats.size-1]) {
             "${exerciseSet.repeats.size}x${exerciseSet.repeats[0]}"
         } else {
-            exerciseSet.repeats.joinToString { ", " }
+            exerciseSet.repeats.joinToString(",")
         }
 
     Column(
         Modifier
             .background(Color.White)
-            .padding(top = 20.dp, bottom = 2.dp)
+            .padding( bottom = 20.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -75,20 +75,46 @@ fun ExerciseSetEntryView(
                         text = exerciseSet.exercise.title,
                         style = Typography.titleMedium
                     )
-                    Text(
-                        text = repeatsOrDuration,
-                        style = Typography.bodyMedium
-                    )
+                    Row {
+                        Image(
+                            painter = painterResource(
+                                id = if (exerciseSet.repeats.isEmpty()) R.drawable.ic_timer else R.drawable.ic_repeat
+                            ),
+                            contentDescription = null,
+                            Modifier
+                                .height(14.dp)
+                                .padding(end = 4.dp)
+                                .align(Alignment.CenterVertically)
+                        )
+                        Text(
+                            text = repeatsOrDuration,
+                            style = Typography.bodyMedium
+                        )
+                        if (exerciseSet.weight > 0) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_weight),
+                                contentDescription = null,
+                                Modifier
+                                    .height(14.dp)
+                                    .padding(start = 12.dp, end = 4.dp)
+                                    .align(Alignment.CenterVertically)
+                            )
+                            Text(
+                                text = "${exerciseSet.weight * .01}",
+                                style = Typography.bodyMedium
+                            )
+                        }
+                    }
                 }
                 IconButton(
                     onClick = { onClick() },
                     Modifier
-                        .padding(end = 12.dp)
-                        .width(24.dp)
+                        .padding(end = 20.dp)
                         .height(24.dp)
+                        .width(24.dp)
                         .align(Alignment.CenterVertically)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.ic_btn_forward), contentDescription = null)
+                    Image(painter = painterResource(id = R.drawable.ic_forward), contentDescription = null)
                 }
             }
         }

@@ -15,17 +15,17 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 
-
 @Preview
 @Composable
 fun ExerciseStepView(
     index: Int = 1,
-    description: String = exerciseStub.steps[0]
+    description: String = exerciseBicepsStub.steps[0]
 ) {
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(20f, 14f), 0f)
 
@@ -40,6 +40,7 @@ fun ExerciseStepView(
             Text(
                 text = "$index".padStart(2, '0'),
                 style = Typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
                 color = Color.Magenta
             )
         }
@@ -47,7 +48,9 @@ fun ExerciseStepView(
             Image(
                 painter = painterResource(id = R.drawable.ic_exercise_steps_divider),
                 contentDescription = null,
-                Modifier.padding(horizontal = 5.dp)
+                Modifier
+                    .height(22.dp)
+                    .padding(horizontal = 5.dp)
             )
             Canvas(
                 Modifier

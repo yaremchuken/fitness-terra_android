@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import exp.yaremchuken.fitnessterra.bitmap
+import kotlin.time.Duration
 
 object Utils {
 
@@ -37,8 +38,8 @@ object Utils {
      * 300 secs -> 05:00
      * 4000 secs -> 01:06:40
      */
-    fun formatToTime(seconds: Long): String {
-        var remainder = seconds
+    fun formatToTime(duration: Duration): String {
+        var remainder = duration.inWholeSeconds
         val hours = (remainder.toFloat() / 3600F).toLong()
         remainder -= hours * 3600
         val minutes = (remainder.toFloat() / 60F).toLong()

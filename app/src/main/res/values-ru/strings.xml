@@ -2,8 +2,9 @@
     <string name="how_to_do_it">Инструкция по выполнению</string>
     <string name="advises">Советы</string>
     <string name="mins">мин</string>
-    <string name="exercises_short">упражнений</string>
+    <string name="exercises_count_title">упражнений</string>
     <string name="start_btn_title">старт</string>
     <string name="equipment_title">Оборудование</string>
     <string name="muscle_group_title">Группа мышц</string>
+    <string name="safety_precautions_title">Меры предосторожности</string>
 </resources>
