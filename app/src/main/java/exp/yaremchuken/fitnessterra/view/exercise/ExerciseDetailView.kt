@@ -90,7 +90,7 @@ fun ExerciseDetailView(
                     .width(30.dp)
                     .height(30.dp)
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = null)
+                Image(painter = painterResource(id = R.drawable.ic_back_filled), contentDescription = null)
             }
         }
         Text(

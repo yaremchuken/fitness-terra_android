@@ -51,7 +51,7 @@ fun ExerciseSetEntryView(
     Column(
         Modifier
             .background(Color.White)
-            .padding( bottom = 20.dp)
+            .padding(top = 12.dp, bottom = 8.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -114,7 +114,7 @@ fun ExerciseSetEntryView(
                         .width(24.dp)
                         .align(Alignment.CenterVertically)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.ic_forward), contentDescription = null)
+                    Image(painter = painterResource(id = R.drawable.ic_forward_filled), contentDescription = null)
                 }
             }
         }

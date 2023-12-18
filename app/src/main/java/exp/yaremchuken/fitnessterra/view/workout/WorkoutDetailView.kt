@@ -83,7 +83,7 @@ fun WorkoutDetailView(
                     .width(30.dp)
                     .height(30.dp)
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = null)
+                Image(painter = painterResource(id = R.drawable.ic_back_filled), contentDescription = null)
             }
         }
         Column(
@@ -110,7 +110,7 @@ fun WorkoutDetailView(
                 workout.sections.forEach { section ->
                     Text(
                         text = section.title,
-                        Modifier.padding(top = 12.dp, bottom = 12.dp),
+                        Modifier.padding(top = 12.dp),
                         style = Typography.titleLarge
                     )
                     section.sets.forEach {
