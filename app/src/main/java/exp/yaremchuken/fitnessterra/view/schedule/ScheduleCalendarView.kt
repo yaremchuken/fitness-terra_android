@@ -46,12 +46,10 @@ private const val WEEKS_IN_CALENDAR = 6
 
 private val MONTH_FORMATTER = DateTimeFormatter.ofPattern("MMM yyyy")
 
-private val WEEK_FORMATTER = DateTimeFormatter.ofPattern("")
-
 @Preview
 @Composable
 fun ScheduleCalendarView(
-    schedules: List<Schedule> = listOf(scheduleStub)
+    schedules: List<Schedule> = listOf(scheduleStub, scheduleStub)
 ) {
     var yearMonth by remember { mutableStateOf(YearMonth.now()) }
 
@@ -170,6 +168,6 @@ fun ScheduleCalendarView(
 }
 
 val scheduleStub = Schedule(
-    LocalDateTime.now(),
+    LocalDateTime.now().plusDays(1),
     workoutStub
 )

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -24,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.model.ExerciseSet
+import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
 
@@ -61,7 +61,7 @@ fun ExerciseSetEntryView(
                 contentDescription = null,
                 Modifier
                     .height(64.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(UIConstants.ROUNDED_CORNER)
             )
             Row(
                 Modifier.fillMaxWidth(),

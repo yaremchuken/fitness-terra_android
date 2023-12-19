@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
@@ -34,6 +33,7 @@ import exp.yaremchuken.fitnessterra.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.model.Workout
 import exp.yaremchuken.fitnessterra.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.model.WorkoutType
+import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
 import exp.yaremchuken.fitnessterra.view.exercise.exerciseBackStub
@@ -130,7 +130,7 @@ fun WorkoutDetailView(
                 Modifier
                     .fillMaxWidth()
                     .padding(vertical = 10.dp, horizontal = 50.dp),
-                shape = RoundedCornerShape(12.dp)
+                shape = UIConstants.ROUNDED_CORNER
             ) {
                 Text(
                     text = stringResource(id = R.string.start_btn_title),
