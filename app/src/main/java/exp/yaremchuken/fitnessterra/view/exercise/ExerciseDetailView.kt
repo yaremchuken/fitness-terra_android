@@ -50,7 +50,7 @@ fun ExerciseDetailView(
     val visualStatesScrollState = rememberScrollState()
 
     val bitmaps = LocalContext.current.bitmaps("exercise/${exercise.id}")
-    val preview = Utils.getExercisePreview(LocalContext.current, exercise.id)
+    val preview = Utils.getExercisePreview(LocalContext.current, exercise)
 
     val equipment = LocalContext.current.bitmap("equipment", exercise.equipment?.name)?.asImageBitmap()
     val muscleGroup = LocalContext.current.bitmap("muscle_group", exercise.muscleGroup?.name)?.asImageBitmap()

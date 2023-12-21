@@ -7,4 +7,11 @@
     <string name="equipment_title">Оборудование</string>
     <string name="muscle_group_title">Группа мышц</string>
     <string name="safety_precautions_title">Меры предосторожности</string>
+    <string name="workout_calendar">Тренировочный календарь</string>
+    <string name="schedule_workout">Запланировать тренировку</string>
+    <string name="schedule_btn_title">запланировать</string>
+    <string name="cancel_schedule_btn_title">отменить</string>
+    <string name="cancel_workout_schedule_dialog">Вы уверены что хотите отменить тренировку?</string>
+    <string name="yes_btn_title">да</string>
+    <string name="no_btn_title">нет</string>
 </resources>

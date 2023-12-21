@@ -33,7 +33,7 @@ fun ExerciseSetEntryView(
     onClick: () -> Unit = {},
     exerciseSet: ExerciseSet = workoutStub.sections[0].sets[0]
 ) {
-    val preview = Utils.getExercisePreview(LocalContext.current, exerciseSet.exercise.id)
+    val preview = Utils.getExercisePreview(LocalContext.current, exerciseSet.exercise)
 
     val repeatsOrDuration =
         if (exerciseSet.repeats.isEmpty()) {

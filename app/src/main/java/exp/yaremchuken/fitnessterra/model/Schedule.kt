@@ -1,6 +1,6 @@
 package exp.yaremchuken.fitnessterra.model
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 /**
  * Schedule for workout to perform.
@@ -11,7 +11,7 @@ data class Schedule(
     /**
      * Date and time on which workout is scheduled.
      */
-    val scheduledAt: LocalDateTime,
+    val scheduledAt: Instant,
 
     /**
      * Scheduled workout.

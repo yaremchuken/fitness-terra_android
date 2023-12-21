@@ -49,7 +49,7 @@ fun WorkoutDetailView(
 ) {
     val scrollState = rememberScrollState()
 
-    val workoutPreview = Utils.getExercisePreview(LocalContext.current, workout.sections[0].sets[0].exercise.id)
+    val workoutPreview = Utils.getWorkoutPreview(LocalContext.current, workout)
 
     val totalDuration = Workout.totalDuration(workout)
     val workoutStats =

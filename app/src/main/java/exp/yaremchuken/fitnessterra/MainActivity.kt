@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import exp.yaremchuken.fitnessterra.ui.theme.FitnessTerraTheme
-import exp.yaremchuken.fitnessterra.view.schedule.ScheduleCalendarView
+import exp.yaremchuken.fitnessterra.view.schedule.day.ScheduleDayView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
             FitnessTerraTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ScheduleCalendarView()
+                    ScheduleDayView()
                 }
             }
         }

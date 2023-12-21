@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,12 +22,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.model.Schedule
+import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
 import java.time.LocalDate
 import java.time.YearMonth
-
 
 @Preview
 @Composable
@@ -34,13 +35,13 @@ fun ScheduleCalendarDateView(
     width: Dp = 45.dp,
     date: LocalDate = LocalDate.now(),
     month: YearMonth = YearMonth.now(),
-    scheduled: List<Schedule> = listOf(scheduleStub, scheduleStub)
+    scheduled: List<Schedule> = schedulesStub.filter { it.scheduledAt.toLocalDate() == LocalDate.now() }
 ) {
     val isNotInMonth = date.isBefore(month.atDay(1)) || date.isAfter(month.atEndOfMonth())
 
     val preview =
         if (scheduled.isEmpty()) null
-        else Utils.getExercisePreview(LocalContext.current, scheduled[0].workout.sections[0].sets[0].exercise.id)
+        else Utils.getWorkoutPreview(LocalContext.current, scheduled[0].workout)
 
     Column(
         Modifier
@@ -84,7 +85,7 @@ fun ScheduleCalendarDateView(
                     Image(
                         bitmap = preview,
                         contentDescription = null,
-                        Modifier.clip(UIConstants.ROUNDED_CORNER),
+                        Modifier.clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
                         contentScale = ContentScale.FillHeight
                     )
                 }

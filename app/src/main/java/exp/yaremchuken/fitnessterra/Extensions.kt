@@ -4,6 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.IOException
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 
 const val EXTENSION_PNG = ".png"
 
@@ -32,3 +35,9 @@ fun Context.bitmaps(path: String): Map<String, Bitmap> {
         throw RuntimeException("Unable to fetch bitmaps from path '$path'", e)
     }
 }
+
+fun LocalDate.toInstant(): Instant = this.atStartOfDay(ZoneId.systemDefault()).toInstant()
+
+fun Instant.toLocalDate(): LocalDate = this.atZone(ZoneId.systemDefault()).toLocalDate()
+
+fun Instant.getHour(): Int = this.atZone(ZoneId.systemDefault()).hour

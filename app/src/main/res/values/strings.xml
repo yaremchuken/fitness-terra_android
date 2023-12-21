@@ -8,4 +8,11 @@
     <string name="equipment_title">Equipment</string>
     <string name="muscle_group_title">Muscle group</string>
     <string name="safety_precautions_title">Safety precautions</string>
+    <string name="workout_calendar">Workout calendar</string>
+    <string name="schedule_workout">Schedule workout</string>
+    <string name="schedule_btn_title">schedule</string>
+    <string name="cancel_schedule_btn_title">cancel</string>
+    <string name="cancel_workout_schedule_dialog">Are you sure you want to cancel this workout?</string>
+    <string name="yes_btn_title">yes</string>
+    <string name="no_btn_title">no</string>
 </resources>

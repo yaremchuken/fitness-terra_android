@@ -5,9 +5,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import exp.yaremchuken.fitnessterra.bitmap
+import exp.yaremchuken.fitnessterra.model.Exercise
+import exp.yaremchuken.fitnessterra.model.Workout
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 
 object Utils {
+
+    val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault())
+    val TIME_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:ss").withZone(ZoneId.systemDefault())
 
     /**
      * Get tint for this image background.
@@ -28,10 +36,16 @@ object Utils {
     /**
      * Get preview for current exercise, if it not exists then default preview.
      */
-    fun getExercisePreview(context: Context, exerciseId: Long) = (
-            context.bitmap("exercise/${exerciseId}", "preview") ?:
+    fun getExercisePreview(context: Context, exercise: Exercise) = (
+            context.bitmap("exercise/${exercise.id}", "preview") ?:
             context.bitmap("exercise", "preview_default")!!
             ).asImageBitmap()
+
+    /**
+     * For simplicity lets just take preview of first exercise of this workout.
+     */
+    fun getWorkoutPreview(context: Context, workout: Workout) =
+        getExercisePreview(context, workout.sections[0].sets[0].exercise)
 
     /**
      * Represent seconds as time string.

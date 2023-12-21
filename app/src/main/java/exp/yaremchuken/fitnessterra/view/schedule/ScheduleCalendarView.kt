@@ -23,20 +23,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.model.Schedule
+import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.view.workout.workoutStub
 import java.time.DayOfWeek
+import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
+import java.time.temporal.ChronoUnit
 import java.util.Locale
 
 private const val DAYS_IN_WEEK = 7
@@ -49,7 +52,7 @@ private val MONTH_FORMATTER = DateTimeFormatter.ofPattern("MMM yyyy")
 @Preview
 @Composable
 fun ScheduleCalendarView(
-    schedules: List<Schedule> = listOf(scheduleStub, scheduleStub)
+    schedules: List<Schedule> = schedulesStub
 ) {
     var yearMonth by remember { mutableStateOf(YearMonth.now()) }
 
@@ -87,7 +90,7 @@ fun ScheduleCalendarView(
                 Image(painter = painterResource(id = R.drawable.ic_back_filled), contentDescription = null)
             }
             Text(
-                text = "Workout Calendar",
+                text = stringResource(R.string.workout_calendar),
                 Modifier.align(Alignment.Center),
                 style = Typography.titleLarge,
                 fontWeight = FontWeight.Bold,
@@ -167,7 +170,22 @@ fun ScheduleCalendarView(
     }
 }
 
-val scheduleStub = Schedule(
-    LocalDateTime.now().plusDays(1),
-    workoutStub
-)
+val schedulesStub =
+    listOf(
+        Schedule(
+            Instant.now().minus(3, ChronoUnit.DAYS),
+            workoutStub
+        ),
+        Schedule(
+            Instant.now(),
+            workoutStub
+        ),
+        Schedule(
+            Instant.now().plus(3, ChronoUnit.HOURS).plus(20, ChronoUnit.MINUTES),
+            workoutStub
+        ),
+        Schedule(
+            Instant.now().plus(1, ChronoUnit.DAYS),
+            workoutStub
+        )
+    )
