@@ -174,7 +174,8 @@ val schedulesStub =
     listOf(
         Schedule(
             Instant.now().minus(3, ChronoUnit.DAYS),
-            workoutStub
+            workoutStub,
+            true
         ),
         Schedule(
             Instant.now(),
@@ -187,5 +188,9 @@ val schedulesStub =
         Schedule(
             Instant.now().plus(1, ChronoUnit.DAYS),
             workoutStub
-        )
+        ),
+        Schedule(
+            Instant.now().minus(1, ChronoUnit.DAYS),
+            workoutStub
+        ),
     )

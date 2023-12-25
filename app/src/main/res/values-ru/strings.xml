@@ -14,4 +14,6 @@
     <string name="cancel_workout_schedule_dialog">Вы уверены что хотите отменить тренировку?</string>
     <string name="yes_btn_title">да</string>
     <string name="no_btn_title">нет</string>
+    <string name="scheduled_for_today_title">Запланированно на сегодня</string>
+    <string name="to_workouts_schedule_title">К расписанию тренировок</string>
 </resources>

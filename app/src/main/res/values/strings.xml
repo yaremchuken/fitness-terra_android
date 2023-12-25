@@ -15,4 +15,6 @@
     <string name="cancel_workout_schedule_dialog">Are you sure you want to cancel this workout?</string>
     <string name="yes_btn_title">yes</string>
     <string name="no_btn_title">no</string>
+    <string name="scheduled_for_today_title">Scheduled for today</string>
+    <string name="to_workouts_schedule_title">To workouts schedule</string>
 </resources>
