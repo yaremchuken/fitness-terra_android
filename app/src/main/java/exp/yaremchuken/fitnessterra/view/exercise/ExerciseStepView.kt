@@ -3,7 +3,10 @@ package exp.yaremchuken.fitnessterra.view.exercise
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +34,7 @@ fun ExerciseStepView(
 
     Row(
         Modifier
+            .height(IntrinsicSize.Min)
             .fillMaxWidth()
             .padding(
                 top = if (index == 1) 0.dp else 8.dp
@@ -39,22 +43,23 @@ fun ExerciseStepView(
         Column {
             Text(
                 text = "$index".padStart(2, '0'),
-                style = Typography.bodyLarge,
+                style = Typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = Color.Magenta
             )
         }
         Column {
+            Spacer(Modifier.padding(top = 3.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_exercise_steps_divider),
+                painter = painterResource(id = R.drawable.ic_exercise_step),
                 contentDescription = null,
                 Modifier
-                    .height(22.dp)
+                    .height(26.dp)
                     .padding(horizontal = 5.dp)
             )
             Canvas(
                 Modifier
-                    .height(40.dp)
+                    .fillMaxHeight()
                     .align(alignment = Alignment.CenterHorizontally)
                     .padding(vertical = 5.dp)
             ) {
@@ -65,14 +70,6 @@ fun ExerciseStepView(
                     pathEffect = pathEffect
                 )
             }
-//            Image(
-//                painter = painterResource(id = R.drawable.img_dotted_line_divider),
-//                contentDescription = null,
-//                Modifier
-//                    .align(alignment = Alignment.CenterHorizontally)
-//                    .padding(vertical = 3.dp),
-//                contentScale = ContentScale.FillHeight,
-//            )
         }
         Column {
             Text(
