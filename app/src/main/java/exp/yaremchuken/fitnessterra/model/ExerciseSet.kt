@@ -1,7 +1,7 @@
 package exp.yaremchuken.fitnessterra.model
 
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Repetitions of a specific Exercise as a part of Workout.
@@ -42,8 +42,7 @@ data class ExerciseSet(
          */
         fun totalDuration(set: ExerciseSet): Duration {
             var total = Duration.ZERO
-            // Lets make assumption that it takes two seconds for one repetition
-            total = total.plus((set.repeats.sum() * 2).seconds)
+            total = total.plus((set.repeats.sum() * set.exercise.performingTime).milliseconds)
             if (set.durations.isNotEmpty()) {
                 total = total.plus(set.durations.reduce { acc, duration -> acc.plus(duration) })
             }

@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +26,7 @@ import exp.yaremchuken.fitnessterra.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
+import exp.yaremchuken.fitnessterra.view.animation.ExerciseAnimation
 
 @Preview
 @Composable
@@ -33,8 +34,6 @@ fun ExerciseSetEntryView(
     onClick: () -> Unit = {},
     exerciseSet: ExerciseSet = workoutStub.sections[0].sets[0]
 ) {
-    val preview = Utils.getExercisePreview(LocalContext.current, exerciseSet.exercise)
-
     val repeatsOrDuration =
         if (exerciseSet.repeats.isEmpty()) {
             if (exerciseSet.durations.sorted()[0] == exerciseSet.durations.sorted()[exerciseSet.durations.size-1]) {
@@ -56,9 +55,8 @@ fun ExerciseSetEntryView(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                bitmap = preview,
-                contentDescription = null,
+            ExerciseAnimation(
+                exerciseSet.exercise,
                 Modifier
                     .height(64.dp)
                     .clip(UIConstants.ROUNDED_CORNER)
@@ -69,6 +67,7 @@ fun ExerciseSetEntryView(
             ) {
                 Column(
                     Modifier
+                        .weight(1F)
                         .padding(start = 12.dp)
                 ) {
                     Text(
@@ -114,7 +113,9 @@ fun ExerciseSetEntryView(
                         .width(24.dp)
                         .align(Alignment.CenterVertically)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.ic_forward_filled), contentDescription = null)
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_forward_filled),
+                        contentDescription = null)
                 }
             }
         }

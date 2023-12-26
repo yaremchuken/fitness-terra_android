@@ -1,10 +1,8 @@
 package exp.yaremchuken.fitnessterra.view.exercise
 
-import android.graphics.Bitmap
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -31,15 +28,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import exp.yaremchuken.fitnessterra.EXTENSION_PNG
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.bitmap
-import exp.yaremchuken.fitnessterra.bitmaps
 import exp.yaremchuken.fitnessterra.model.EquipmentType
 import exp.yaremchuken.fitnessterra.model.Exercise
 import exp.yaremchuken.fitnessterra.model.MuscleGroup
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.utils.Utils
+import exp.yaremchuken.fitnessterra.view.animation.ExerciseAnimation
 
 @Preview
 @Composable
@@ -47,21 +42,9 @@ fun ExerciseDetailView(
     exercise: Exercise = exerciseBackStub
 ) {
     val scrollState = rememberScrollState()
-    val visualStatesScrollState = rememberScrollState()
-
-    val bitmaps = LocalContext.current.bitmaps("exercise/${exercise.id}")
-    val preview = Utils.getExercisePreview(LocalContext.current, exercise)
 
     val equipment = LocalContext.current.bitmap("equipment", exercise.equipment?.name)?.asImageBitmap()
     val muscleGroup = LocalContext.current.bitmap("muscle_group", exercise.muscleGroup?.name)?.asImageBitmap()
-
-    val visualSteps = ArrayList<Bitmap>()
-    for (i in 0 until bitmaps.size) {
-        val key = "step_$i$EXTENSION_PNG"
-        if (bitmaps.containsKey(key)) {
-            visualSteps.add(bitmaps[key]!!)
-        } else break
-    }
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -74,12 +57,10 @@ fun ExerciseDetailView(
             Modifier
                 .fillMaxWidth()
                 .weight(1F)
-                .background(Utils.getBackgroundTint(preview))
         ) {
-            Image(
-                preview,
-                null,
-                Modifier.align(Alignment.Center),
+            ExerciseAnimation(
+                exercise = exercise,
+                modifier = Modifier.align(Alignment.Center),
                 contentScale = ContentScale.FillWidth
             )
             IconButton(
@@ -164,25 +145,6 @@ fun ExerciseDetailView(
                 style = Typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
-            if (visualSteps.isNotEmpty()) {
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp)
-                        .heightIn(max = 180.dp)
-                        .horizontalScroll(visualStatesScrollState)
-                ) {
-                    visualSteps.forEachIndexed { idx, it ->
-                        Image(
-                            bitmap = it.asImageBitmap(),
-                            contentDescription = null,
-                            Modifier.padding(
-                                start = if (idx == 0) 0.dp else 8.dp
-                            )
-                        )
-                    }
-                }
-            }
             Column {
                 exercise.steps.forEachIndexed { idx, it ->
                     ExerciseStepView(idx+1, it)
@@ -243,6 +205,7 @@ val exerciseBicepsStub = Exercise(
         "Вдохните и медленно начните опускать штангу в стартовое положение",
         "Выполните движение необходимо количество раз"
     ),
+    performingTime = 2000,
     advise = "Вы можете попробовать выполнение данного упражнения узким хватом."
 )
 
@@ -258,6 +221,7 @@ val exerciseBackStub = Exercise(
         "На вдохе медленно опустите вес в исходную позицию",
         "Выполните необходимое количество повторений"
     ),
+    performingTime = 2000,
     advise = "Вы можете выполнять это упражнение, используя вместо гантелей трос нижнего блока с V- образной рукоятью или штангу. Также можно делать это упражнение с использованием супинированного или нейтрального хвата.",
     warnings = listOf(
         "Это упражнение не рекомендуется выполнять людям, у которых есть проблемы со спиной. В данном случае лучше выбрать упражнение Тяга на низком блоке.",
