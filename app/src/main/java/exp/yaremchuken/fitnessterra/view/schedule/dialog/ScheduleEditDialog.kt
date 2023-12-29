@@ -3,6 +3,8 @@ package exp.yaremchuken.fitnessterra.view.schedule.dialog
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -43,9 +46,11 @@ import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
-import exp.yaremchuken.fitnessterra.view.schedule.schedulesStub
 import exp.yaremchuken.fitnessterra.view.workout.workoutStub
 import java.time.Instant
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.Locale
 
 @Preview
 @Composable
@@ -53,15 +58,19 @@ fun ScheduleEditDialog(
     onSchedule: (workout: Workout?) -> Unit = {},
     onCancel: () -> Unit = {},
     existedWorkouts: List<Workout> = listOf(workoutStub, workoutStub),
-    time: Instant? = null,
-    schedule: Schedule? = schedulesStub[0]
+    time: Instant? = Instant.now(),
+    schedule: Schedule? = null //schedulesStub[0]
 ) {
     val scrollState = rememberScrollState()
 
     var chosenWorkout by remember { mutableStateOf<Workout?>(null) }
     var cancelPressed by remember { mutableStateOf(false) }
+    val weekdays = remember { mutableStateListOf<Int>() }
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
+    var firstWeekday: LocalDate = LocalDate.now()
+    firstWeekday = firstWeekday.minusDays(firstWeekday.dayOfWeek.value.toLong()-1)
 
     Column(
         Modifier
@@ -106,6 +115,50 @@ fun ScheduleEditDialog(
                 style = Typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
+            Divider(Modifier.padding(bottom = 6.dp))
+            Text(
+                text = "Repeat every",
+                Modifier.fillMaxWidth(),
+                style = Typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.End
+            )
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                for (i in 0 until 7) {
+                    Box(
+                        Modifier
+                            .weight(1F)
+                            .padding(horizontal = 2.dp)
+                            .clickable { if (weekdays.contains(i)) weekdays.remove(i) else weekdays.add(i) }
+                            .background(
+                                color = if (weekdays.contains(i)) Color.Green else Color.Transparent,
+                                shape = UIConstants.ROUNDED_CORNER
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = Color.LightGray,
+                                UIConstants.ROUNDED_CORNER
+                            )
+                    ) {
+                        Text(
+                            text = firstWeekday
+                                .plusDays(i.toLong())
+                                .dayOfWeek
+                                .getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                                .lowercase(),
+                            Modifier
+                                .align(Alignment.Center)
+                                .padding(vertical = 8.dp),
+                            style = Typography.bodyLarge
+                        )
+                    }
+                }
+            }
             Divider(Modifier.padding(bottom = 6.dp))
             if (schedule == null) {
                 Column(

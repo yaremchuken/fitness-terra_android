@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,12 +35,8 @@ fun ExerciseSetEntryView(
 ) {
     val repeatsOrDuration =
         if (exerciseSet.repeats.isEmpty()) {
-            if (exerciseSet.durations.sorted()[0] == exerciseSet.durations.sorted()[exerciseSet.durations.size-1]) {
-                "${exerciseSet.durations.size}x${Utils.formatToTime(exerciseSet.durations[0])}"
-            } else {
-                exerciseSet.durations.map { Utils.formatToTime(it) }.joinToString { ", " }
-            }
-        } else if (exerciseSet.repeats.sorted()[0] == exerciseSet.repeats.sorted()[exerciseSet.repeats.size-1]) {
+            Utils.formatToTime(exerciseSet.duration)
+        } else if (allRepeatsAreSame(exerciseSet.repeats)) {
             "${exerciseSet.repeats.size}x${exerciseSet.repeats[0]}"
         } else {
             exerciseSet.repeats.joinToString(",")
@@ -122,3 +117,5 @@ fun ExerciseSetEntryView(
         Divider(Modifier.padding(top = 20.dp))
     }
 }
+
+private fun allRepeatsAreSame(repeats: List<Long>) = repeats.find { it != repeats[0] } == null

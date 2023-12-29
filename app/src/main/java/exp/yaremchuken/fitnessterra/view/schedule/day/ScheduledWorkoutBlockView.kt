@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.model.Schedule
-import exp.yaremchuken.fitnessterra.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.utils.Utils
@@ -56,7 +55,7 @@ fun ScheduledWorkoutBlockView(
         ) {
             Text(
                 text = Utils.TIME_FORMAT.format(schedule.scheduledAt) + " • " +
-                        Utils.formatToTime(Workout.totalDuration(schedule.workout))
+                        Utils.formatToTime(schedule.workout.totalDuration())
             )
             Text(
                 text = schedule.workout.title,

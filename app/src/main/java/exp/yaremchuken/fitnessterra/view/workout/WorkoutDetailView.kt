@@ -51,9 +51,8 @@ fun WorkoutDetailView(
 
     val workoutPreview = Utils.getWorkoutPreview(LocalContext.current, workout)
 
-    val totalDuration = Workout.totalDuration(workout)
     val workoutStats =
-        "${Utils.formatToTime(totalDuration)} • " +
+        "${Utils.formatToTime(workout.totalDuration())} • " +
         "${workout.sections.sumOf { it.sets.size }} ${stringResource(id = R.string.exercises_count_title)}"
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -153,8 +152,7 @@ val workoutStub = Workout(
                     exercise = exerciseBackStub,
                     weight = 1200,
                     repeats = listOf(12,10,10,8,6),
-                    durations = listOf(),
-                    recovery = listOf(30.seconds)
+                    recovery = 30.seconds
                 )
             )
         ),
@@ -165,18 +163,15 @@ val workoutStub = Workout(
                     exercise = exerciseBicepsStub,
                     weight = 500,
                     repeats = listOf(10,10,10),
-                    durations = listOf(),
-                    recovery = listOf(30.seconds)
+                    recovery = 30.seconds
                 ),
                 ExerciseSet(
                     exercise = exerciseBicepsStub,
                     weight = 500,
                     repeats = listOf(10,10,10),
-                    durations = listOf(),
-                    recovery = listOf(30.seconds)
+                    recovery = 30.seconds
                 )
             )
         )
-    ),
-    recovery = listOf(30.seconds)
+    )
 )

@@ -35,6 +35,7 @@ import exp.yaremchuken.fitnessterra.model.Exercise
 import exp.yaremchuken.fitnessterra.model.MuscleGroup
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.view.animation.ExerciseAnimation
+import kotlin.time.Duration.Companion.seconds
 
 @Preview
 @Composable
@@ -205,7 +206,8 @@ val exerciseBicepsStub = Exercise(
         "Вдохните и медленно начните опускать штангу в стартовое положение",
         "Выполните движение необходимо количество раз"
     ),
-    performingTime = 2000,
+    repeatTime = 2.seconds,
+    recovery = 20.seconds,
     advise = "Вы можете попробовать выполнение данного упражнения узким хватом."
 )
 
@@ -221,7 +223,8 @@ val exerciseBackStub = Exercise(
         "На вдохе медленно опустите вес в исходную позицию",
         "Выполните необходимое количество повторений"
     ),
-    performingTime = 2000,
+    repeatTime = 2.seconds,
+    recovery = 20.seconds,
     advise = "Вы можете выполнять это упражнение, используя вместо гантелей трос нижнего блока с V- образной рукоятью или штангу. Также можно делать это упражнение с использованием супинированного или нейтрального хвата.",
     warnings = listOf(
         "Это упражнение не рекомендуется выполнять людям, у которых есть проблемы со спиной. В данном случае лучше выбрать упражнение Тяга на низком блоке.",

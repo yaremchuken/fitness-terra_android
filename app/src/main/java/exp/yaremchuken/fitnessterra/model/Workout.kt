@@ -21,32 +21,16 @@ data class Workout(
     /**
      * Sections included in this workout.
      */
-    val sections: List<WorkoutSection> = listOf(),
-
-    /**
-     * Amount ot time to rest between workout sections.
-     * List must be empty, or contain single or sections.size-1 values,
-     * single value means that all rests have same duration.
-     */
-    val recovery: List<Duration> = listOf()
+    val sections: List<WorkoutSection> = listOf()
 ) {
-    companion object {
-        fun totalDuration(workout: Workout): Duration {
-            var total = Duration.ZERO
-            if (workout.sections.isNotEmpty()) {
-                total = total.plus(
-                    workout.sections
-                        .map { WorkoutSection.totalDuration(it) }
-                        .reduce { acc, duration -> acc.plus(duration) }
-                )
+    fun totalDuration(): Duration {
+        var total = Duration.ZERO
+        sections.forEachIndexed { index, section ->
+            total = total.plus(section.totalDuration())
+            if (index != sections.size-1) {
+                total = total.plus(section.sets[section.sets.size-1].recovery)
             }
-            if (workout.recovery.size == 1) {
-                total = total.plus(workout.recovery[0].times(workout.sections.size - 1))
-            } else if (workout.recovery.isNotEmpty()) {
-                total = total.plus(workout.recovery.reduce { acc, duration -> acc.plus(duration) })
-            }
-
-            return total
         }
+        return total
     }
 }

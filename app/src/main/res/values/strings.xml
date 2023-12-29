@@ -17,4 +17,11 @@
     <string name="no_btn_title">no</string>
     <string name="scheduled_for_today_title">Scheduled for today</string>
     <string name="to_workouts_schedule_title">To workouts schedule</string>
+    <string name="get_ready_title">Get ready</string>
+    <string name="recovery_title">Recovery</string>
+    <string name="skip_btn_title">skip</string>
+    <string name="pause_btn_title">pause</string>
+    <string name="continue_btn_title">continue</string>
+    <string name="workout_perform_next_is">Next</string>
+    <string name="from">from</string>
 </resources>

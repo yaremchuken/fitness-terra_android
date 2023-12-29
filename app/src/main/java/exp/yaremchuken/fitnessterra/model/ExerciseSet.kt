@@ -1,7 +1,7 @@
 package exp.yaremchuken.fitnessterra.model
 
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Repetitions of a specific Exercise as a part of Workout.
@@ -19,41 +19,26 @@ data class ExerciseSet(
 
     /**
      * Amount of repeats for exercise in this Set.
-     * Not used if the durations is specified.
+     * Not needed if the duration is specified.
      */
     val repeats: List<Long> = listOf(),
 
     /**
-     * Durations of exercise performing in seconds.
-     * Not used if the repeats is specified.
+     * Duration of exercise performing.
+     * Not needed if the repeats is specified.
      */
-    val durations: List<Duration> = listOf(),
+    val duration: Duration = 0.seconds,
 
     /**
-     * Amount ot time to rest between exercises.
-     * List must be empty, or contain single or (repeats/duration).size-1 values,
-     * single value means that all rests have same duration.
+     * Amount ot time to rest after performing this set.
      */
-    val recovery: List<Duration> = listOf()
+    val recovery: Duration = 0.seconds
 ) {
-    companion object {
-        /**
-         * Get total duration of this set, including recovery time
-         */
-        fun totalDuration(set: ExerciseSet): Duration {
-            var total = Duration.ZERO
-            total = total.plus((set.repeats.sum() * set.exercise.performingTime).milliseconds)
-            if (set.durations.isNotEmpty()) {
-                total = total.plus(set.durations.reduce { acc, duration -> acc.plus(duration) })
-            }
-
-            if (set.recovery.size == 1) {
-                total = total.plus(set.recovery[0].times(set.repeats.size + set.durations.size - 1))
-            } else if (set.recovery.isNotEmpty()) {
-                total = total.plus(set.recovery.reduce { acc, duration -> acc.plus(duration) })
-            }
-
-            return total
-        }
-    }
+    /**
+     * Get total duration of this set, including recovery time.
+     */
+    fun totalDuration(): Duration =
+        exercise.repeatTime.times(repeats.sum().toInt())
+            .plus(duration)
+            .plus(exercise.recovery.times((repeats.size-1).coerceAtLeast(0)))
 }

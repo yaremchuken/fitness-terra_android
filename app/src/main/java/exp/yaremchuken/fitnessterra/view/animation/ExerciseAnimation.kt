@@ -8,7 +8,6 @@ import androidx.compose.ui.platform.LocalContext
 import exp.yaremchuken.fitnessterra.bitmap
 import exp.yaremchuken.fitnessterra.bitmaps
 import exp.yaremchuken.fitnessterra.model.Exercise
-import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun ExerciseAnimation(
@@ -20,7 +19,7 @@ fun ExerciseAnimation(
     val default = listOf(LocalContext.current.bitmap("exercise", "preview_default")!!.asImageBitmap())
     Animation(
         frames = frames.ifEmpty { default },
-        duration = exercise.performingTime.milliseconds,
+        duration = exercise.repeatTime,
         modifier = modifier,
         contentScale = contentScale
     )

@@ -16,31 +16,19 @@ data class WorkoutSection(
     /**
      * Workout unit consist of one or multiply exercise sets.
      */
-    val sets: List<ExerciseSet>,
-
-    /**
-     * Amount ot time to rest between exercise sets.
-     * List must be empty, or contain single or exerciseSets.size-1 values,
-     * single value means that all rests have same duration.
-     */
-    val recovery: List<Duration> = listOf()
+    val sets: List<ExerciseSet>
 ) {
-    companion object {
-        fun totalDuration(section: WorkoutSection): Duration {
-            var total = Duration.ZERO
-            if (section.sets.isNotEmpty()) {
-                total = total.plus(
-                    section.sets.map { ExerciseSet.totalDuration(it) }.reduce { acc, duration -> acc.plus(duration) }
-                )
+    /**
+     * Get total duration of this section, including recovery time.
+     */
+    fun totalDuration(): Duration {
+        var total = Duration.ZERO
+        sets.forEachIndexed { index, set ->
+            total = total.plus(set.totalDuration())
+            if (index != sets.size-1) {
+                total = total.plus(set.recovery)
             }
-
-            if (section.recovery.size == 1) {
-                total = total.plus(section.recovery[0].times(section.sets.size - 1))
-            } else if (section.recovery.isNotEmpty()) {
-                total = total.plus(section.recovery.reduce { acc, duration -> acc.plus(duration) })
-            }
-
-            return total
         }
+        return total
     }
 }

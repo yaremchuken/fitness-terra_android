@@ -16,4 +16,11 @@
     <string name="no_btn_title">нет</string>
     <string name="scheduled_for_today_title">Запланированно на сегодня</string>
     <string name="to_workouts_schedule_title">К расписанию тренировок</string>
+    <string name="get_ready_title">Приготовьтесь</string>
+    <string name="recovery_title">Отдых</string>
+    <string name="skip_btn_title">пропустить</string>
+    <string name="pause_btn_title">пауза</string>
+    <string name="continue_btn_title">продолжить</string>
+    <string name="workout_perform_next_is">Далее</string>
+    <string name="from">из</string>
 </resources>
