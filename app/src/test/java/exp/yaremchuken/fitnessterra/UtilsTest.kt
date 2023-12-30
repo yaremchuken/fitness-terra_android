@@ -1,6 +1,6 @@
 package exp.yaremchuken.fitnessterra
 
-import exp.yaremchuken.fitnessterra.utils.Utils
+import exp.yaremchuken.fitnessterra.util.Utils
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

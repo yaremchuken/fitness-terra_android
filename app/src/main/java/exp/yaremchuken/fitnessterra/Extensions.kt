@@ -3,7 +3,7 @@ package exp.yaremchuken.fitnessterra
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import exp.yaremchuken.fitnessterra.model.Exercise
+import exp.yaremchuken.fitnessterra.data.model.Exercise
 import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate

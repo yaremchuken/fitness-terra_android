@@ -30,8 +30,3 @@ Just open this project at Android studio
 
 Hope this app would help me to start perform workouts and exercises daily
 
-## Roadmap
-
-- Workouts
-- Main Screen
-- Scheduler
