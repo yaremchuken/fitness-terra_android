@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.data.model.Workout
@@ -50,7 +51,6 @@ import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.Instant
 import java.time.LocalDate
 import java.time.format.TextStyle
-import java.util.Locale
 
 @Preview
 @Composable
@@ -149,7 +149,7 @@ fun ScheduleEditDialog(
                             text = firstWeekday
                                 .plusDays(i.toLong())
                                 .dayOfWeek
-                                .getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                                .getDisplayName(TextStyle.SHORT, AppSettings.locale())
                                 .lowercase(),
                             Modifier
                                 .align(Alignment.Center)

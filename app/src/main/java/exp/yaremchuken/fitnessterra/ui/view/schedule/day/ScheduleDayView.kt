@@ -32,9 +32,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.toInstant
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -47,7 +48,6 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
-import java.util.Locale
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -69,7 +69,7 @@ fun ScheduleDayView(
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     val dateFormat =
-        "${date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())}, ${date.format(Utils.DATE_FORMAT)}"
+        "${date.dayOfWeek.getDisplayName(TextStyle.SHORT, AppSettings.locale())}, ${date.format(Utils.DATE_FORMAT)}"
 
     LaunchedEffect(Unit) {
         while (true) {

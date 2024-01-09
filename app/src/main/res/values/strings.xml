@@ -7,6 +7,7 @@
     <string name="start_btn_title">start</string>
     <string name="equipment_title">Equipment</string>
     <string name="muscle_group_title">Muscle group</string>
+    <string name="involved_muscles_title">Involved muscles</string>
     <string name="safety_precautions_title">Safety precautions</string>
     <string name="workout_calendar">Workout calendar</string>
     <string name="schedule_workout">Schedule workout</string>

@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toLocalDate
@@ -42,7 +43,6 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
-import java.util.Locale
 
 private const val DAYS_IN_WEEK = 7
 
@@ -138,7 +138,7 @@ fun ScheduleScreen(
                     val dayOfWeek = dates[i].dayOfWeek
                     val isWeekend = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
                     Text(
-                        text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
+                        text = dayOfWeek.getDisplayName(TextStyle.SHORT, AppSettings.locale()),
                         Modifier.width(calendarDateWidth),
                         textAlign = TextAlign.Center,
                         color = if (isWeekend) Color.Red else Color.Black

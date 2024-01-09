@@ -1,5 +1,6 @@
 package exp.yaremchuken.fitnessterra.data.model
 
+import exp.yaremchuken.fitnessterra.AppSettings
 import java.util.Locale
 
 /**
@@ -18,7 +19,7 @@ enum class WorkoutType {
 
     companion object {
         fun i18n(type: WorkoutType) =
-            if (Locale.getDefault() == Locale.forLanguageTag("ru")) {
+            if (AppSettings.locale() == Locale.forLanguageTag("ru")) {
                 when(type) {
                     CARDIO -> "кардио"
                     STRENGTH -> "сила"
@@ -31,7 +32,7 @@ enum class WorkoutType {
                     MARTIAL -> "бой"
                 }
             } else {
-                type.name.lowercase()
+                type.name.lowercase().replace("_", " ")
             }
     }
 }

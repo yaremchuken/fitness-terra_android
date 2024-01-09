@@ -8,6 +8,7 @@ import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import java.util.Locale
 
 const val EXTENSION_PNG = ".png"
 
@@ -59,3 +60,5 @@ fun LocalDate.toInstant(): Instant = this.atStartOfDay(ZoneId.systemDefault()).t
 fun Instant.toLocalDate(): LocalDate = this.atZone(ZoneId.systemDefault()).toLocalDate()
 
 fun Instant.getHour(): Int = this.atZone(ZoneId.systemDefault()).hour
+
+fun String.uppercaseFirstChar(): String = "${this.substring(0, 1).uppercase()}${this.substring(1)}"

@@ -78,7 +78,7 @@ fun PerformBlock(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = set.exercise.title,
+            text = set.exercise.titleLocalized(),
             Modifier.padding(start = 12.dp),
             style = Typography.headlineMedium,
             fontWeight = FontWeight.Bold

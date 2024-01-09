@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -57,7 +58,7 @@ fun GetReadyBlock(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = exercise.title,
+            text = exercise.titleLocalized(),
             style = Typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )

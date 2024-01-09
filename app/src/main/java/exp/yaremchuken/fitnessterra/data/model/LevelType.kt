@@ -4,20 +4,20 @@ import exp.yaremchuken.fitnessterra.AppSettings
 import java.util.Locale
 
 /**
- * Type of equipment used in exercises.
+ * The level of training, needed from trainee to perform this exercise correctly.
  */
-enum class EquipmentType {
-    BARBELL,
-    DUMBBELLS,
-    CARPET;
+enum class LevelType {
+    BEGINNER,
+    ADVANCED,
+    PROFESSIONAL;
 
     companion object {
-        fun i18n(type: EquipmentType) =
+        fun i18n(type: LevelType) =
             if (AppSettings.locale() == Locale.forLanguageTag("ru")) {
                 when(type) {
-                    BARBELL -> "штанга"
-                    DUMBBELLS -> "гантели"
-                    CARPET -> "коврик"
+                    BEGINNER -> "новичок"
+                    ADVANCED -> "опытный"
+                    PROFESSIONAL -> "профессионал"
                 }
             } else {
                 type.name.lowercase()

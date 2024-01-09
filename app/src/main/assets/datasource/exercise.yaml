@@ -1,0 +1,718 @@
+entities:
+
+  #------------------ CHEST ------------------#
+
+  -
+    id: 0
+    title:
+      ru: Жим гантелей лёжа на скамье в наклоне вверх
+      en: Dumbbell press lying on a bench in an upward tilt
+    description:
+      ru: "Вариант базового упражнения «жима лёжа» с использованием гантелей на наклонной скамье. Это отличное упражнение для верхних грудных мышц. Кроме верхнего отдела грудных мышц, задействованы следующие мышцы, которые включены в работу: передние дельты (плечи) и трицепс. Единственная разница между этим упражнением и вариантом жима лёжа на наклонной скамье с использованием штанги является то, что в данном случае на работающие мышцы оказывается большая нагрузка, так как необходимо стабилизировать вес гантелей."
+      en: "A variant of the basic \"bench press\" exercise using dumbbells on an inclined bench. This is a great exercise for the upper pectoral muscles. In addition to the upper pectoral muscles, the following muscles are involved, which are included in the work: the anterior deltas (shoulders) and triceps. The only difference between this exercise and the variant of bench press on an inclined bench using a barbell is that in this case there is a heavy load on the working muscles, since it is necessary to stabilize the weight of the dumbbells."
+    muscleGroup: CHEST
+    muscles:
+      - DELTOIDS
+      - TRICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Лягте на наклонную скамью, держа гантели в каждой руки на бёдрах ваших ног, при этом ладони направлены друг на друга
+        - После этого поднимите гантели на уровне плеч, при этом поверните гантели таким образом, чтобы ваши ладони смотрели вперёд. Это ваша стартовая позиция
+        - Удостоверьтесь что вы плотно зафиксировали гантели в своих руках, после этого на выдохе поднимите их над собой с помощью мышц груди, таким образом чтобы ваши руки стали перпендикулярны полу
+        - Задержите гантели над собой в течение секунды и после этого медленно опустите их в стартовую позицию
+        - Повторите движения необходимое количество раз
+        - "После того как вы закончили упражнение: опустите гантели на бёдра, после этого поднимитесь со скамьи и опустите их на пол. Это самый безопасный способ закончите упражнение"
+      en:
+        - Lie down on an inclined bench, holding dumbbells in each hand on the hips of your legs, with your palms facing each other
+        - After that, lift the dumbbells at shoulder level, while turning the dumbbells so that your palms face forward. This is your starting position
+        - Make sure that you firmly fix the dumbbells in your hands, then exhale and lift them above you with the help of the chest muscles, so that your arms become perpendicular to the floor
+        - Hold the dumbbells above you for a second and then slowly lower them into the starting position
+        - Repeat the movements the required number of times
+        - "After you have finished the exercise: lower the dumbbells onto your hips, then rise from the bench and lower them to the floor. This is the safest way to finish the exercise"
+    advises:
+      ru:
+        - Опускайте гантели в стартовую позицию в два раза медленнее, чем вы их поднимали над собой
+        - Если ваш скамья является регулируемой, то вы можете выполнить данное упражнение под разными углами; Другой вариант упражнение - это когда ладони при выполнении направлены друг на друга
+      en:
+        - Lower the dumbbells into the starting position twice as slowly as you lifted them above you
+        - If your bench is adjustable, then you can perform this exercise from different angles; Another exercise option is when the palms are directed at each other when performing
+
+  -
+    id: 1
+    title:
+      ru: Жим гантелей лежа
+      en: Bench press dumbbells
+    description:
+      ru: Это упражнение аналогично жиму штанги лежа, за исключением того, что упражнение с гантелями характеризуется большей амплитудой, способствующей лучшему растягиванию больших грудных мышц. При этом в работу также вовлекаются (хотя и не столь интенсивно) трицепсы и передние части дельтовидных мышц.
+      en: This exercise is similar to the bench press, except that the dumbbell exercise is characterized by a greater amplitude, contributing to better stretching of the pectoral muscles. At the same time, the triceps and the anterior parts of the deltoid muscles are also involved (although not so intensively).
+    muscleGroup: CHEST
+    muscles:
+      - DELTOIDS
+      - TRICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Лягте на горизонтальную скамью, держа гантели в каждой руки на бёдрах ваших ног, при этом ладони направлены друг на друга
+        - После этого поднимите гантели на уровне плеч, при этом поверните гантели таким образом, чтобы ваши ладони смотрели вперёд . Это ваша стартовая позиция
+        - Удостоверьтесь что вы плотно зафиксировали гантели в своих руках, после этого на выдохе поднимите их над собой с помощью мышц груди, таким образом чтобы ваши руки стали перпендикулярны полу
+        - На выдохе поднимите гантели усилиями грудной мышцы. После того как вы подняли гантели задержитесь в этом движении на секунду и затем медленно вернитесь в стартовую позицию
+        - Повторите движения необходимое количество раз
+      en:
+        - Lie down on a horizontal bench, holding dumbbells in each hand on the hips of your legs, with the palms facing each other
+        - After that, lift the dumbbells at shoulder level, while turning the dumbbells so that your palms face forward. This is your starting position
+        - Make sure that you firmly fix the dumbbells in your hands, then, on exhalation, lift them above you with the help of the chest muscles, so that your arms become perpendicular to the floor
+        - On exhale, lift the dumbbells with the efforts of the pectoral muscle. After you have lifted the dumbbells, hold this movement for a second and then slowly return to the starting position
+        - Repeat the movements the required number of times
+    advises:
+      ru:
+        - Внимание, после того как вы выполнили упражнение не роняйте гантели перед собой, это может быть опасно для вращательной мышцы плеча и для других, кто занимается рядом с вами
+        - "Более безопасным является данный способ: После выполнения упражнения немного приподнимите ваши ноги и переверните гантели так, чтобы ваши ладони смотрели друг на друга, положите гантели на бёдра и приподнимите тело, после этого вы можете безопасно переложить их на пол или на стойку"
+      en:
+        - Attention, after you have completed the exercise, do not drop the dumbbells in front of you, this can be dangerous for the rotator muscle of the shoulder and for others who practice next to you
+        - "This method is safer: After performing the exercise, lift your legs slightly and turn the dumbbells so that your palms look at each other, place the dumbbells on your hips and lift your body, then you can safely move them to the floor or on a rack"
+
+  -
+    id: 2
+    title:
+      ru: Разведение гантелей
+      en: Dumbbell dilution
+    description:
+      ru: Данное упражнение позволяет изолировать внешнюю, среднюю и нижнюю часть грудной мышцы. При выполнении данного упражнения также задействованы передние дельты (плечи).
+      en: This exercise allows you to isolate the outer, middle and lower part of the pectoral muscle. The anterior deltas (shoulders) are also involved in this exercise.
+    muscleGroup: CHEST
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Поднять руки вертикально вверх, одновременно делая выдох
+        - В вертикальном положении рук делать кратковременное изометрическое мышечное напряжение, чтобы сконцентрировать усилие на ключичной части большой грудной мышцы
+      en:
+        - Raise your arms vertically up while exhaling
+        - In the vertical position of the arms, do short-term isometric muscle tension in order to concentrate the effort on the clavicular part of the pectoralis major muscle
+
+  -
+    id: 3
+    title:
+      ru: Пулловер с гантелями на прямых руках
+      en: Pullover with dumbbells on straight arms
+    description:
+      ru: Пулловер с гантелями на прямых руках.
+      en: Pullover with dumbbells on straight arms.
+    muscleGroup: CHEST
+    muscles:
+      - LATISSIMUS_DORSI
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Поставьте гантель стоя на скамью
+        - Лягте на скамью перпендикулярно. Только ваши плечи должны находится на скамье, ваши бёдра должны быть на весу. Ноги согнуты в коленях и находятся в устойчивом положении. Только ваша голова находится на скамье
+        - "Возьмите гантель обеими руками и зафиксируйте её над грудью на прямых вытянутых руках. Внимание: для данного упражнения не рекомендуется использовать разборные гантели. Есть вероятность того, что в процессе выполнения она может на вас упасть"
+        - Держите руки прямо и медленно, на вдохе, опустите гантель за голову до того момента как почувствуете растяжение в области груди
+        - Таким же образом поднимите гантель в стартовую позицию и выдохните по окончанию движения
+        - Задержитесь в стартовой позиции на секунду и продолжайте выполнение упражнения
+      en:
+        - Put a dumbbell standing on a bench
+        - Lie down on the bench perpendicular. Only your shoulders should be on the bench, your hips should be on the weight. The legs are bent at the knees and are in a stable position. Only your head is on the bench
+        - "Take a dumbbell with both hands and fix it above your chest on straight outstretched arms. Attention: it is not recommended to use collapsible dumbbells for this exercise. There is a possibility that during the execution it may fall on you"
+        - Keep your arms straight and slowly, inhaling, lower the dumbbell behind your head until you feel a stretch in the chest area
+        - In the same way, lift the dumbbell to the starting position and exhale at the end of the movement
+        - Stay in the starting position for a second and continue the exercise
+    advises:
+      ru:
+        - Если вы новичок в данном упражнении, то рекомендуем выполнять это упражнение с человеком, который сможет подстраховать вас. В любом случае, принимайте правильное положение на скамье, во избежании травм
+        - Данное упражнение можно выполнять со штангой с изогнутым грифом вместо гантель
+      en:
+        - If you are new to this exercise, we recommend that you perform this exercise with a person who can back you up. In any case, take the correct position on the bench to avoid injury
+        - This exercise can be performed with a barbell with a curved neck instead of a dumbbell
+
+  #------------------ TRICEPS ------------------#
+
+  -
+    id: 4
+    title:
+      ru: Французский жим
+      en: French bench press
+    description:
+      ru: Упражнение на трицепс, выполняется лёжа на скамье.
+      en: Triceps exercise, performed lying on a bench.
+    muscleGroup: TRICEPS
+    equipment: BARBELL
+    steps:
+      ru:
+        - Для выполнения этого упражнения нужно лечь спиной на горизонтальную скамью, ноги согнуты в коленях, ступни - на полу. Предварительно положите штангу с прямым или E-Z грифом (я отдаю предпочтение этой разновидности штанги) на подставку у основания скамьи (с той стороны, где будет находиться голова)
+        - "Снимите штангу с подставки средним пронированным хватом, и поднимите ее над собой на вытянутые руки. Примечание: руки должны быть перпендикулярны туловищу и полу. Это ─ исходное положение"
+        - На вдохе медленно опустите штангу, пока она едва не коснется лба. Локти и часть руки от плеча до локтя должны оставаться неподвижными
+        - На выдохе, напрягая трицепсы, верните штангу в исходное положение
+        - Выполните рекомендованное количество повторений
+      en:
+        - To perform this exercise, you need to lie back on a horizontal bench, legs bent at the knees, feet on the floor. Pre-place a barbell with a straight or E-Z neck (I prefer this type of barbell) on a stand at the base of the bench (on the side where the head will be)
+        - "Remove the barbell from the stand with an average pierced grip, and lift it above you at arm's length. Note: The arms should be perpendicular to the torso and the floor. This is the starting position"
+        - Slowly lower the barbell while inhaling until it almost touches your forehead. The elbows and part of the arm from shoulder to elbow should remain motionless
+        - On exhaling, straining the triceps, return the barbell to its original position
+        - Perform the recommended number of repetitions
+    advises:
+      ru:
+        - Есть несколько вариаций этого упражнения. Можно, например, выполнять его на скамье с обратным наклоном
+        - Можно использовать гантели, в этом случае хват должен быть таким, чтобы ладони были обращены друг к другу
+        - Вы также можете попробовать применить обратный хват (ладонями к себе), но мне показалось, что этот вариант может вызвать растяжение запястий
+      en:
+        - There are several variations of this exercise. You can, for example, perform it on a bench with a reverse tilt
+        - You can use dumbbells, in this case the grip should be such that the palms are facing each other
+        - You can also try to apply a reverse grip (palms to yourself), but it seemed to me that this option could cause wrist sprains
+    warnings:
+      ru:
+        - Подбирать вес для этого упражнения нужно особенно тщательно, чтобы избежать травм. Если у Вас больные локти, то это упражнение может дать на них слишком большую нагрузку, поэтому Вам стоит поискать замену французскому жиму
+      en:
+        - You need to choose the weight for this exercise especially carefully to avoid injury. If you have sore elbows, then this exercise may put too much strain on them, so you should look for a replacement for the French bench press
+
+  -
+    id: 5
+    title:
+      ru: Разгибание руки назад с гантелью в наклоне
+      en: Extending the arm backwards with a dumbbell in a tilt
+    description:
+      ru: Упражнение на мышцы трицепса, выполняется с помощью гантели, попеременно для каждой руки.
+      en: Triceps muscle exercise, performed with a dumbbell, alternately for each arm.
+    muscleGroup: TRICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Начните выполнение с позиции, когда в одной из рук у вас гантель, при этом она направлено ладонью на ваше тело. Держите спину прямо, ваши колени слегка согнуты. Ваш торс должен быть почти параллельным полу. Убедитесь что вы держите голову прямо и ваш взгляд направлен вперёд. Верхняя часть руки должна быть плотно прижата к телу. Рука, в которой вы держите гантель должна быть под углом в 90 градусов между верхней и нижней частью руки. Это будет вашей стартовой позицией
+        - Теперь, держа руку неподвижной, выдохните и используя напряжение в трицепсе, поднимите вес до того момента, когда ваша рука не окажется полностью вытянутой
+        - После небольшой паузы в таком положении, вдохните и медленно опустите гантель назад, в стартовую позицию
+        - Повторите движение необходимое количество раз
+      en:
+        - Start from a position where you have a dumbbell in one of your hands, while it is directed with the palm of your hand at your body. Keep your back straight and your knees slightly bent. Your torso should be almost parallel to the floor. Make sure that you keep your head straight and your gaze is directed forward. The upper part of the arm should be tightly pressed against the body. The hand in which you hold the dumbbell should be at an angle of 90 degrees between the upper and lower part of the arm. This will be your starting position
+        - Now, holding your arm still, exhale and using tension in the triceps, lift the weight until your arm is fully extended
+        - After a short pause in this position, inhale and slowly lower the dumbbell back to the starting position
+        - Repeat the movement the required number of times
+
+  -
+    id: 6
+    title:
+      ru: Разгибание одной рукой с гантелью из-за головы стоя
+      en: One-handed extension with a dumbbell from behind the head while standing
+    description:
+      ru: Упражнение на трицепс, выполняется с помощью гантели.
+      en: Triceps exercise, performed with a dumbbell.
+    muscleGroup: TRICEPS
+    muscles:
+      - CHEST
+      - DELTOIDS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - "Возьмите одну гантель в руку, встаньте прямо. Ваши пятки должны быть на ширине плеч. Теперь полностью распрямите руку с гантелью над головой. Совет: средний палец вашей руки должен смотреть в потолок. Гантель должна находиться на головой. Это будет стартовой позицией"
+        - "Держа верхнюю часть руки близко к телу и перпендикулярно полу, опустите вес, сгибая руку в локте, до того момента как предплечье не коснётся бицепса. Совет: верхняя часть руки должна находится в неподвижном состоянии и только предплечье должно двигаться. Сделайте вдох с данным движением"
+        - Вернитесь в стартовую позицию, использую напряжение в трицепсе. Выдохните по окончанию движения
+        - Выполните необходимое количество повторов и потом повторите упражнение для второй руки
+      en:
+        - "Take one dumbbell in your hand, stand up straight. Your heels should be shoulder-width apart. Now fully straighten your arm with the dumbbell above your head. Tip: the middle finger of your hand should look at the ceiling. The dumbbell should be on your head. This will be the starting position"
+        - "Holding the upper arm close to the body and perpendicular to the floor, lower the weight, bending the arm at the elbow, until the forearm touches the biceps. Tip: The upper arm should be stationary and only the forearm should move. Take a breath with this movement"
+        - Return to the starting position, using tension in the triceps. Exhale at the end of the movement
+        - Perform the required number of repetitions and then repeat the exercise for the second hand
+
+  #------------------ BACK ------------------#
+
+  -
+    id: 7
+    title:
+      ru: Тяга в наклоне одной гантелью
+      en: One dumbbell tilt pull
+    description:
+      ru: Упражнение направлено на среднюю область спины
+      en: The exercise is aimed at the middle area of the back
+    muscleGroup: BACK
+    muscles:
+      - LATISSIMUS_DORSI
+      - DELTOIDS
+      - BICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Положите гантели по обе стороны от горизонтальной скамьи
+        - Поставьте правую ногу коленом на край скамьи, нагнитесь вперед, пока верхняя часть тела не будет параллельна полу. Правой рукой упритесь в скамью
+        - Левой рукой поднимите гантель с пола и удерживайте ее на весу, спину не сгибайте. Ладонь левой руки должна быть обращена к туловищу. Это ─ исходное положение
+        - "На выдохе поднимите гантель до уровня груди. При выполнении упражнения рука должна двигаться близко к торсу. Туловище должно оставаться неподвижным. Примечание: сконцентрируйтесь на напряжении мышц спины. Усилие должно быть совершено мышцами спины, а не рук. Верхняя часть туловища должна оставаться неподвижной, двигаются только руки. Предплечьями не производите никаких усилий, просто удерживайте гантели"
+        - На вдохе опустите гантель в исходное положение
+        - Выполните необходимое количество повторений
+        - Теперь проделайте то же самое, сменив сторону
+      en:
+        - Place the dumbbells on either side of the horizontal bench
+        - Place your right knee on the edge of the bench, bend forward until your upper body is parallel to the floor. Rest your right hand on the bench
+        - With your left hand, lift the dumbbell off the floor and hold it in the air, do not bend your back. The palm of the left hand should be facing the torso. This is the starting position
+        - "As you exhale, lift the dumbbell to chest level. When performing the exercise, the arm should move close to the torso. The torso must remain motionless. Note: Concentrate on straining your back muscles. The effort should be made by the muscles of the back, not the arms. The upper part of the body should remain motionless, only the arms move. Do not use your forearms to make any effort, just hold the dumbbells"
+        - Lower the dumbbell to the starting position as you inhale
+        - Perform the required number of repetitions
+        - Now do the same thing by changing sides
+    advises:
+      ru:
+        - Это упражнение можно выполнять, используя вместо гантели верхний или нижний блок
+      en:
+        - This exercise can be performed using an upper or lower block instead of a dumbbell
+
+  -
+    id: 8
+    title:
+      ru: Тяга гантелей в наклоне
+      en: Lifting dumbbells in a tilt
+    description:
+      ru: Упражнение на среднюю область спины.
+      en: Exercise on the middle back area.
+    muscleGroup: BACK
+    muscles:
+      - LATISSIMUS_DORSI
+      - DELTOIDS
+      - BICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Возьмите в обе руки гантели, ладони должны быть обращены к туловищу. Слегка согните колени и наклоните туловище вперед, сгибаясь в пояснице до тех пор, пока спина не будет практически параллельна полу, при этом держите спину прямо. Следите за тем, чтобы голова была поднята вверх. Руки должны свисать перпендикулярно полу и туловищу. Это Ваше исходное положение
+        - Находясь в таком положении, на выдохе притяните гантели к себе, локти должны быть прижаты к телу (частью руки от локтя до кисти не делайте никаких усилий, кроме как просто удерживайте вес). На пике этого движения, напрягите мышцы спины и на секунду зафиксируйте тело в таком положении
+        - На вдохе медленно опустите вес в исходную позицию
+        - Выполните необходимое количество повторений
+      en:
+        - Take dumbbells in both hands, palms should be facing the torso. Bend your knees slightly and tilt your torso forward, bending at the waist until your back is almost parallel to the floor, while keeping your back straight. Make sure that the head is raised up. The arms should hang perpendicular to the floor and the torso. This is your starting position
+        - While in this position, pull the dumbbells towards you on exhalation, the elbows should be pressed against the body (do not make any effort with the part of the arm from the elbow to the hand, except just hold the weight). At the peak of this movement, tighten your back muscles and fix your body in this position for a second
+        - As you inhale, slowly lower the weight to the starting position
+        - Perform the required number of repetitions
+    advises:
+      ru:
+        - Вы можете выполнять это упражнение, используя вместо гантелей трос нижнего блока с V-образной рукоятью или штангу. Также можно делать это упражнение с использованием супинированного или нейтрального хвата
+      en:
+        - You can perform this exercise using a V-shaped lower block cable or a barbell instead of dumbbells. You can also do this exercise using a supinated or neutral grip
+    warnings:
+      ru:
+        - Это упражнение не рекомендуется выполнять людям, у которых есть проблемы со спиной. В данном случае лучше выбрать упражнение Тяга на низком блоке
+        - Ни в коем случае не прогибайте спину, т.к. это может привести к травме спины
+        - Будьте внимательны в выборе веса для упражнения. Если сомневаетесь, то лучше выберите меньший вес, чем больший
+      en:
+        - This exercise is not recommended for people who have back problems. In this case, it is better to choose the Low-block Traction exercise
+        - Do not bend your back under any circumstances, as this may lead to back injury
+        - Be careful in choosing the weight for the exercise. If in doubt, it is better to choose a smaller weight than a larger one
+
+  #------------------ BICEPS ------------------#
+
+  -
+    id: 9
+    title:
+      ru: Сгибание рук сидя в наклоне
+      en: Bending the arms while sitting in a tilt
+    description:
+      ru: Сгибание рук сидя в наклоне.
+      en: Bending the arms while sitting in a tilt.
+    muscleGroup: BICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Исходное положение – сидя, прислонившись спиной к наклонной части скамьи, в каждой руке по гантели, руки выпрямлены. Держите локти прижатыми к торсу, руки развернуты ладонями вперед
+        - Сохраняя верхнюю часть рук неподвижной, на выдохе сгибайте руки в локтевых суставах, напрягая бицепсы. Двигаются только предплечья. Выполняйте движение до полного напряжения бицепсов и пока гантели не поднимутся до уровня плеч. Задержитесь в точке наивысшего напряжения на секунду
+        - Вдыхая, начните медленно опускать гантели назад в исходное положение
+        - Повторите необходимое число раз
+      en:
+        - Starting position – sitting, leaning back against the inclined part of the bench, with dumbbells in each hand, arms straight. Keep your elbows pressed against your torso, arms turned palms forward
+        - Keeping the upper part of the arms motionless, bend the arms at the elbow joints while exhaling, straining the biceps. Only the forearms move. Perform the movement until the biceps are fully strained and until the dumbbells rise to shoulder level. Stay at the highest voltage point for a second
+        - While inhaling, start slowly lowering the dumbbells back to the starting position
+        - Repeat the required number of times
+
+  -
+    id: 10
+    title:
+      ru: Сгибание на бицепс стоя
+      en: Flexion on the biceps while standing
+    description:
+      ru: Данное упражнение является самым популярным упражнением на мышцы бицепса. Упражнения изолирующее. Может выполняться как со штангой, так и с гантелями. Существует разновидность упражнения, когда вместо обычно штанги используется штанга с изогнутым грифом (более эффективный и безопасный способ).
+      en: This exercise is the most popular exercise for biceps muscles. The exercises are isolating. It can be performed with both a barbell and dumbbells. There is a type of exercise where a barbell with a curved neck is used instead of a barbell (a more effective and safer way).
+    muscleGroup: BICEPS
+    muscles:
+      - FOREARMS
+    equipment: BARBELL
+    steps:
+      ru:
+        - Встаньте прямо, предварительно взяв в руку штангу. Руки должны находится на уровне плеч. Хват снизу. Локти находятся близко к телу. Это будет вашей стартовой позицией
+        - Держа верхние отделы рук в неподвижном состоянии, выдохните и согните руки в локтях усилиями бицепса. В данном движении участвуют только нижние отделы руки (предплечье)
+        - Продолжайте упражнения до того положения, когда ваши руки будут находится на уровне плеч. В верхней точке задержитесь на несколько секунд и максимально напрягите бицепс
+        - Вдохните и медленно начните опускать штангу в стартовое положение
+        - Выполните движение необходимо количество раз
+      en:
+        - Stand up straight, first taking a barbell in your hand. The arms should be at shoulder level. Grip from below. The elbows are close to the body. This will be your starting position
+        - Keeping the upper arms stationary, exhale and bend your arms at the elbows with biceps efforts. Only the lower arm (forearm) is involved in this movement
+        - Continue the exercises until your arms are at shoulder level. At the top point, hold for a few seconds and tighten your biceps as much as possible
+        - Inhale and slowly start lowering the barbell to the starting position
+        - Perform the movement the required number of times
+    advises:
+      ru:
+        - Вы можете попробовать выполнение данного упражнения узким хватом
+      en:
+        - You can try doing this exercise with a narrow grip
+
+  -
+    id: 11
+    title:
+      ru: Поочерёдное сгибание рук хватом «молоток»
+      en: Alternate bending of the arms with a "hammer" grip
+    description:
+      ru: Упражнение на мышцы бицепса. Выполняется с помощью гантель, стоя.
+      en: Exercise on the biceps muscles. It is performed using a dumbbell while standing.
+    muscleGroup: BICEPS
+    muscles:
+      - FOREARMS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Возьмите в обе руки гантели и встаньте прямо. Руки вытянуты вдоль торса, локти прижаты к телу. Ладони обращены к туловищу. Это ─ исходное положение
+        - "На выдохе согните правую руку на бицепс, часть руки от плеча до локтя должна оставаться неподвижной. Продолжайте сгибание до полного сокращения бицепса, гантель должна оказаться на уровне плеча. Напрягая бицепс, зафиксируйтесь ненадолго в этом положении. Примечание: Двигаться должно только предплечье"
+        - На вдохе медленно вернитесь в исходное положение
+        - Повторите это же движение левой рукой. Одно движение правой и одно левой рукой составляют одно повторение
+        - Выполните рекомендованное количество повторений
+      en:
+        - Take dumbbells in both hands and stand up straight. The arms are stretched along the torso, the elbows are pressed against the body. The palms are facing the torso. This is the starting position
+        - "As you exhale, bend your right arm over the biceps, the part of the arm from shoulder to elbow should remain stationary. Continue bending until the biceps completely contract, the dumbbell should be at shoulder level. While straining your biceps, lock yourself in this position for a short time. Note: Only the forearm should move"
+        - As you inhale, slowly return to the starting position
+        - Repeat the same movement with your left hand. One movement with the right hand and one with the left hand make up one repetition
+        - Perform the recommended number of repetitions
+    advises:
+      ru:
+        - "Вариации: Существует много вариаций данного упражнения. Например, Вы можете выполнять его, сидя на скамье с поддержкой спины или без нее или выполнять сгибание двумя руками одновременно"
+      en:
+        - "Variations: There are many variations of this exercise. For example, you can do it while sitting on a bench with or without back support, or do two-handed bending at the same time"
+
+  #------------------ QUADRICEPS ------------------#
+
+  -
+    id: 12
+    title:
+      ru: Выпады с гантелями
+      en: Lunges with dumbbells
+    description:
+      ru: Данное упражнение направлено на работу передних мышц ног и ягодиц. Может выполняться без рабочего веса, только с весом тела. Также, существует разновидность выполнения упражнения со штангой на спине.
+      en: This exercise is aimed at the work of the front muscles of the legs and buttocks. It can be performed without working weight, only with body weight. Also, there is a type of exercise with a barbell on your back.
+    muscleGroup: QUADRICEPS
+    muscles:
+      - CALVES
+      - GLUTES
+      - HAMSTRINGS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Встаньте прямо, взяв в руки две гантели по обеим сторонам от тела. Ладони смотрят друг на друга. Это будет вашей стартовой позицией
+        - "Сделайте шаг вперёд правой ногой в 2 шага, удерживая тело прямо. На вдохе опустите тело вниз. Внимание: при опускании тела вниз обратите ваше внимание, чтобы колено не выходило за пределы большого пальца ноги, в противном случае на него создаётся очень большая нагрузка"
+        - Также, убедитесь, что ваша голень находится в перпендикулярном положении полу
+        - На выдохе, усилиями ног (особенно пятки) поднимите тело в стартовую позицию
+        - Повторите рекомендованное количество повторов и затем сделайте тоже самое упражнение для левой ноги
+      en:
+        - Stand up straight, holding two dumbbells on either side of the body. The palms look at each other. This will be your starting position
+        - "Take a step forward with your right foot in 2 steps, keeping your body straight. As you inhale, lower your body down. Attention: when lowering the body down, pay attention to ensure that the knee does not extend beyond the big toe, otherwise a very large load is created on it"
+        - Also, make sure that your shin is in a perpendicular position to the floor
+        - On exhaling, lift the body to the starting position with the efforts of the legs (especially the heels)
+        - Repeat the recommended number of repetitions and then do the same exercise for the left leg
+    advises:
+      ru:
+        - Выполняйте выпады для каждой ноги по очереди. В противоположность выполнению по всему набору повторов для каждой ноги, можно попробовать выполнить один повтор для правой ноги, потом для левой и так до конца
+        - Другая вариация упражнения подразумевает, что стартовая позиция это тогда когда ваша нога уже находится на расстоянии двух шагов от тела. Таким образом весь смысл упражнения сводится только к тому, что вы поднимаете и опускаете тело
+        - Вариация упражнения со штангой на спине является более сложной и рекомендуется для опытных людей
+      en:
+        - Perform lunges for each leg in turn. In contrast to performing the entire set of repetitions for each leg, you can try to do one repeat for the right leg, then for the left and so on to the end
+        - Another variation of the exercise implies that the starting position is when your leg is already two steps away from the body. Thus, the whole point of the exercise boils down only to the fact that you raise and lower the body
+        - A variation of the exercise with a barbell on the back is more difficult and is recommended for experienced people
+    warnings:
+      ru:
+        - Если вы испытываете проблемы с равновесием, то вам следует избегать этого упражнения или выполнять его только с собственным весом. В любом случае, при проблемах с равновесием - никогда не выполняйте это упражнение со штангой
+      en:
+        - If you have problems with balance, then you should avoid this exercise or do it only with your own weight. In any case, if you have problems with balance, never do this exercise with a barbell
+
+  -
+    id: 13
+    title:
+      ru: Шаг с гантелью вверх
+      en: Step up with a dumbbell
+    description:
+      ru: Упражнение на развитие квадрипцепса.
+      en: Exercise for the development of the quadripeps.
+    muscleGroup: QUADRICEPS
+    muscles:
+      - CALVES
+      - GLUTES
+      - HAMSTRINGS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Встаньте прямо, держа в обеих руках гантели (ладони обращены друг к другу). Это — исходное положение
+        - Поставьте правую ногу на высокую платформу. На выдохе поднимитесь на платформу, выпрямляя бедро и колено правой ноги. Используйте преимущественно бедра, чтобы поднять вес тела. Поднявшись, поставьте и левую ногу на платформу
+        - На вдохе левой ногой шагните назад на пол, сгибая бедро и колено правой ноги. Затем вернитесь в исходное положение, опустив на пол правую ногу
+        - Выполните рекомендованное количество повторений для правой ноги, а затем — для левой
+      en:
+        - Stand up straight, holding dumbbells in both hands (palms facing each other). This is the starting position
+        - Put your right foot on a high platform. As you exhale, rise to the platform, straightening the hip and knee of your right leg. Use your hips primarily to lift your body weight. Having risen, put your left foot on the platform as well
+        - As you inhale, step back onto the floor with your left foot, bending the hip and knee of your right leg. Then return to the starting position, lowering your right leg to the floor
+        - Perform the recommended number of repetitions for the right leg, and then for the left
+    advises:
+      ru:
+        - Это отличное упражнение взамен становой тяги с выпрямленными ногами для людей, у которых есть проблемы с нижней частью спины
+        - Это упражнение можно выполнять, поочередно меняя ногу. Можно использовать штангу для усложнения упражнения. А начинающие спортсмены могут выполнять это упражнение вообще без утяжеления, особенно если у них есть трудности с удержанием равновесия
+      en:
+        - This is a great exercise instead of deadlift with straightened legs for people who have problems with the lower back
+        - This exercise can be performed by alternately changing the leg. You can use a barbell to complicate the exercise. And novice athletes can perform this exercise without weighing at all, especially if they have difficulty keeping their balance
+
+  -
+    id: 14
+    title:
+      ru: Приседания с гантелями
+      en: Squats with dumbbells
+    description:
+      ru: Упражнение на мышцы квадрицепса.
+      en: Exercise on the quadriceps muscles.
+    muscleGroup: QUADRICEPS
+    muscles:
+      - CALVES
+      - GLUTES
+      - HAMSTRINGS
+      - LUMBAR
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - "Возьмите гантели в обе руки (ладони обращены к бедрам) и станьте прямо. Ноги на ширине плеч, носки слегка расставлены наружу. На протяжении всего упражнения голова должна быть поднята, а спина прямая, т.к. если опустить голову, то Вы можете потерять равновесие. Это — исходное положение. Примечание: мы используем среднюю постановку ног (на ширине плеч), т.к. она приводит к общему развитию всех мышц, но Вы, преследуя другие цели, можете выбрать широкую или узкую постановку"
+        - "Начните медленно опускаться, сгибая колени, голова должна быть поднята, спина прямая. Продолжайте приседание, пока бедра не будут параллельны полу. Примечание: если Вы выполняете упражнение правильно, то между коленями и носками стопы можно провести воображаемую прямую линию, перпендикулярную стопе. Если же колени выходят за эту воображаемую линию, значит, упражнение выполняется неправильно, и на колени идет слишком большая нагрузка. Эту часть упражнения делайте на вдохе"
+        - На выдохе медленно поднимайтесь, отталкиваясь от пола в основном пятками, выпрямляя ноги и возвращаясь в исходное положение
+        - Выполните рекомендованное количество повторений
+      en:
+        - "Take the dumbbells in both hands (palms facing the hips) and stand up straight. The legs are shoulder-width apart, the socks are slightly spaced outwards. Throughout the exercise, the head should be raised and the back straight, because if you lower your head, you may lose your balance. This is the starting position. Note: we use an average leg position (shoulder width apart), because it leads to the general development of all muscles, but you, pursuing other goals, can choose a wide or narrow position"
+        - "Start slowly lowering yourself, bending your knees, your head should be raised, your back straight. Continue squatting until your hips are parallel to the floor. Note: if you perform the exercise correctly, then an imaginary straight line perpendicular to the foot can be drawn between the knees and the toes of the foot. If the knees go beyond this imaginary line, it means that the exercise is performed incorrectly, and there is too much load on the knees. Do this part of the exercise on the inhale"
+        - Honey on the exhale
+    advises:
+      ru:
+        - Можно использовать разное положение ног. Также можно выполнять это упражнение со штангой вместо гантелей
+      en:
+        - You can use different foot positions. You can also do this exercise with a barbell instead of dumbbells
+    warnings:
+      ru:
+        - Будьте внимательны при выборе веса для упражнения. Если сомневаетесь, то лучше выберите меньший вес, чем больший. Это упражнение относится к самым безопасным, но только если правильно его выполнять. Вы можете использовать ремни на запястья
+      en:
+        - Be careful when choosing the weight for the exercise. If in doubt, it is better to choose a smaller weight than a larger one. This exercise is one of the safest, but only if it is performed correctly. You can use wrist straps
+
+  -
+    id: 15
+    title:
+      ru: Становая тяга гантелями на прямых ногах
+      en: Deadlift with dumbbells on straight legs
+    description:
+      ru: Разновидность базового упражнения «Становая тяга». Выполняется на прямых ногах, с помощью гантель.
+      en: A variation of the basic "Deadlift" exercise. It is performed on straight legs, using dumbbells.
+    muscleGroup: THIGHS
+    muscles:
+      - LUMBAR
+      - HAMSTRINGS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Возьмите в обе руки гантели. Руки вытянуты вдоль туловища
+        - Станьте прямо, ноги на ширине плеч или чуть ближе. Колени слегка согнуты. Это ─ исходное положение
+        - Не сгибая колен, опускайте гантели почти до пола, сгибаясь в пояснице. Спина при этом должна оставаться прямой. Продолжайте движение, пока не почувствуете растягивание бицепса бедра. Делайте эту часть упражнения на выдохе
+        - На вдохе медленно вернитесь в исходное положение
+        - Выполните рекомендованное количество повторений
+      en:
+        - Take dumbbells in both hands. The arms are stretched out along the body
+        - Stand up straight, feet shoulder-width apart or a little closer. The knees are slightly bent. This is the starting position
+        - Without bending your knees, lower the dumbbells almost to the floor, bending at the waist. At the same time, the back should remain straight. Continue moving until you feel the biceps of the thigh stretch. Do this part of the exhale exercise
+        - As you inhale, slowly return to the starting position
+        - Perform the recommended number of repetitions
+    advises:
+      ru:
+        - Это упражнения можно выполнять со штангой
+      en:
+        - These exercises can be performed with a barbell
+    warnings:
+      ru:
+        - Это упражнение не рекомендуется выполнять людям, у которых имеются проблемы с нижним отделом позвоночника
+        - При выполнении упражнения необходимо тщательно следить за тем, чтобы спина не была прогнутой, она должна быть ровной. Резкие движения, неровная спина и использование чрезмерного веса могут нанести травму
+      en:
+        - This exercise is not recommended for people who have problems with the lower spine
+        - When performing the exercise, it is necessary to carefully ensure that the back is not bent, it should be smooth. Sudden movements, an uneven back and the use of excessive weight can cause injury
+
+  -
+    id: 16
+    title:
+      ru: Поочерёдный подъём на икры с гантелью
+      en: Alternate calf lift with a dumbbell
+    description:
+      ru: Поочерёдный подъём на икры с гантелью.
+      en: Alternate calf lift with a dumbbell.
+    muscleGroup: CALVES
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Положите на пол небольшой брусок, в 30 сантиметрах от горизонтальной скамьи
+        - Сядьте на скамью, положите гантель на левое бедро в 8 сантиметрах от колена
+        - Поставьте подушечки пальцев левой ступни на брусок. Это исходное положение
+        - На выдохе поднимите пятку как можно выше, сокращая икроножные мышцы. Задержитесь в этом положении на секунду
+        - Медленно вернитесь в исходное положение, растягивая мышцы как можно сильнее
+        - Выполните упражнение предписанное количество раз, затем повторите упражнение для правой ноги
+      en:
+        - Place a small block on the floor, 30 centimeters from the horizontal bench
+        - Sit on a bench, place a dumbbell on your left hip 8 centimeters from the knee
+        - Place the fingertips of your left foot on the bar. This is the starting position
+        - As you exhale, lift your heel as high as possible, contracting the calf muscles. Hold this position for a second
+        - Slowly return to the starting position, stretching the muscles as much as possible
+        - Perform the exercise the prescribed number of times, then repeat the exercise for the right leg
+    advises:
+      ru:
+        - Вы можете выполнять упражнение двумя ногами одновременно, а также используя тренажер для тренировки икр сидя
+      en:
+        - You can do the exercise with two legs at the same time, as well as using a sitting calf trainer
+
+  -
+    id: 17
+    title:
+      ru: Подъём на икры стоя с гантелями
+      en: Standing calf lift with dumbbells
+    description:
+      ru: Данное упражнение выполняется для тренировки мышц икр. Для его выполнения вам понадобится доска и две гантели.
+      en: This exercise is performed to train the calf muscles. To do it, you will need a board and two dumbbells.
+    muscleGroup: CALVES
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Встаньте прямо, взяв в руки гантели, руки расположены по сторонам. Поставьте часть ноги, где расположены пальцы, на доску. Пятка должна находиться на полу. Это будет стартовой позицией данного упражнения
+        - После того как вы приняли устойчивую позицию, поднимите своё тело, оторвав пятку от пола и подняв её на максимально возможную высоту, используя при этом силу икорных мышц. Замрите на секунду в верхней точке. Данное движение необходимо выполнять на выдохе
+        - На вдохе, вернитесь в стартовую позицию, медленно опуская тело на пол
+        - Повторите необходимое количество раз, описанное в вашем плане тренировки
+      en:
+        - Stand up straight with dumbbells in your hands, your arms are positioned on the sides. Place the part of the foot where the toes are located on the board. The heel should be on the floor. This will be the starting position of this exercise
+        - After you have taken a stable position, lift your body by lifting your heel off the floor and lifting it to the maximum possible height, using the strength of the calf muscles. Freeze for a second at the top point. This movement must be performed on exhalation
+        - As you inhale, return to the starting position, slowly lowering your body to the floor
+        - Repeat the required number of times as described in your training plan
+
+  -
+    id: 18
+    title:
+      ru: Жим гантелей стоя
+      en: Standing dumbbell press
+    description:
+      ru: Упражнение направлено на работу мышц плеч, также участвуют мышцы трицепса. Выполняются с помощью двух гантель, поэтому данное упражнение можно легко выполнять дома.
+      en: The exercise is aimed at working the muscles of the shoulders, and the triceps muscles are also involved. They are performed using two dumbbells, so this exercise can be easily performed at home.
+    muscleGroup: DELTOIDS
+    muscles:
+      - TRICEPS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Поставьте ноги на ширину плеч. Возьмите гантели в каждую из рук и поднимите их, согнув локти под углом в 90 градусов. Это будет вашей стартовой позицией
+        - Не используйте силу ног или спины, расправьте руки в локтях, подняв гантели над головой
+        - Сделайте небольшую паузу и вернитесь в стартовую позицию
+      en:
+        - Put your feet shoulder-width apart. Take dumbbells in each of your hands and lift them, bending your elbows at a 90-degree angle. This will be your starting position
+        - Do not use the strength of your legs or back, straighten your arms at the elbows, lifting dumbbells above your head
+        - Take a short pause and return to the starting position
+
+  -
+    id: 19
+    title:
+      ru: Разведение гантелей в стороны
+      en: Spreading dumbbells to the sides
+    description:
+      ru: Разведения гантелей стоя прицельно утюжат средние дельты, которые определяют ширину плеч — первое, что бросается в глаза и подчеркивает атлетичность телосложения. Упражнение прорезает четкую разделительную линию вокруг средней головки дельты и усиливает ее «полосатость».
+      en: Dumbbell dilutions while standing aimlessly iron the middle deltas, which determine the width of the shoulders — the first thing that catches the eye and emphasizes the athleticism of the physique. The exercise cuts a clear dividing line around the middle head of the delta and enhances its "banding".
+    muscleGroup: DELTOIDS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Поставьте ноги на ширине плеч или чуть шире, возьмите гантели и станьте ровно. Руки выпрямлены и слегка расслаблены, гантели «свисают» по бокам бедер и чуть повернуты внутрь, взгляд направлен вперед. Это и есть исходное положение
+        - Сделайте глубокий вдох и, задержав дыхание, напрягите средние дельты, поднимите руки через стороны строго в вертикальной плоскости, проходящей через плечи
+        - Начиная подъем гантелей, слегка согните руки и удерживайте их зафиксированными в локтях до конца сета. Сгибать и разгибать руки во время выполнения упражнения недопустимо
+        - Достигнув верхнюю точку (гантели на уровне плеч или чуть выше), выдохните, плавно опустите гантели к бедрам и тут же, без всякой остановки, начинайте следующее повторение
+        - Выполняйте упражнение в подчеркнуто умеренном темпе
+      en:
+        - Put your feet shoulder-width apart or slightly wider, take dumbbells and stand straight. The arms are straightened and slightly relaxed, the dumbbells "hang" on the sides of the hips and are slightly turned inward, the gaze is directed forward. This is the starting position
+        - Take a deep breath and, holding your breath, strain the middle deltas, raise your arms through the sides strictly in a vertical plane passing through the shoulders
+        - Starting lifting dumbbells, bend your arms slightly and keep them fixed at the elbows until the end of the set. It is unacceptable to bend and unbend your arms during the exercise
+        - Having reached the upper point (dumbbells at shoulder level or slightly higher), exhale, gently lower the dumbbells to the hips and immediately, without any stop, begin the next repetition
+        - Perform the exercise at an emphatically moderate pace
+    advises:
+      ru:
+        - Не используйте слишком тяжелые гантели! Вам вряд ли удастся дотянуть их до уровня плеч, не сгибая при этом руки. А чем сильнее сгибаются руки в локтях, тем меньше нагрузка на дельты. Всегда начинайте отработку упражнения сетом с легкими гантелями. Поднимайте их на выпрямленных руках выше макушки. Это позволит хорошенько прочувствовать движение и разогреет плечи перед рабочими сетами
+        - Чтобы добиться максимального сокращения среднего пучка дельт, поднимайте руку на 45 градусов выше линии плеч. Это объясняется биомеханикой движения при подъеме руки через сторону вверх. Первой вступает в игру подостная мышца. Именно она выполняет основную работу по подъему руки до положения, когда угол между рукой и туловищем составляет около 30 градусов. Далее эстафету перехватывает дельтовидная мышца (точнее, ее средняя головка) — она выполняет львиную долю работы по дальнейшему подъему руки, вплоть до положения, когда рука выше линии плеч на 45 градусов. Причем, именно в этой точке средний пучок дельт достигает пика сокращения. Затем первую скрипку перехватывают трапеции, усилие которых завершает подъем руки до вертикального положения
+        - Всегда задерживайте дыхание в позитивной фазе упражнения (подъем рук). Так легче сохранять равновесие. К тому же задержка дыхания делает вас сильнее
+        - "Во время выполнения упражнения держите спину ровной. Не наклоняйтесь вперед и не раскачивайтесь. Движение происходит только в плечевых суставах. Все остальные суставы зафиксированы! Имейте в виду: если вы разводите гантели не строго в стороны, а слегка перед собой, то вам не удержаться от искушения наклониться вперед, чтобы затем, отклоняясь назад, помочь себе всем телом поднять гантели"
+        - Вариация упражнения — разведения в блочном тренажере. Прикрепите рукоятки к тросам, проходящим через нижние блоки, затем левой рукой возьмите правую рукоятку, а правой — левую и подтяните рукоятки к бедрам (тросы перекрещиваются). Еще одна вариация — разведения с наклоном туловища в сторону рабочей руки (держась свободной рукой за опору). За счет наклона корпуса вы значительно ограничиваете участие в «игре» подостной мышцы и еще больше фокусируете нагрузку на средние дельты
+      en:
+        - Do not use too heavy dumbbells! You are unlikely to be able to reach them to shoulder level without bending your arms. And the more the arms bend at the elbows, the less the load on the deltas. Always start practicing the exercise with a set of light dumbbells. Lift them on straight arms above the top of the head. This will allow you to feel the movement well and warm up your shoulders before working sets
+        - To maximize the reduction of the average delta beam, raise your arm 45 degrees above the shoulder line. This is due to the biomechanics of movement when lifting the arm through the side up. The subcostal muscle comes into play first. It is she who does the main work of lifting the arm to a position where the angle between the arm and the torso is about 30 degrees. Next, the relay is intercepted by the deltoid muscle (more precisely, its middle head) — it performs the lion's share of the work on further lifting the arm, up to the position when the arm is 45 degrees above the shoulder line. Moreover, it is at this point that the average beam of deltas reaches the peak of contraction. Then the first violin is intercepted by trapezoids, the force of which completes the lifting of the arm to an upright position
+        - Always hold your breath in the positive phase of the exercise (lifting your arms). It's easier to keep your balance that way. Besides, holding your breath makes you stronger
+        - "Keep your back straight during the exercise. Do not lean forward or sway. Movement occurs only in the shoulder joints. All other joints are fixed! Keep in mind: if you spread the dumbbells not strictly to the sides, but slightly in front of you, then you will not be able to resist the temptation to lean forward, so that then, leaning back, help yourself with your whole body to lift the dumbbells"
+        - A variation of the breeding exercise in a block simulator. Attach the handles to the cables passing through the lower blocks, then take the right handle with your left hand and the left with your right and pull the handles to your hips (the cables cross). Another variation is dilutions with a tilt of the torso towards the working arm (holding on to the support with your free hand). Due to the tilt of the body, you significantly limit the participation in the "game" of the subcostal muscle and focus the load even more on the middle deltas
+
+  -
+    id: 20
+    title:
+      ru: Разведение гантелей в наклоне
+      en: Lifting dumbbells in a tilt
+    description:
+      ru: Разведение гантелей в наклоне задействуют задние дельты, трапеции и мышцы-вращатели плеча. Это формирующее упражнение прорабатывает форму и рельеф задних пучков плеч. Разведения в наклоне изолируют нагрузку на заднюю головку дельт и применяются для того, чтобы придать этому пучку мышц отчетливую бугристую форму, добавить «полосатости» и выделить его на фоне мышц спины.
+      en: The dilution of dumbbells in a tilt involves the posterior deltas, trapezoids and shoulder rotator muscles. This formative exercise works out the shape and relief of the posterior shoulder bundles. Tilt dilutions isolate the load on the posterior head of the deltas and are used to give this bundle of muscles a distinct bumpy shape, add "stripes" and highlight it against the background of the back muscles.
+    muscleGroup: DELTOIDS
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - Возьмите легкие гантели в обе руки нейтральным хватом (ладони смотрят друг на друга)
+        - Наклонитесь вперед так, чтобы торс был параллелен полу. Спина ровная, чуть прогнута в пояснице
+        - Если у вас тугие мышцы задней части бедра, можно слегка согнуть в коленях. Главное — прочно зафиксировать нормальный, S-образный изгиб позвоночника. Но если и это не помогает и вам все-таки тяжело держать торс в таком положении, воспользуйтесь горизонтальной скамьей. Расположитесь на ней так, чтобы почти вся грудь «вылазила» за ее край (скамья не должна мешать разводить гантели), а прочно упирались в пол
+        - В исходном положении гантели свисают на выпрямленных руках под грудью. Руки должны быть прочно зафиксированы в локтях до самого конца сета. Их можно чуть-чуть согнуть, перед тем как приступить к выполнению упражнения, но сгибать или разгибать их во время сета не допускается. Все движение происходит только в плечевых суставах, все остальные суставы — неподвижны!
+        - Сделайте вдох и задержите дыхание. Изо всех сил напрягите задние дельты и трапеции и плавно разведите гантели в стороны, стараясь поднять их как можно выше
+        - "Обратите особое внимание: руки должны двигаться исключительно в вертикальной плоскости, проходящей через плечи. Не отводите гантели ни назад, ни вперед"
+        - В верхней точке локти должны быть выше уровня спины
+        - Выдохните и плавно опустите гантели в исходное положение. Сделайте короткую паузу и выполните следующее повторение
+      en:
+        - Take light dumbbells in both hands with a neutral grip (palms facing each other)
+        - Lean forward so that the torso is parallel to the floor. The back is straight, slightly bent at the waist
+        - If you have tight muscles in the back of your thigh, you can bend your knees slightly. The main thing is to firmly fix the normal, S-shaped bend of the spine. But if this does not help and it is still difficult for you to keep your torso in this position, use a horizontal bench. Position yourself on it so that almost the entire chest "climbs out" over its edge (the bench should not interfere with spreading dumbbells), but firmly rest on the floor
+        - In the starting position, the dumbbells hang on the straightened arms under the chest. The arms should be firmly fixed at the elbows until the very end of the set. They can be bent slightly before starting the exercise, but bending or unbending them during the set is not allowed. All movement occurs only in the shoulder joints, all other joints are motionless!
+        - Take a breath and hold it. Strain the back deltas and trapezoids with all your might and smoothly spread the dumbbells to the sides, trying to raise them as high as possible
+        - "Pay special attention: the arms should move exclusively in a vertical plane passing through the shoulders. Do not pull the dumbbells back or forward"
+        - At the top, the elbows should be above the level of the back
+        - Exhale and gently lower the dumbbells to the starting position. Take a short pause and repeat the following
+    advises:
+      ru:
+        - Всегда держите спину ровной, чуть прогнутой в пояснице. Даже легкое скругление спины чревато травмой
+        - Задержка дыхания во время разведения рук не только стабилизирует положение торса, но и делает вас сильнее
+        - Чтобы нагрузить задние дельты по максимуму, опускайте плечи в исходном положении и поднимайте гантели как можно выше уровня спины, но при этом не сводите лопатки вместе
+        - Чтобы прицельно отработать средние трапеции и ромбовидные мышцы и добиться их максимального сокращения, обязательно сводите лопатки в верхней точке
+        - Не используйте чрезмерно тяжелые гантели. Они могут не дать вам отработать упражнение технически правильно и стать причиной травмы
+        - "Держите руки выпрямленными или чуть согнутыми в локтях. Имейте в виду: чем больше руки согнуты в локтях, тем короче амплитуда движения и тем меньше нагрузка на задние дельты"
+        - Вариация упражнения — перекрестные разведения в кроссовере. Поставьте скамью посередине кроссовера так, чтобы ваши плечи оказались в одной вертикальной плоскости с нижними блоками. Прикрепите D-образные рукоятки к тросам, проходящим через эти блоки, и, скрещивая тросы, выполняйте разведения. Однако кроссовер, по сравнению с гантелями, имеет существенный недостаток — вы не можете выполнять разведения по полной амплитуде, так как развести рукоятки выше уровня плеч вам мешают перекрещивающиеся тросы
+        - Еще одна вариация — разведения одной рукой в блочном тренажере стоя на коленях. В исходном положении вы становитесь на четвереньки, упираетесь одной рукой в пол и слегка сгибаете ее так, чтобы плечо рабочей руки оказалось приподнятым (иначе во время возвращения в исходную позицию рукоятка будет цепляться за пол)
+      en:
+        - Always keep your back straight, slightly bent at the waist. Even a slight rounding of the back is fraught with injury
+        - Holding your breath while spreading your arms not only stabilizes your torso position, but also makes you stronger
+        - To load the rear deltas to the maximum, lower your shoulders in the starting position and lift the dumbbells as high as possible above the back level, but do not bring the shoulder blades together
+        - In order to work out the middle trapezius and rhomboid muscles precisely and achieve their maximum contraction, be sure to bring the shoulder blades together at the top point
+        - Do not use excessively heavy dumbbells. They may prevent you from working out the exercise technically correctly and cause injury
+        - "Keep your arms straight or slightly bent at the elbows. Keep in mind: the more the arms are bent at the elbows, the shorter the amplitude of movement and the less the load on the rear deltas"
+        - Variation of the exercise — cross-breeding in a crossover. Place the bench in the middle of the crossover so that your shoulders are in the same vertical plane with the lower blocks. Attach the D-shaped handles to the cables passing through these blocks and, crossing the cables, perform dilutions. However, the crossover, in comparison with dumbbells, has a significant drawback — you cannot perform dilutions at full amplitude, since you are prevented from spreading the handles above shoulder level by crossing cables
+        - Another variation is one—handed dilution in a block simulator while kneeling. In the starting position, you get on all fours, rest one hand on the floor and bend it slightly so that the shoulder of the working arm is raised (otherwise, during the return to the starting position, the handle will cling to the floor)
+
+  -
+    id: 21
+    title:
+      ru: Шраги гантелями
+      en: Dumbbell shrugs
+    description:
+      ru: Шраги гантелями.
+      en: Dumbbell shrugs.
+    muscleGroup: TRAPEZOID
+    equipment: DUMBBELLS
+    steps:
+      ru:
+        - "Исходное положение: cтойте прямо, с гантелями в каждой руке, руки вдоль тела, ладони обращены к телу"
+        - "Выдыхая, поднимите гантели, пожимая плечами как можно выше. В верхней точке движения задержитесь на секунду. Подсказка: Руки остаются вытянутыми все время. Воздержитесь от использования бицепсов для подъема гантелей. Двигайте вверх и вниз только плечами"
+        - Опустите плечи вниз, в исходное положение
+        - Повторите нужное число раз
+      en:
+        - "Starting position: stand straight, with dumbbells in each hand, arms along the body, palms facing the body"
+        - "Exhale, lift the dumbbells, shrugging your shoulders as high as possible. At the top of the movement, hold for a second. Hint: The arms stay outstretched all the time. Refrain from using biceps to lift dumbbells. Move your shoulders up and down only"
+        - Lower your shoulders down to the starting position
+        - Repeat the required number of times
+    advises:
+      ru:
+        - Это упражнение можно выполнять с помощью ленты, троса, штанги. Также можно выполнять упражнение одной рукой, тренируя одну сторону
+      en:
+        - This exercise can be performed using a tape, a rope, a barbell. You can also do the exercise with one hand, training one side
