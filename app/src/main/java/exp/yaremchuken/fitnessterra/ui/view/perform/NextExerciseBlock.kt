@@ -51,7 +51,7 @@ fun NextExerciseBlock(
             Modifier.padding(start = 12.dp)
         ) {
             Text(
-                text = exercise.titleLocalized(),
+                text = exercise.title,
                 style = Typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )

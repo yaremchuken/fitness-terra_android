@@ -37,6 +37,8 @@ entities:
       en:
         - Lower the dumbbells into the starting position twice as slowly as you lifted them above you
         - If your bench is adjustable, then you can perform this exercise from different angles; Another exercise option is when the palms are directed at each other when performing
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 1
@@ -71,6 +73,8 @@ entities:
       en:
         - Attention, after you have completed the exercise, do not drop the dumbbells in front of you, this can be dangerous for the rotator muscle of the shoulder and for others who practice next to you
         - "This method is safer: After performing the exercise, lift your legs slightly and turn the dumbbells so that your palms look at each other, place the dumbbells on your hips and lift your body, then you can safely move them to the floor or on a rack"
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 2
@@ -89,6 +93,8 @@ entities:
       en:
         - Raise your arms vertically up while exhaling
         - In the vertical position of the arms, do short-term isometric muscle tension in order to concentrate the effort on the clavicular part of the pectoralis major muscle
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 3
@@ -124,6 +130,8 @@ entities:
       en:
         - If you are new to this exercise, we recommend that you perform this exercise with a person who can back you up. In any case, take the correct position on the bench to avoid injury
         - This exercise can be performed with a barbell with a curved neck instead of a dumbbell
+    repeatTime: 2000
+    recovery: 20000
 
   #------------------ TRICEPS ------------------#
 
@@ -164,6 +172,8 @@ entities:
         - Подбирать вес для этого упражнения нужно особенно тщательно, чтобы избежать травм. Если у Вас больные локти, то это упражнение может дать на них слишком большую нагрузку, поэтому Вам стоит поискать замену французскому жиму
       en:
         - You need to choose the weight for this exercise especially carefully to avoid injury. If you have sore elbows, then this exercise may put too much strain on them, so you should look for a replacement for the French bench press
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 5
@@ -186,6 +196,8 @@ entities:
         - Now, holding your arm still, exhale and using tension in the triceps, lift the weight until your arm is fully extended
         - After a short pause in this position, inhale and slowly lower the dumbbell back to the starting position
         - Repeat the movement the required number of times
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 6
@@ -211,6 +223,8 @@ entities:
         - "Holding the upper arm close to the body and perpendicular to the floor, lower the weight, bending the arm at the elbow, until the forearm touches the biceps. Tip: The upper arm should be stationary and only the forearm should move. Take a breath with this movement"
         - Return to the starting position, using tension in the triceps. Exhale at the end of the movement
         - Perform the required number of repetitions and then repeat the exercise for the second hand
+    repeatTime: 2000
+    recovery: 20000
 
   #------------------ BACK ------------------#
 
@@ -250,6 +264,8 @@ entities:
         - Это упражнение можно выполнять, используя вместо гантели верхний или нижний блок
       en:
         - This exercise can be performed using an upper or lower block instead of a dumbbell
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 8
@@ -290,6 +306,8 @@ entities:
         - This exercise is not recommended for people who have back problems. In this case, it is better to choose the Low-block Traction exercise
         - Do not bend your back under any circumstances, as this may lead to back injury
         - Be careful in choosing the weight for the exercise. If in doubt, it is better to choose a smaller weight than a larger one
+    repeatTime: 2000
+    recovery: 20000
 
   #------------------ BICEPS ------------------#
 
@@ -314,6 +332,8 @@ entities:
         - Keeping the upper part of the arms motionless, bend the arms at the elbow joints while exhaling, straining the biceps. Only the forearms move. Perform the movement until the biceps are fully strained and until the dumbbells rise to shoulder level. Stay at the highest voltage point for a second
         - While inhaling, start slowly lowering the dumbbells back to the starting position
         - Repeat the required number of times
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 10
@@ -345,6 +365,8 @@ entities:
         - Вы можете попробовать выполнение данного упражнения узким хватом
       en:
         - You can try doing this exercise with a narrow grip
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 11
@@ -376,6 +398,8 @@ entities:
         - "Вариации: Существует много вариаций данного упражнения. Например, Вы можете выполнять его, сидя на скамье с поддержкой спины или без нее или выполнять сгибание двумя руками одновременно"
       en:
         - "Variations: There are many variations of this exercise. For example, you can do it while sitting on a bench with or without back support, or do two-handed bending at the same time"
+    repeatTime: 2000
+    recovery: 20000
 
   #------------------ QUADRICEPS ------------------#
 
@@ -420,6 +444,8 @@ entities:
         - Если вы испытываете проблемы с равновесием, то вам следует избегать этого упражнения или выполнять его только с собственным весом. В любом случае, при проблемах с равновесием - никогда не выполняйте это упражнение со штангой
       en:
         - If you have problems with balance, then you should avoid this exercise or do it only with your own weight. In any case, if you have problems with balance, never do this exercise with a barbell
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 13
@@ -453,6 +479,8 @@ entities:
       en:
         - This is a great exercise instead of deadlift with straightened legs for people who have problems with the lower back
         - This exercise can be performed by alternately changing the leg. You can use a barbell to complicate the exercise. And novice athletes can perform this exercise without weighing at all, especially if they have difficulty keeping their balance
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 14
@@ -489,6 +517,10 @@ entities:
         - Будьте внимательны при выборе веса для упражнения. Если сомневаетесь, то лучше выберите меньший вес, чем больший. Это упражнение относится к самым безопасным, но только если правильно его выполнять. Вы можете использовать ремни на запястья
       en:
         - Be careful when choosing the weight for the exercise. If in doubt, it is better to choose a smaller weight than a larger one. This exercise is one of the safest, but only if it is performed correctly. You can use wrist straps
+    repeatTime: 2000
+    recovery: 20000
+
+  #------------------ THIGHS ------------------#
 
   -
     id: 15
@@ -528,6 +560,10 @@ entities:
       en:
         - This exercise is not recommended for people who have problems with the lower spine
         - When performing the exercise, it is necessary to carefully ensure that the back is not bent, it should be smooth. Sudden movements, an uneven back and the use of excessive weight can cause injury
+    repeatTime: 2000
+    recovery: 20000
+
+  #------------------ CALVES ------------------#
 
   -
     id: 16
@@ -559,6 +595,8 @@ entities:
         - Вы можете выполнять упражнение двумя ногами одновременно, а также используя тренажер для тренировки икр сидя
       en:
         - You can do the exercise with two legs at the same time, as well as using a sitting calf trainer
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 17
@@ -581,6 +619,10 @@ entities:
         - After you have taken a stable position, lift your body by lifting your heel off the floor and lifting it to the maximum possible height, using the strength of the calf muscles. Freeze for a second at the top point. This movement must be performed on exhalation
         - As you inhale, return to the starting position, slowly lowering your body to the floor
         - Repeat the required number of times as described in your training plan
+    repeatTime: 2000
+    recovery: 20000
+
+  #------------------ SHOULDERS ------------------#
 
   -
     id: 18
@@ -603,6 +645,8 @@ entities:
         - Put your feet shoulder-width apart. Take dumbbells in each of your hands and lift them, bending your elbows at a 90-degree angle. This will be your starting position
         - Do not use the strength of your legs or back, straighten your arms at the elbows, lifting dumbbells above your head
         - Take a short pause and return to the starting position
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 19
@@ -640,6 +684,8 @@ entities:
         - Always hold your breath in the positive phase of the exercise (lifting your arms). It's easier to keep your balance that way. Besides, holding your breath makes you stronger
         - "Keep your back straight during the exercise. Do not lean forward or sway. Movement occurs only in the shoulder joints. All other joints are fixed! Keep in mind: if you spread the dumbbells not strictly to the sides, but slightly in front of you, then you will not be able to resist the temptation to lean forward, so that then, leaning back, help yourself with your whole body to lift the dumbbells"
         - A variation of the breeding exercise in a block simulator. Attach the handles to the cables passing through the lower blocks, then take the right handle with your left hand and the left with your right and pull the handles to your hips (the cables cross). Another variation is dilutions with a tilt of the torso towards the working arm (holding on to the support with your free hand). Due to the tilt of the body, you significantly limit the participation in the "game" of the subcostal muscle and focus the load even more on the middle deltas
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 20
@@ -689,6 +735,8 @@ entities:
         - "Keep your arms straight or slightly bent at the elbows. Keep in mind: the more the arms are bent at the elbows, the shorter the amplitude of movement and the less the load on the rear deltas"
         - Variation of the exercise — cross-breeding in a crossover. Place the bench in the middle of the crossover so that your shoulders are in the same vertical plane with the lower blocks. Attach the D-shaped handles to the cables passing through these blocks and, crossing the cables, perform dilutions. However, the crossover, in comparison with dumbbells, has a significant drawback — you cannot perform dilutions at full amplitude, since you are prevented from spreading the handles above shoulder level by crossing cables
         - Another variation is one—handed dilution in a block simulator while kneeling. In the starting position, you get on all fours, rest one hand on the floor and bend it slightly so that the shoulder of the working arm is raised (otherwise, during the return to the starting position, the handle will cling to the floor)
+    repeatTime: 2000
+    recovery: 20000
 
   -
     id: 21
@@ -716,3 +764,5 @@ entities:
         - Это упражнение можно выполнять с помощью ленты, троса, штанги. Также можно выполнять упражнение одной рукой, тренируя одну сторону
       en:
         - This exercise can be performed using a tape, a rope, a barbell. You can also do the exercise with one hand, training one side
+    repeatTime: 2000
+    recovery: 20000

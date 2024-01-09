@@ -58,7 +58,7 @@ fun GetReadyBlock(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = exercise.titleLocalized(),
+            text = exercise.title,
             style = Typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )

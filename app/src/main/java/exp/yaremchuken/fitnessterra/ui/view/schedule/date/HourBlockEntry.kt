@@ -1,4 +1,4 @@
-package exp.yaremchuken.fitnessterra.ui.view.schedule.day
+package exp.yaremchuken.fitnessterra.ui.view.schedule.date
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

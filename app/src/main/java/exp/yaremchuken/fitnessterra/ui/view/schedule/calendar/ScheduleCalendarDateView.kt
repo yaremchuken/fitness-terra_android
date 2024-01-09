@@ -1,8 +1,9 @@
-package exp.yaremchuken.fitnessterra.ui.view.schedule
+package exp.yaremchuken.fitnessterra.ui.view.schedule.calendar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -32,6 +33,7 @@ import java.time.YearMonth
 @Preview
 @Composable
 fun ScheduleCalendarDateView(
+    onClick: () -> Unit = {},
     width: Dp = 45.dp,
     date: LocalDate = LocalDate.now(),
     month: YearMonth = YearMonth.now(),
@@ -57,6 +59,7 @@ fun ScheduleCalendarDateView(
                 if (scheduled.isEmpty()) Color.White else Color.LightGray,
                 shape = UIConstants.ROUNDED_CORNER
             )
+            .clickable { onClick() }
     ) {
         Box(
             Modifier.align(Alignment.End)

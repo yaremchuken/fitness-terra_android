@@ -1,4 +1,4 @@
-package exp.yaremchuken.fitnessterra.ui.view.schedule.day
+package exp.yaremchuken.fitnessterra.ui.view.schedule.date
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,7 +21,7 @@ import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.schedulesStub
+import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
 import exp.yaremchuken.fitnessterra.util.Utils
 
 @Preview

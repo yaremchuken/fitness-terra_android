@@ -66,7 +66,7 @@ fun ExerciseSetEntryView(
                         .padding(start = 12.dp)
                 ) {
                     Text(
-                        text = exerciseSet.exercise.titleLocalized(),
+                        text = exerciseSet.exercise.title,
                         style = Typography.titleMedium
                     )
                     Row {

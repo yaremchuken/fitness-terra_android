@@ -1,4 +1,4 @@
-package exp.yaremchuken.fitnessterra.ui.view.schedule
+package exp.yaremchuken.fitnessterra.ui.view.schedule.calendar
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
@@ -34,6 +34,7 @@ import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toLocalDate
+import exp.yaremchuken.fitnessterra.ui.route.Screen
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import java.time.DayOfWeek
@@ -41,6 +42,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ISO_DATE
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 
@@ -53,7 +55,7 @@ private val MONTH_FORMATTER = DateTimeFormatter.ofPattern("MMM yyyy")
 
 @Preview
 @Composable
-fun ScheduleScreen(
+fun ScheduleCalendarScreen(
     navController: NavController = NavController(LocalContext.current),
     schedules: List<Schedule> = schedulesStub
 ) {
@@ -158,6 +160,8 @@ fun ScheduleScreen(
                         for (j in 0 until DAYS_IN_WEEK) {
                             val onDate = dates[i * DAYS_IN_WEEK + j]
                             ScheduleCalendarDateView(
+                                onClick = { navController
+                                    .navigate("${Screen.SCHEDULE_DATE_SCREEN.name}/${onDate.format(ISO_DATE)}") },
                                 width = calendarDateWidth,
                                 date = onDate,
                                 month = yearMonth,

@@ -149,7 +149,7 @@ val workoutStub = Workout(
             "Спина",
             listOf(
                 ExerciseSet(
-                    exercise = exerciseBackStub,
+                    exercise = exerciseBackStub(),
                     weight = 1200,
                     repeats = listOf(12,10,10,8,6),
                     recovery = 30.seconds
@@ -160,13 +160,13 @@ val workoutStub = Workout(
             "Бицепс",
             listOf(
                 ExerciseSet(
-                    exercise = exerciseBicepsStub,
+                    exercise = exerciseBicepsStub(),
                     weight = 500,
                     repeats = listOf(10,10,10),
                     recovery = 30.seconds
                 ),
                 ExerciseSet(
-                    exercise = exerciseBicepsStub,
+                    exercise = exerciseBicepsStub(),
                     weight = 500,
                     repeats = listOf(10,10,10),
                     recovery = 30.seconds

@@ -1,4 +1,4 @@
-package exp.yaremchuken.fitnessterra.ui.view.schedule.day
+package exp.yaremchuken.fitnessterra.ui.view.schedule.date
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
@@ -27,11 +27,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
@@ -40,7 +42,7 @@ import exp.yaremchuken.fitnessterra.toInstant
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
-import exp.yaremchuken.fitnessterra.ui.view.schedule.schedulesStub
+import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
 import java.time.Instant
@@ -55,7 +57,8 @@ val REFRESH_TIMER_DELAY: Duration = 5.seconds
 
 @Preview
 @Composable
-fun ScheduleDayView(
+fun ScheduleDateScreen(
+    navController: NavController = NavController(LocalContext.current),
     date: LocalDate = LocalDate.now(),
     schedules: List<Schedule> = schedulesStub.filter { it.scheduledAt.toLocalDate() == LocalDate.now() }
 ) {

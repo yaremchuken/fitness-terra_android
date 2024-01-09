@@ -31,7 +31,7 @@ import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.schedulesStub
+import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
 import exp.yaremchuken.fitnessterra.util.Utils
 
 @Preview

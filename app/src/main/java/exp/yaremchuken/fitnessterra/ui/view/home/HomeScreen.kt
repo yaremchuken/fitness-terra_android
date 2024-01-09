@@ -34,7 +34,7 @@ import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.route.Screen
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.schedulesStub
+import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
 import java.time.LocalDate
 
 @Preview
@@ -72,7 +72,7 @@ fun HomeScreen(
                 Modifier.padding(vertical = 12.dp)
             ) {
                 CalendarLinkBlock(onClick = {
-                    navController.navigate(Screen.SCHEDULE_SCREEN.name)
+                    navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name)
                 })
             }
             Divider()

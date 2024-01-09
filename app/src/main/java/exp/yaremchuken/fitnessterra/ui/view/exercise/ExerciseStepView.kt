@@ -29,7 +29,7 @@ import java.util.Locale
 @Composable
 fun ExerciseStepView(
     index: Int = 1,
-    description: String = exerciseBicepsStub.steps[Locale.ENGLISH]!![0]
+    description: String = exerciseBicepsStub().steps[0]
 ) {
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(20f, 14f), 0f)
 

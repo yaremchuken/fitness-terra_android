@@ -1,0 +1,170 @@
+entities:
+
+  -
+    id: 0
+    title:
+      ru: Грудь и Трицепс
+      en: Chest and Triceps
+    type: STRENGTH
+    sections:
+      -
+        title:
+          ru: Грудь
+          en: Chest
+        sets:
+          -
+            exerciseId: 0
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
+          -
+            exerciseId: 1
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
+          -
+            exerciseId: 2
+            weight: 5000
+            repeats: [12, 12, 12]
+            recovery: 40000
+      -
+        title:
+          ru: Трицепс
+          en: Triceps
+        sets:
+          -
+            exerciseId: 4
+            weight: 5000
+            repeats: [12, 12, 12]
+            recovery: 40000
+          -
+            exerciseId: 5
+            weight: 5000
+            repeats: [12, 12, 12]
+            recovery: 40000
+          -
+            exerciseId: 6
+            weight: 5000
+            repeats: [12, 12, 12]
+            recovery: 40000
+
+  -
+    id: 1
+    title:
+      ru: Спина и Бицепс
+      en: Back and Biceps
+    type: STRENGTH
+    sections:
+      -
+        title:
+          ru: Спина
+          en: Back
+        sets:
+          -
+            exerciseId: 7
+            weight: 5000
+            repeats: [12, 10, 10, 8, 6]
+            recovery: 40000
+          -
+            exerciseId: 8
+            weight: 5000
+            repeats: [12, 10, 10, 8, 6]
+            recovery: 40000
+      -
+        title:
+          ru: Бицепс
+          en: Biceps
+        sets:
+          -
+            exerciseId: 9
+            weight: 5000
+            repeats: [10, 10, 10]
+            recovery: 40000
+          -
+            exerciseId: 10
+            weight: 5000
+            repeats: [10, 10, 10]
+            recovery: 40000
+          -
+            exerciseId: 11
+            weight: 5000
+            repeats: [10, 10]
+            recovery: 40000
+
+  -
+    id: 2
+    title:
+      ru: Ноги и Плечи
+      en: Legs and Shoulders
+    type: STRENGTH
+    sections:
+      -
+        title:
+          ru: Квадрицепс
+          en: Quadriceps
+        sets:
+          -
+            exerciseId: 12
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
+          -
+            exerciseId: 13
+            weight: 5000
+            repeats: [12, 12, 12]
+            recovery: 40000
+          -
+            exerciseId: 14
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
+      -
+        title:
+          ru: Задние отделы бедра
+          en: Thighs back
+        sets:
+          -
+            exerciseId: 15
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
+      -
+        title:
+          ru: Икры
+          en: Calves
+        sets:
+          -
+            exerciseId: 16
+            weight: 5000
+            repeats: [15, 10]
+            recovery: 40000
+          -
+            exerciseId: 17
+            weight: 5000
+            repeats: [12, 10]
+            recovery: 40000
+      -
+        title:
+          ru: Плечи
+          en: Shoulders
+        sets:
+          -
+            exerciseId: 18
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
+          -
+            exerciseId: 19
+            weight: 5000
+            repeats: [12, 10, 10]
+            recovery: 40000
+          -
+            exerciseId: 20
+            weight: 5000
+            repeats: [12, 10, 10]
+            recovery: 40000
+          -
+            exerciseId: 21
+            weight: 5000
+            repeats: [12, 10, 10, 8]
+            recovery: 40000
