@@ -41,8 +41,8 @@ import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.toInstant
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
+import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
 import java.time.Instant

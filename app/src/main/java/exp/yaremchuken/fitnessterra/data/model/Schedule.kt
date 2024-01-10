@@ -19,7 +19,7 @@ data class Schedule(
     val workout: Workout,
 
     /**
-     * Marks performed workout.
+     * Mark scheduled workout as performed.
      */
-    val completed: Boolean = false
+    val completed: Boolean
 )

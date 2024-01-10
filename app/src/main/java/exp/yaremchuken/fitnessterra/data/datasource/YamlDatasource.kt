@@ -1,6 +1,6 @@
 package exp.yaremchuken.fitnessterra.data.datasource
 
-import android.content.Context
+import android.app.Application
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import exp.yaremchuken.fitnessterra.AppSettings
@@ -16,16 +16,17 @@ import kotlin.time.Duration.Companion.milliseconds
  * Datasource for some pre-defined data from assets in yaml format.
  * It's readonly of course.
  */
-object YamlDatasource {
+class YamlDatasource(
+    app: Application
+) {
+    var exercises: List<Exercise>
+    var workouts: List<Workout>
 
-    lateinit var exercises: List<Exercise>
-    lateinit var workouts: List<Workout>
-
-    fun preload(context: Context) {
+    init {
         val mapper = ObjectMapper(YAMLFactory())
 
         exercises =
-            context.assets
+            app.assets
                 .open("datasource/exercise.yaml")
                 .use { mapper.readValue(it, ExerciseSource::class.java) }
                 .entities
@@ -46,7 +47,7 @@ object YamlDatasource {
                 }
 
         workouts =
-            context.assets
+            app.assets
                 .open("datasource/workout.yaml")
                 .use { mapper.readValue(it, WorkoutSource::class.java) }
                 .entities

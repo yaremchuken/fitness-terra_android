@@ -27,19 +27,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
+import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.util.Utils
+import java.time.Instant
 
 @Preview
 @Composable
-fun WorkoutPreviewBlock(
-    schedule: Schedule = schedulesStub[1]
+fun ScheduledWorkoutPreviewBlock(
+    scheduledAt: Instant = Instant.now(),
+    workout: Workout = workoutStub
 ) {
-    val preview = Utils.getWorkoutPreview(LocalContext.current, schedule.workout)
+    val preview = Utils.getWorkoutPreview(LocalContext.current, workout)
 
     Column(
         Modifier
@@ -68,7 +70,7 @@ fun WorkoutPreviewBlock(
                     .height(24.dp)
             )
             Text(
-                text = Utils.TIME_FORMAT.format(schedule.scheduledAt),
+                text = Utils.TIME_FORMAT.format(scheduledAt),
                 Modifier.padding(all = 12.dp),
                 style = Typography.bodyLarge,
                 fontWeight = FontWeight.Bold
@@ -80,7 +82,7 @@ fun WorkoutPreviewBlock(
                     .background(color = Color.LightGray)
             )
             Text(
-                text = schedule.workout.title,
+                text = workout.title,
                 Modifier.padding(all = 12.dp),
                 style = Typography.bodyLarge,
                 fontWeight = FontWeight.Bold

@@ -18,6 +18,9 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
@@ -34,38 +38,47 @@ import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.route.Screen
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
+import exp.yaremchuken.fitnessterra.viewmodel.HomeViewModel
 import java.time.LocalDate
 
 @Preview
 @Composable
 fun HomeScreen(
     navController: NavController = NavController(LocalContext.current),
-    schedules: List<Schedule> = schedulesStub
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val scrollState = rememberScrollState()
+    val todaySchedules = remember { mutableStateListOf<Schedule>() }
+
+    LaunchedEffect(Unit) {
+        todaySchedules.clear()
+        viewModel.getAllSchedules().collect {
+            val filtered = it
+                .map { e -> viewModel.fromEntity(e) }
+                .filter { s -> !s.completed && s.scheduledAt.toLocalDate() == LocalDate.now()}
+            todaySchedules.addAll(filtered)
+        }
+    }
+
     Column(
         Modifier
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        val scrollState = rememberScrollState()
-
-        val todayWorkouts = schedules.filter { !it.completed && it.scheduledAt.toLocalDate() == LocalDate.now() }
-
         Column(
             Modifier
                 .padding(all = 12.dp)
                 .verticalScroll(scrollState)
         ) {
-            if (todayWorkouts.isNotEmpty()) {
+            if (todaySchedules.isNotEmpty()) {
                 Text(
                     text = stringResource(R.string.scheduled_for_today_title),
                     Modifier.padding(bottom = 12.dp),
                     style = Typography.titleLarge
                 )
             }
-            todayWorkouts.forEach {
-                WorkoutPreviewBlock(it)
+            todaySchedules.forEach {
+                ScheduledWorkoutPreviewBlock(it.scheduledAt, it.workout)
             }
             Divider()
             Column(

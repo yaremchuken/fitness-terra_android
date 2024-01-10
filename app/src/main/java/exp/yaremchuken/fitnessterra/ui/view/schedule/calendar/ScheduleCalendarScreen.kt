@@ -186,18 +186,22 @@ val schedulesStub =
         ),
         Schedule(
             Instant.now(),
-            workoutStub
+            workoutStub,
+            false
         ),
         Schedule(
             Instant.now().plus(3, ChronoUnit.HOURS).plus(20, ChronoUnit.MINUTES),
-            workoutStub
+            workoutStub,
+            false
         ),
         Schedule(
             Instant.now().plus(1, ChronoUnit.DAYS),
-            workoutStub
+            workoutStub,
+            false
         ),
         Schedule(
             Instant.now().minus(1, ChronoUnit.DAYS),
-            workoutStub
+            workoutStub,
+            false
         ),
     )
