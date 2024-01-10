@@ -4,15 +4,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import exp.yaremchuken.fitnessterra.data.model.Exercise
+import exp.yaremchuken.fitnessterra.util.Utils.EXERCISES_FOLDER
 import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.Locale
 
 const val EXTENSION_PNG = ".png"
-
-const val EXERCISES_FOLDER = "exercise"
 
 /**
  * Load bitmap from assets folder.
@@ -41,13 +39,12 @@ fun Context.bitmaps(path: String): Map<String, Bitmap> {
 }
 
 fun Context.bitmaps(exercise: Exercise): List<Bitmap> {
-    val folder = "$EXERCISES_FOLDER/${exercise.id}"
     return try {
         assets
-            .list(folder)
-            ?.filter { it.startsWith("step_") }
+            .list(EXERCISES_FOLDER)
+            ?.filter { it.startsWith("${exercise.id}_") }
             ?.map {
-                BitmapFactory.decodeStream(assets.open("$folder/$it"))
+                BitmapFactory.decodeStream(assets.open("${EXERCISES_FOLDER}/$it"))
             }
             ?: listOf()
     } catch (e: IOException) {

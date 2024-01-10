@@ -13,6 +13,9 @@ import kotlin.time.Duration
 
 object Utils {
 
+    const val EXERCISES_FOLDER = "exercise"
+    const val PREVIEW_DEFAULT = "preview_default"
+
     val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault())
     val TIME_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:ss").withZone(ZoneId.systemDefault())
 
@@ -36,8 +39,8 @@ object Utils {
      * Get preview for current exercise, if it not exists then default preview.
      */
     fun getExercisePreview(context: Context, exercise: Exercise) = (
-            context.bitmap("exercise/${exercise.id}", "preview") ?:
-            context.bitmap("exercise", "preview_default")!!
+            context.bitmap(EXERCISES_FOLDER, "${exercise.id}_0") ?:
+            context.bitmap(EXERCISES_FOLDER, PREVIEW_DEFAULT)!!
             ).asImageBitmap()
 
     /**
