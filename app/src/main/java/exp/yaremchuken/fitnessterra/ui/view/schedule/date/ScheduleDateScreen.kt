@@ -21,29 +21,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.toInstant
-import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
 import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
+import exp.yaremchuken.fitnessterra.viewmodel.ScheduleDateViewModel
 import kotlinx.coroutines.delay
 import java.time.Instant
 import java.time.LocalDate
@@ -55,17 +53,19 @@ import kotlin.time.Duration.Companion.seconds
 
 val REFRESH_TIMER_DELAY: Duration = 5.seconds
 
-@Preview
 @Composable
 fun ScheduleDateScreen(
-    navController: NavController = NavController(LocalContext.current),
-    date: LocalDate = LocalDate.now(),
-    schedules: List<Schedule> = schedulesStub.filter { it.scheduledAt.toLocalDate() == LocalDate.now() }
+    onWorkoutDetailsClick: (id: Long) -> Unit,
+    date: LocalDate,
+    viewModel: ScheduleDateViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
-    var showEditorDialog by remember { mutableStateOf(false) }
-    var editedHour by remember { mutableIntStateOf(-1) }
-    var editedSchedule by remember { mutableStateOf<Schedule?>(null) }
+
+//    var showEditorDialog by remember { mutableStateOf(false) }
+//    var editedHour by remember { mutableIntStateOf(-1) }
+    var editedSchedule by remember { mutableStateOf<ScheduleTemplate?>(null) }
+
+    val todaySchedules = remember { mutableStateListOf<Schedule>() }
 
     var timelineOffset by remember { mutableIntStateOf(0) }
 
@@ -74,6 +74,23 @@ fun ScheduleDateScreen(
     val dateFormat =
         "${date.dayOfWeek.getDisplayName(TextStyle.SHORT, AppSettings.locale())}, ${date.format(Utils.DATE_FORMAT)}"
 
+    val existedWorkouts = viewModel.getWorkouts()
+
+    LaunchedEffect(Unit) {
+        todaySchedules.clear()
+        viewModel.getSchedules(date).collect { schedules ->
+            todaySchedules.addAll(
+                schedules.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+        viewModel.getSchedules(listOf(date.dayOfWeek)).collect { schedules ->
+            todaySchedules.addAll(
+                schedules.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+    }
+
+    // Refresher for current time red line.
     LaunchedEffect(Unit) {
         while (true) {
             val now = Instant.now().atZone(ZoneId.systemDefault())
@@ -91,11 +108,17 @@ fun ScheduleDateScreen(
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        if (showEditorDialog) {
-            Dialog(onDismissRequest = { editedHour = -1; editedSchedule = null; showEditorDialog = false; }) {
+//        if (showEditorDialog) {
+        if (editedSchedule != null) {
+            Dialog(onDismissRequest = { /*editedHour = -1; showEditorDialog = false;*/ editedSchedule = null }) {
                 ScheduleEditDialog(
-                    time = if (editedHour == -1) null else atHour(date, editedHour),
-                    schedule = editedSchedule
+//                    onWorkoutScheduled: (workout: Workout, weekDays: List<DayOfWeek>) -> Unit,
+                    onApprove = { viewModel.insertSchedule(it.toSchedule()) },
+//                    onScheduleUpdated: (weekDays: List<DayOfWeek>) -> Unit,
+                    onCancel = { viewModel.deleteSchedule(it.toSchedule()); editedSchedule = null },
+                    existedWorkouts = existedWorkouts,
+//                    onTime = if (editedHour == -1) null else atHour(date, editedHour),
+                    initialTemplate = editedSchedule!!
                 )
             }
         }
@@ -132,9 +155,13 @@ fun ScheduleDateScreen(
                 for (i in 0..23) {
                     HourBlockEntry(
                         {
-                            if (getScheduledAtHour(schedules, i) == null) editedHour = i
-                            else editedSchedule = getScheduledAtHour(schedules, i);
-                            showEditorDialog = true
+                            editedSchedule =
+                            if (getScheduledAtHour(todaySchedules, i) == null) ScheduleTemplate(atHour(date, i))
+                            else ScheduleTemplate.toTemplate(getScheduledAtHour(todaySchedules, i)!!)
+//                            if (getScheduledAtHour(todaySchedules, i) == null && getScheduledAtHour(weeklySchedules, i) == null) editedHour = i
+//                            else if (getScheduledAtHour(todaySchedules, i) != null) editedSchedule = getScheduledAtHour(todaySchedules, i)
+//                            else editedWeeklySchedule = getScheduledAtHour(weeklySchedules, i);
+//                            showEditorDialog = true
                         }, i)
                 }
             }
@@ -143,8 +170,12 @@ fun ScheduleDateScreen(
                     .fillMaxSize()
                     .padding(start = 64.dp, end = 8.dp)
             ) {
-                schedules.forEach {
-                    ScheduledWorkoutBlockView({ editedSchedule = it; showEditorDialog = true }, it)
+                todaySchedules.forEach {
+                    ScheduledWorkoutBlockView(
+                        { editedSchedule = ScheduleTemplate.toTemplate(it) },
+                        it.scheduledAt,
+                        it.workout
+                    )
                 }
             }
             Box(

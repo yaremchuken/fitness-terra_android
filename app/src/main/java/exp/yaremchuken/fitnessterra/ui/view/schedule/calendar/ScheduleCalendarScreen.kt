@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,55 +24,53 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toLocalDate
-import exp.yaremchuken.fitnessterra.ui.route.Screen
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
+import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel
+import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel.Companion.DAYS_IN_WEEK
+import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel.Companion.WEEKS_IN_CALENDAR
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatter.ISO_DATE
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 
-private const val DAYS_IN_WEEK = 7
+val MONTH_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
 
-// Calendar should show 6 nearest weeks
-private const val WEEKS_IN_CALENDAR = 6
-
-private val MONTH_FORMATTER = DateTimeFormatter.ofPattern("MMM yyyy")
-
-@Preview
 @Composable
 fun ScheduleCalendarScreen(
-    navController: NavController = NavController(LocalContext.current),
-    schedules: List<Schedule> = schedulesStub
+    gotoCalendarDate: (date: LocalDate) -> Unit,
+    viewModel: ScheduleCalendarViewModel = hiltViewModel()
 ) {
     var yearMonth by remember { mutableStateOf(YearMonth.now()) }
+    val periodSchedules = remember { mutableStateListOf<Schedule>() }
+
+    val dates = viewModel.getDatesForMonth(yearMonth)
+
+    LaunchedEffect(Unit) {
+        periodSchedules.clear()
+        viewModel.getInPeriod(dates[0], dates[dates.size-1]).collect { schedules ->
+            periodSchedules.addAll(
+                schedules.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+    }
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val calendarDateWidth = ((screenWidth / DAYS_IN_WEEK).value - 8).dp
-
-    val firstDay = yearMonth.atDay(1)
-    val firstDayOffset = -firstDay.dayOfWeek.value + 1
-    val dates: MutableList<LocalDate> = mutableListOf()
-    for (i in firstDayOffset until (DAYS_IN_WEEK * WEEKS_IN_CALENDAR - firstDayOffset)) {
-        dates.add(firstDay.plusDays(i.toLong()))
-    }
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -160,12 +160,11 @@ fun ScheduleCalendarScreen(
                         for (j in 0 until DAYS_IN_WEEK) {
                             val onDate = dates[i * DAYS_IN_WEEK + j]
                             ScheduleCalendarDateView(
-                                onClick = { navController
-                                    .navigate("${Screen.SCHEDULE_DATE_SCREEN.name}/${onDate.format(ISO_DATE)}") },
+                                onClick = { gotoCalendarDate(onDate) },
                                 width = calendarDateWidth,
                                 date = onDate,
                                 month = yearMonth,
-                                scheduled = schedules.filter { schedule ->
+                                scheduled = periodSchedules.filter { schedule ->
                                     schedule.scheduledAt.toLocalDate() == onDate
                                 }
                             )
@@ -180,28 +179,33 @@ fun ScheduleCalendarScreen(
 val schedulesStub =
     listOf(
         Schedule(
+            0,
             Instant.now().minus(3, ChronoUnit.DAYS),
             workoutStub,
-            true
+            listOf()
         ),
         Schedule(
+            1,
             Instant.now(),
             workoutStub,
-            false
+            listOf(DayOfWeek.MONDAY)
         ),
         Schedule(
+            2,
             Instant.now().plus(3, ChronoUnit.HOURS).plus(20, ChronoUnit.MINUTES),
             workoutStub,
-            false
+            listOf(DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY)
         ),
         Schedule(
+            3,
             Instant.now().plus(1, ChronoUnit.DAYS),
             workoutStub,
-            false
+            listOf()
         ),
         Schedule(
+            4,
             Instant.now().minus(1, ChronoUnit.DAYS),
             workoutStub,
-            false
+            listOf()
         ),
     )

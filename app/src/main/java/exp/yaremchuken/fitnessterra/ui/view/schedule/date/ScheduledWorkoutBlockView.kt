@@ -17,24 +17,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.schedulesStub
 import exp.yaremchuken.fitnessterra.util.Utils
+import java.time.Instant
 
-@Preview
 @Composable
 fun ScheduledWorkoutBlockView(
     onClick: () -> Unit = {},
-    schedule: Schedule = schedulesStub[3]
+    scheduledAt: Instant,
+    workout: Workout
 ) {
     Row(
         Modifier
             .height(HOUR_BLOCK_HEIGHT)
             .fillMaxWidth()
-            .offset(y = HOUR_BLOCK_HEIGHT * schedule.scheduledAt.getHour() + 10.dp)
+            .offset(y = HOUR_BLOCK_HEIGHT * scheduledAt.getHour() + 10.dp)
             .clickable { onClick() }
             .background(
                 color = Color.Cyan,
@@ -54,11 +54,11 @@ fun ScheduledWorkoutBlockView(
             Modifier.padding(start = 8.dp, top = 6.dp, bottom = 2.dp)
         ) {
             Text(
-                text = Utils.TIME_FORMAT.format(schedule.scheduledAt) + " • " +
-                        Utils.formatToTime(schedule.workout.totalDuration())
+                text = Utils.TIME_FORMAT.format(scheduledAt) + " • " +
+                        Utils.formatToTime(workout.totalDuration())
             )
             Text(
-                text = schedule.workout.title,
+                text = workout.title,
                 style = Typography.titleMedium
             )
         }

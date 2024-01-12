@@ -24,27 +24,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Schedule
-import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
-import exp.yaremchuken.fitnessterra.ui.route.Screen
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.viewmodel.HomeViewModel
-import java.time.LocalDate
 
-@Preview
 @Composable
 fun HomeScreen(
-    navController: NavController = NavController(LocalContext.current),
+    gotoCalendar: () -> Unit,
+    gotoWorkout: (id: Long) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -52,11 +47,10 @@ fun HomeScreen(
 
     LaunchedEffect(Unit) {
         todaySchedules.clear()
-        viewModel.getAllSchedules().collect {
-            val filtered = it
-                .map { e -> viewModel.fromEntity(e) }
-                .filter { s -> !s.completed && s.scheduledAt.toLocalDate() == LocalDate.now()}
-            todaySchedules.addAll(filtered)
+        viewModel.getTodaySchedules().collect { schedules ->
+            todaySchedules.addAll(
+                schedules.map { e -> viewModel.fromEntity(e) }
+            )
         }
     }
 
@@ -76,19 +70,26 @@ fun HomeScreen(
                     Modifier.padding(bottom = 12.dp),
                     style = Typography.titleLarge
                 )
+            } else {
+                Text(
+                    text = stringResource(R.string.no_schedules_today_title),
+                    Modifier.padding(bottom = 12.dp),
+                    style = Typography.titleLarge
+                )
             }
             todaySchedules.forEach {
-                ScheduledWorkoutPreviewBlock(it.scheduledAt, it.workout)
+                ScheduledWorkoutPreviewBlock(
+                    { gotoWorkout(it.workout.id) },
+                    it.scheduledAt,
+                    it.workout
+                )
             }
             Divider()
             Column(
                 Modifier.padding(vertical = 12.dp)
             ) {
-                CalendarLinkBlock(onClick = {
-                    navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name)
-                })
+                CalendarLinkBlock(onClick = { gotoCalendar() })
             }
-            Divider()
         }
     }
 }

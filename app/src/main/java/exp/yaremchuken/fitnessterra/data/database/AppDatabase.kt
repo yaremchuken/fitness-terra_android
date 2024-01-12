@@ -7,8 +7,10 @@ import exp.yaremchuken.fitnessterra.data.dao.ScheduleDao
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
 
 @Database(
-    version = 1,
-    entities = [ScheduleEntity::class]
+    version = 4,
+    entities = [
+        ScheduleEntity::class
+    ]
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {

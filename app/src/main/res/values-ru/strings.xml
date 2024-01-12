@@ -24,4 +24,5 @@
     <string name="continue_btn_title">продолжить</string>
     <string name="workout_perform_next_is">Далее</string>
     <string name="from">из</string>
+    <string name="no_schedules_today_title">На сегодня ничего не запланированно</string>
 </resources>

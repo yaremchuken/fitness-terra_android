@@ -17,6 +17,9 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,8 +28,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
@@ -38,22 +41,24 @@ import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.exercise.exerciseBackStub
 import exp.yaremchuken.fitnessterra.ui.view.exercise.exerciseBicepsStub
 import exp.yaremchuken.fitnessterra.util.Utils
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutDetailsViewModel
 import kotlin.time.Duration.Companion.seconds
 
-@Preview
 @Composable
-fun WorkoutDetailView(
-    workout: Workout = workoutStub,
-    showExerciseDetails: (exercise: Exercise) -> Unit = {},
-    beginWorkout: () -> Unit = {}
+fun WorkoutDetailsScreen(
+    showExerciseDetails: (exercise: Exercise) -> Unit,
+    beginWorkout: () -> Unit,
+    workoutId: Long,
+    viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val workout by remember { mutableStateOf(viewModel.getWorkout(workoutId)) }
 
-    val workoutPreview = Utils.getWorkoutPreview(LocalContext.current, workout)
+    val workoutPreview = viewModel.getPreview(workout!!, LocalContext.current)
 
     val workoutStats =
-        "${Utils.formatToTime(workout.totalDuration())} • " +
-        "${workout.sections.sumOf { it.sets.size }} ${stringResource(id = R.string.exercises_count_title)}"
+        "${Utils.formatToTime(workout!!.totalDuration())} • " +
+        "${workout!!.sections.sumOf { it.sets.size }} ${stringResource(id = R.string.exercises_count_title)}"
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -89,7 +94,7 @@ fun WorkoutDetailView(
             Modifier.weight(4F)
         ) {
             Text(
-                text = workout.title,
+                text = workout!!.title,
                 Modifier.padding(top = 12.dp, start = 20.dp),
                 style = Typography.titleLarge,
                 fontWeight = FontWeight.Bold
@@ -106,7 +111,7 @@ fun WorkoutDetailView(
                     .verticalScroll(scrollState)
                     .padding(horizontal = 20.dp)
             ) {
-                workout.sections.forEach { section ->
+                workout!!.sections.forEach { section ->
                     Text(
                         text = section.title,
                         Modifier.padding(top = 12.dp),

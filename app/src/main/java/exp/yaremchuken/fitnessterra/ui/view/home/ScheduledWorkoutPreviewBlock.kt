@@ -3,6 +3,7 @@ package exp.yaremchuken.fitnessterra.ui.view.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -24,22 +25,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.Instant
 
-@Preview
 @Composable
 fun ScheduledWorkoutPreviewBlock(
-    scheduledAt: Instant = Instant.now(),
-    workout: Workout = workoutStub
+    onClick: () -> Unit,
+    scheduledAt: Instant,
+    workout: Workout
 ) {
     val preview = Utils.getWorkoutPreview(LocalContext.current, workout)
 
@@ -56,6 +55,7 @@ fun ScheduledWorkoutPreviewBlock(
                 color = AppColor.LightestGray,
                 shape = UIConstants.ROUNDED_CORNER
             )
+            .clickable { onClick() }
     ) {
         Row(
             Modifier.height(IntrinsicSize.Min),

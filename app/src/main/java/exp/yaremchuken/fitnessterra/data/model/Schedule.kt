@@ -1,13 +1,15 @@
 package exp.yaremchuken.fitnessterra.data.model
 
+import java.time.DayOfWeek
 import java.time.Instant
 
 /**
  * Schedule for workout to perform.
- * By default workout takes 30-minute slot at calendar.
- * In current state only on workout can be set to specified time period.
+ * By default workout takes 30-minutes slot at calendar.
+ * In current state only one workout can be set to specified time period.
  */
 data class Schedule(
+    val id: Long?,
     /**
      * Date and time on which workout is scheduled.
      */
@@ -19,7 +21,7 @@ data class Schedule(
     val workout: Workout,
 
     /**
-     * Mark scheduled workout as performed.
+     * Days of week on which this workout must be performed repeatably.
      */
-    val completed: Boolean
+    val weekdays: List<DayOfWeek>
 )
