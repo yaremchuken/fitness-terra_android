@@ -11,9 +11,9 @@ import java.time.LocalDate
 class ScheduleRepository(
     private val dao: ScheduleDao
 ) {
-    fun insert(schedule: Schedule) = dao.insert(toEntity(schedule))
+    suspend fun insert(schedule: Schedule) = dao.insert(toEntity(schedule))
 
-    fun delete(schedule: Schedule) = dao.delete(toEntity(schedule))
+    suspend fun delete(schedule: Schedule) = dao.delete(toEntity(schedule))
 
     fun getOnDate(date: LocalDate) =
         dao.getInPeriod(

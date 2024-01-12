@@ -24,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -53,20 +54,15 @@ fun ScheduleEditDialog(
     onApprove: (template: ScheduleTemplate) -> Unit,
     onCancel: (template: ScheduleTemplate) -> Unit,
     existedWorkouts: List<Workout>,
-//    onTime: Instant?,
-    initialTemplate: ScheduleTemplate
+    template: ScheduleTemplate
 ) {
     val scrollState = rememberScrollState()
 
-//    var chosenWorkout by remember { mutableStateOf<Workout?>(template.workout) }
+    var chosenWorkout by remember { mutableStateOf(template.workout) }
     var cancelPressed by remember { mutableStateOf(false) }
-    var template by remember { mutableStateOf(initialTemplate.copy()) }
+    val weekdays = remember { mutableStateListOf<DayOfWeek>() }
 
-//    val weekdays = remember { mutableStateListOf<DayOfWeek>() }
-
-//    if (schedule != null) {
-//        weekdays.addAll(schedule.weekdays)
-//    }
+    weekdays.addAll(template.weekdays)
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -135,12 +131,9 @@ fun ScheduleEditDialog(
                         Modifier
                             .weight(1F)
                             .padding(horizontal = 2.dp)
-                            .clickable {
-                                if (template.weekdays.contains(it)) template.weekdays.remove(it)
-                                else template.weekdays.add(it)
-                            }
+                            .clickable { if (weekdays.contains(it)) weekdays.remove(it) else weekdays.add(it) }
                             .background(
-                                color = if (template.weekdays.contains(it)) Color.Green else Color.Transparent,
+                                color = if (weekdays.contains(it)) Color.Green else Color.Transparent,
                                 shape = UIConstants.ROUNDED_CORNER
                             )
                             .border(
@@ -174,48 +167,12 @@ fun ScheduleEditDialog(
                         Spacer(Modifier.padding(vertical = 2.dp))
                     }
                     WorkoutSelectableRowView(
-                        { template.workout = workout },
-                        selected = template.workout == workout,
+                        { chosenWorkout = workout },
+                        selected = chosenWorkout == workout,
                         workout = workout
                     )
                 }
             }
-
-//            if (template.id == null) {
-//                Column(
-//                    Modifier
-//                        .fillMaxWidth()
-//                        .verticalScroll(scrollState)
-//                ) {
-//                    existedWorkouts.forEachIndexed { index, workout ->
-//                        if (index != 0) {
-//                            Spacer(Modifier.padding(vertical = 2.dp))
-//                        }
-//                        WorkoutSelectableRowView(
-//                            { chosenWorkout = workout },
-//                            selected = chosenWorkout == workout,
-//                            workout = workout
-//                        )
-//                    }
-//                }
-//            } else {
-//                Text(
-//                    text = schedule.workout.title,
-//                    style = Typography.titleLarge
-//                )
-//                Row(
-//                    Modifier
-//                        .fillMaxWidth()
-//                        .padding(top = 8.dp),
-//                    horizontalArrangement = Arrangement.Center
-//                ) {
-//                    Image(
-//                        bitmap = Utils.getWorkoutPreview(LocalContext.current, schedule.workout),
-//                        contentDescription = null,
-//                        contentScale = ContentScale.FillWidth
-//                    )
-//                }
-//            }
         }
         if (cancelPressed) {
             Column(
@@ -247,7 +204,7 @@ fun ScheduleEditDialog(
                         )
                     }
                     Button(
-                        onClick = { onCancel(template) },
+                        onClick = { onCancel(template); onBackPressedDispatcher?.onBackPressed() },
                         Modifier
                             .weight(1F)
                             .padding(vertical = 10.dp, horizontal = 12.dp),
@@ -264,7 +221,14 @@ fun ScheduleEditDialog(
         } else {
             if (template.id == null) {
                 Button(
-                    onClick = { onApprove(template) },
+                    onClick = {
+                                onApprove(
+                                    ScheduleTemplate(template.scheduledAt)
+                                        .withWorkout(chosenWorkout!!)
+                                        .withWeekdays(weekdays)
+                                );
+                                onBackPressedDispatcher?.onBackPressed()
+                              },
                     Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp, horizontal = 12.dp),
@@ -276,9 +240,9 @@ fun ScheduleEditDialog(
                     )
                 }
             } else {
-                if (same(initialTemplate.weekdays, template.weekdays)) {
+                if (template.workout?.id == chosenWorkout?.id && same(weekdays, template.weekdays)) {
                     Button(
-                        onClick = { onCancel(template) },
+                        onClick = { cancelPressed = true },
                         Modifier
                             .fillMaxWidth()
                             .padding(vertical = 10.dp, horizontal = 12.dp),
@@ -292,7 +256,15 @@ fun ScheduleEditDialog(
                     }
                 } else {
                     Button(
-                        onClick = { onApprove(template) },
+                        onClick = {
+                                    onApprove(
+                                        ScheduleTemplate(template.scheduledAt)
+                                            .withId(template.id!!)
+                                            .withWorkout(chosenWorkout!!)
+                                            .withWeekdays(weekdays)
+                                    );
+                                    onBackPressedDispatcher?.onBackPressed()
+                                  },
                         Modifier
                             .fillMaxWidth()
                             .padding(vertical = 10.dp, horizontal = 12.dp),

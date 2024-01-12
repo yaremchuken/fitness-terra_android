@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(entity: ScheduleEntity)
+    suspend fun insert(entity: ScheduleEntity)
 
     @Delete
-    fun delete(entity: ScheduleEntity)
+    suspend fun delete(entity: ScheduleEntity)
 
     @Query("select * from schedule where scheduled_at >= :fromMillis and scheduled_at < :toMillis")
     fun getInPeriod(fromMillis: Long, toMillis: Long): Flow<List<ScheduleEntity>>

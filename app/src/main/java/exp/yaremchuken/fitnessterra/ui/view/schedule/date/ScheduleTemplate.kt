@@ -24,6 +24,21 @@ class ScheduleTemplate(
     var workout: Workout? = null
     var weekdays: MutableList<DayOfWeek> = mutableListOf()
 
+    fun withId(id: Long): ScheduleTemplate {
+        this.id = id
+        return this
+    }
+
+    fun withWorkout(workout: Workout): ScheduleTemplate {
+        this.workout = workout
+        return this
+    }
+
+    fun withWeekdays(weekdays: MutableList<DayOfWeek>): ScheduleTemplate {
+        this.weekdays = weekdays
+        return this
+    }
+
     fun toSchedule() = Schedule(id, scheduledAt, workout!!, weekdays)
 
     fun copy(): ScheduleTemplate {
