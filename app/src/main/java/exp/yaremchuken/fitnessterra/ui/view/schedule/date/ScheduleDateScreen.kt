@@ -113,6 +113,7 @@ fun ScheduleDateScreen(
                 ScheduleEditDialog(
                     onApprove = { viewModel.insertSchedule(it.toSchedule()) },
                     onCancel = { viewModel.deleteSchedule(it.toSchedule()); editedSchedule = null },
+                    onInfo = { onWorkoutDetailsClick(it) },
                     existedWorkouts = existedWorkouts,
                     template = editedSchedule!!
                 )

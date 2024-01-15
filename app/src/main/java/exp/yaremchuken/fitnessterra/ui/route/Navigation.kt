@@ -6,7 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import exp.yaremchuken.fitnessterra.ui.view.exercise.ExerciseDetailsScreen
 import exp.yaremchuken.fitnessterra.ui.view.home.HomeScreen
+import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.ScheduleCalendarScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.date.ScheduleDateScreen
 import exp.yaremchuken.fitnessterra.ui.view.workout.WorkoutDetailsScreen
@@ -19,13 +21,13 @@ fun Navigation() {
     NavHost(navController = navController, startDestination = Screen.HOME_SCREEN.name) {
         composable(route = Screen.HOME_SCREEN.name) {
             HomeScreen(
-                { navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name) },
-                { navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$it") }
+                gotoCalendar = { navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name) },
+                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") }
             )
         }
         composable(route = Screen.SCHEDULE_CALENDAR_SCREEN.name) {
             ScheduleCalendarScreen(
-                { navController.navigate("${Screen.SCHEDULE_DATE_SCREEN.name}/${it.format(ISO_DATE)}") }
+                gotoCalendarDate = { date -> navController.navigate("${Screen.SCHEDULE_DATE_SCREEN.name}/${date.format(ISO_DATE)}") }
             )
         }
         composable(
@@ -38,7 +40,7 @@ fun Navigation() {
             )
         ) {
             ScheduleDateScreen(
-                { throw NotImplementedError() },
+                onWorkoutDetailsClick = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") },
                 date = LocalDate.parse(it.arguments!!.getString("date"))
             )
         }
@@ -52,10 +54,32 @@ fun Navigation() {
             )
         ) {
             WorkoutDetailsScreen(
-                showExerciseDetails = { throw NotImplementedError() },
-                beginWorkout = { throw NotImplementedError() },
+                showExerciseDetails = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
+                beginWorkout = { id -> navController.navigate("${Screen.WORKOUT_PERFORM_SCREEN}/$id") },
                 workoutId = it.arguments!!.getInt("id").toLong()
             )
+        }
+        composable(
+            route = Screen.EXERCISE_DETAILS_SCREEN.name + "/{id}",
+            arguments = listOf(
+                navArgument(name = "id") {
+                    type = NavType.IntType
+                    nullable = false
+                }
+            )
+        ) {
+            ExerciseDetailsScreen(it.arguments!!.getInt("id").toLong())
+        }
+        composable(
+            route = Screen.WORKOUT_PERFORM_SCREEN.name + "/{id}",
+            arguments = listOf(
+                navArgument(name = "id") {
+                    type = NavType.IntType
+                    nullable = false
+                }
+            )
+        ) {
+            WorkoutPerformScreen(it.arguments!!.getInt("id").toLong())
         }
     }
 }

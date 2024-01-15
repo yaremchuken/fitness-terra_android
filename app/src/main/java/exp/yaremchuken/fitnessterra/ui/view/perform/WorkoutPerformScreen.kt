@@ -16,23 +16,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
-import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.COMPLETED
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.GET_READY
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.PERFORM
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.RECOVERY
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutPerformViewModel
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-@Preview
 @Composable
-fun WorkoutPerformView(
-    workout: Workout = workoutStub
+fun WorkoutPerformScreen(
+    workoutId: Long,
+    viewModel: WorkoutPerformViewModel = hiltViewModel()
 ) {
     var state by remember { mutableStateOf(PERFORM) }
 
@@ -40,6 +39,7 @@ fun WorkoutPerformView(
     var setIdx by remember { mutableIntStateOf(0) }
     var repeatIdx by remember { mutableIntStateOf(0) }
 
+    val workout = viewModel.getWorkout(workoutId)!!
     var section = workout.sections[sectionIdx]
     var exerciseSet = section.sets[setIdx]
 

@@ -53,6 +53,7 @@ import java.time.format.TextStyle
 fun ScheduleEditDialog(
     onApprove: (template: ScheduleTemplate) -> Unit,
     onCancel: (template: ScheduleTemplate) -> Unit,
+    onInfo: (workoutId: Long) -> Unit,
     existedWorkouts: List<Workout>,
     template: ScheduleTemplate
 ) {
@@ -168,6 +169,7 @@ fun ScheduleEditDialog(
                     }
                     WorkoutSelectableRowView(
                         { chosenWorkout = workout },
+                        { onBackPressedDispatcher?.onBackPressed(); onInfo(workout.id) },
                         selected = chosenWorkout == workout,
                         workout = workout
                     )

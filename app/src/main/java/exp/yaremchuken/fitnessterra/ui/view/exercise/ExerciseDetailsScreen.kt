@@ -27,24 +27,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.bitmap
 import exp.yaremchuken.fitnessterra.data.model.EquipmentType
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.MuscleGroupType
+import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.uppercaseFirstChar
-import java.util.Locale
+import exp.yaremchuken.fitnessterra.viewmodel.ExerciseDetailsViewModel
 
-@Preview
 @Composable
-fun ExerciseDetailView(
-    exercise: Exercise = exerciseBackStub()
+fun ExerciseDetailsScreen(
+    id: Long,
+    viewModel: ExerciseDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val exercise = viewModel.getExercise(id)!!
 
     val equipment = LocalContext.current.bitmap("equipment", exercise.equipment?.name)?.asImageBitmap()
     val muscleGroup = LocalContext.current.bitmap("muscle_group", exercise.muscleGroup?.name)?.asImageBitmap()
@@ -113,7 +115,7 @@ fun ExerciseDetailView(
                             ) {
                                 Text(
                                     text = stringResource(id = R.string.muscle_group_title),
-                                    style = Typography.titleMedium,
+                                    style = AppType.titleMedium,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
@@ -123,7 +125,7 @@ fun ExerciseDetailView(
                                 Spacer(modifier = Modifier.padding(top = 8.dp))
                                 Text(
                                     text = stringResource(id = R.string.involved_muscles_title),
-                                    style = Typography.titleMedium,
+                                    style = AppType.titleMedium,
                                     fontWeight = FontWeight.Bold
                                 )
                                 exercise.muscles.forEach {
@@ -143,7 +145,7 @@ fun ExerciseDetailView(
                             Text(
                                 text = stringResource(id = R.string.equipment_title),
                                 Modifier.padding(bottom = 8.dp),
-                                style = Typography.titleMedium,
+                                style = AppType.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
                             Column(
@@ -166,7 +168,7 @@ fun ExerciseDetailView(
             Text(
                 text = stringResource(id = R.string.how_to_do_it),
                 Modifier.padding(vertical = 8.dp),
-                style = Typography.titleMedium,
+                style = AppType.titleMedium,
                 fontWeight = FontWeight.Bold
             )
             Column {
@@ -183,7 +185,7 @@ fun ExerciseDetailView(
                     Text(
                         text = stringResource(id = R.string.advises),
                         Modifier.padding(bottom = 12.dp),
-                        style = Typography.titleMedium,
+                        style = AppType.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     exercise.advises.forEach {
@@ -203,7 +205,7 @@ fun ExerciseDetailView(
                 Text(
                     text = stringResource(id = R.string.safety_precautions_title),
                     Modifier.padding(top = 8.dp, bottom = 12.dp),
-                    style = Typography.titleMedium,
+                    style = AppType.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 exercise.warnings.forEach {

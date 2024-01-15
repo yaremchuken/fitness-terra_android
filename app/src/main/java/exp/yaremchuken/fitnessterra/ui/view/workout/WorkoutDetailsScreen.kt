@@ -31,12 +31,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.data.model.WorkoutType
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.exercise.exerciseBackStub
 import exp.yaremchuken.fitnessterra.ui.view.exercise.exerciseBicepsStub
@@ -46,8 +46,8 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun WorkoutDetailsScreen(
-    showExerciseDetails: (exercise: Exercise) -> Unit,
-    beginWorkout: () -> Unit,
+    showExerciseDetails: (exerciseId: Long) -> Unit,
+    beginWorkout: (workoutId: Long) -> Unit,
     workoutId: Long,
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ) {
@@ -102,7 +102,7 @@ fun WorkoutDetailsScreen(
             Text(
                 text = workoutStats,
                 Modifier.padding(vertical = 6.dp, horizontal = 20.dp),
-                style = Typography.titleMedium
+                style = AppType.titleMedium
             )
             Divider()
             Column(
@@ -118,7 +118,7 @@ fun WorkoutDetailsScreen(
                         style = Typography.titleLarge
                     )
                     section.sets.forEach {
-                        ExerciseSetEntryView({ showExerciseDetails(it.exercise) }, it)
+                        ExerciseSetEntryView({ showExerciseDetails(it.exercise.id) }, it)
                     }
                 }
             }
@@ -130,7 +130,7 @@ fun WorkoutDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { beginWorkout() },
+                onClick = { beginWorkout(workoutId) },
                 Modifier
                     .fillMaxWidth()
                     .padding(vertical = 10.dp, horizontal = 50.dp),

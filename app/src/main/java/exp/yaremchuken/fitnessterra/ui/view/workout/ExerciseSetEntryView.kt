@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.util.Utils
@@ -67,7 +68,7 @@ fun ExerciseSetEntryView(
                 ) {
                     Text(
                         text = exerciseSet.exercise.title,
-                        style = Typography.titleMedium
+                        style = AppType.titleMedium
                     )
                     Row {
                         Image(

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.Instant
@@ -59,7 +60,7 @@ fun ScheduledWorkoutBlockView(
             )
             Text(
                 text = workout.title,
-                style = Typography.titleMedium
+                style = AppType.titleMedium
             )
         }
     }
