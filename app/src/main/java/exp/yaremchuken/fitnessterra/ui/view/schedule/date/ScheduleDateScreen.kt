@@ -24,10 +24,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -41,6 +43,7 @@ import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleDateViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -57,6 +60,7 @@ fun ScheduleDateScreen(
     viewModel: ScheduleDateViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
 
     var editedSchedule by remember { mutableStateOf<ScheduleTemplate?>(null) }
 
@@ -72,13 +76,8 @@ fun ScheduleDateScreen(
     val existedWorkouts = viewModel.getWorkouts()
 
     LaunchedEffect(Unit) {
-        todaySchedules.clear()
         viewModel.getSchedules(date).collect { schedules ->
-            todaySchedules.addAll(
-                schedules.map { e -> viewModel.fromEntity(e) }
-            )
-        }
-        viewModel.getSchedules(listOf(date.dayOfWeek)).collect { schedules ->
+            todaySchedules.clear()
             todaySchedules.addAll(
                 schedules.map { e -> viewModel.fromEntity(e) }
             )
@@ -96,6 +95,12 @@ fun ScheduleDateScreen(
 
             delay(REFRESH_TIMER_DELAY)
         }
+    }
+
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp
+    LaunchedEffect(Unit) {
+        scope.launch { scrollState.scrollTo(timelineOffset + screenHeight/2) }
     }
 
     Column(

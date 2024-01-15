@@ -38,6 +38,19 @@ class ScheduleRepository(
             sun = weekdays.contains(DayOfWeek.SUNDAY)
         )
 
+    fun getAllInPeriod(from: LocalDate, to: LocalDate, weekdays: List<DayOfWeek>) =
+        dao.getAllInPeriod(
+            from.toInstant().toEpochMilli(),
+            to.plusDays(1).toInstant().toEpochMilli(),
+            mon = weekdays.contains(DayOfWeek.MONDAY),
+            tue = weekdays.contains(DayOfWeek.TUESDAY),
+            wed = weekdays.contains(DayOfWeek.WEDNESDAY),
+            thu = weekdays.contains(DayOfWeek.THURSDAY),
+            fri = weekdays.contains(DayOfWeek.FRIDAY),
+            sat = weekdays.contains(DayOfWeek.SATURDAY),
+            sun = weekdays.contains(DayOfWeek.SUNDAY)
+        )
+
     private fun toEntity(schedule: Schedule) =
         ScheduleEntity(
             id = schedule.id,

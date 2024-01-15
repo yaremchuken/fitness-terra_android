@@ -60,8 +60,8 @@ fun ScheduleCalendarScreen(
     val dates = viewModel.getDatesForMonth(yearMonth)
 
     LaunchedEffect(Unit) {
-        periodSchedules.clear()
         viewModel.getInPeriod(dates[0], dates[dates.size-1]).collect { schedules ->
+            periodSchedules.clear()
             periodSchedules.addAll(
                 schedules.map { e -> viewModel.fromEntity(e) }
             )
@@ -165,7 +165,9 @@ fun ScheduleCalendarScreen(
                                 date = onDate,
                                 month = yearMonth,
                                 scheduled = periodSchedules.filter { schedule ->
-                                    schedule.scheduledAt.toLocalDate() == onDate
+                                    schedule.scheduledAt.toLocalDate() == onDate ||
+                                            (onDate >= LocalDate.now() && schedule.weekdays.contains(onDate.dayOfWeek)
+                                    )
                                 }
                             )
                         }

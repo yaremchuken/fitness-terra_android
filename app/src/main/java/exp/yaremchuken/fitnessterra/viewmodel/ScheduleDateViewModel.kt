@@ -12,7 +12,6 @@ import exp.yaremchuken.fitnessterra.toInstant
 import exp.yaremchuken.fitnessterra.ui.view.schedule.date.ScheduleTemplate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
@@ -22,9 +21,7 @@ class ScheduleDateViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val workoutRepository: WorkoutRepository
 ): ViewModel() {
-    fun getSchedules(onDate: LocalDate) = scheduleRepository.getOnDate(onDate)
-
-    fun getSchedules(weekdays: List<DayOfWeek>) = scheduleRepository.getWeekly(weekdays)
+    fun getSchedules(onDate: LocalDate) = scheduleRepository.getAllInPeriod(onDate, onDate, listOf(onDate.dayOfWeek))
 
     fun insertSchedule(schedule: Schedule) {
         viewModelScope.launch (Dispatchers.IO){ scheduleRepository.insert(schedule) }
