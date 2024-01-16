@@ -2,12 +2,13 @@ package exp.yaremchuken.fitnessterra.ui.view.perform
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -16,9 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
+import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.COMPLETED
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.GET_READY
@@ -26,14 +32,14 @@ import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.PERFORM
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.RECOVERY
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutPerformViewModel
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun WorkoutPerformScreen(
+    goHome: () -> Unit,
     workoutId: Long,
     viewModel: WorkoutPerformViewModel = hiltViewModel()
 ) {
-    var state by remember { mutableStateOf(PERFORM) }
+    var state by remember { mutableStateOf(GET_READY) }
 
     var sectionIdx by remember { mutableIntStateOf(0) }
     var setIdx by remember { mutableIntStateOf(0) }
@@ -76,7 +82,9 @@ fun WorkoutPerformScreen(
                     },
                     duration = getRecoveryAfterCompleteExercise(exerciseSet, repeatIdx)
                 )
-                else -> Box { }
+                COMPLETED -> Column {
+                    Text(text = "FINISHED")
+                }
             }
         }
         Divider(Modifier.padding(all = 12.dp))
@@ -106,12 +114,21 @@ fun WorkoutPerformScreen(
                     totalRepeats = exerciseSet.repeats.size
                 )
                 RECOVERY -> NextExerciseBlock(
-                    section = section,
-                    exercise = exerciseSet.exercise,
-                    currIdx = setIdx + 1,
-                    total = exerciseSet.repeats.size + (if (exerciseSet.duration > 0.seconds) 1 else 0)
+                    viewModel.getNextExerciseDto(workout, sectionIdx, setIdx, repeatIdx)
                 )
-                else -> Box { }
+                COMPLETED -> Column {
+                    Button(
+                        onClick = { viewModel.persistHistory(workout); goHome() },
+                        shape = UIConstants.ROUNDED_CORNER
+                    ) {
+                        Text(
+                            text = stringResource(R.string.finish_title),
+                            Modifier.padding(vertical = 4.dp),
+                            style = Typography.headlineMedium,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
             }
         }
     }

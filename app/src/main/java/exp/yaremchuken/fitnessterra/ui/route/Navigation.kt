@@ -79,7 +79,10 @@ fun Navigation() {
                 }
             )
         ) {
-            WorkoutPerformScreen(it.arguments!!.getInt("id").toLong())
+            WorkoutPerformScreen(
+                goHome = { navController.navigate(Screen.HOME_SCREEN.name) },
+                it.arguments!!.getInt("id").toLong()
+            )
         }
     }
 }

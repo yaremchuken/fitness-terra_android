@@ -23,7 +23,10 @@
     <string name="skip_btn_title">skip</string>
     <string name="pause_btn_title">pause</string>
     <string name="continue_btn_title">continue</string>
-    <string name="workout_perform_next_is">Next</string>
+    <string name="workout_perform_next_is">Next block</string>
     <string name="from">from</string>
     <string name="no_schedules_today_title">Nothing scheduled for today</string>
+    <string name="set_title">Set</string>
+    <string name="repeat_title">Repeat</string>
+    <string name="finish_title">finish</string>
 </resources>
