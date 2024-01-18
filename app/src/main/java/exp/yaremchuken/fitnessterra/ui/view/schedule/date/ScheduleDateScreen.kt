@@ -37,6 +37,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
@@ -55,7 +56,7 @@ val REFRESH_TIMER_DELAY: Duration = 5.seconds
 
 @Composable
 fun ScheduleDateScreen(
-    onWorkoutDetailsClick: (id: Long) -> Unit,
+    onWorkoutDetailsClick: (workoutId: Long) -> Unit,
     date: LocalDate,
     viewModel: ScheduleDateViewModel = hiltViewModel()
 ) {
@@ -64,7 +65,8 @@ fun ScheduleDateScreen(
 
     var editedSchedule by remember { mutableStateOf<ScheduleTemplate?>(null) }
 
-    val todaySchedules = remember { mutableStateListOf<Schedule>() }
+    val schedules = remember { mutableStateListOf<Schedule>() }
+    val histories = remember { mutableStateListOf<History>() }
 
     var timelineOffset by remember { mutableIntStateOf(0) }
 
@@ -76,10 +78,19 @@ fun ScheduleDateScreen(
     val existedWorkouts = viewModel.getWorkouts()
 
     LaunchedEffect(Unit) {
-        viewModel.getSchedules(date).collect { schedules ->
-            todaySchedules.clear()
-            todaySchedules.addAll(
-                schedules.map { e -> viewModel.fromEntity(e) }
+        viewModel.getSchedules(date).collect { sch ->
+            schedules.clear()
+            schedules.addAll(
+                sch.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.getHistories(date).collect { his ->
+            histories.clear()
+            histories.addAll(
+                his.map { e -> viewModel.fromEntity(e) }
             )
         }
     }
@@ -151,7 +162,7 @@ fun ScheduleDateScreen(
             ) {
                 for (i in 0..23) {
                     HourBlockEntry(
-                        { editedSchedule = viewModel.getTemplate(todaySchedules, date, i) },
+                        { editedSchedule = viewModel.getTemplate(schedules, date, i) },
                         i
                     )
                 }
@@ -161,11 +172,20 @@ fun ScheduleDateScreen(
                     .fillMaxSize()
                     .padding(start = 64.dp, end = 8.dp)
             ) {
-                todaySchedules.forEach {
+                schedules.forEach {
                     ScheduledWorkoutBlockView(
                         { editedSchedule = ScheduleTemplate.toTemplate(it) },
                         it.scheduledAt,
-                        it.workout
+                        it.workout,
+                        false
+                    )
+                }
+                histories.forEach {
+                    ScheduledWorkoutBlockView(
+                        { onWorkoutDetailsClick(it.workout.id) },
+                        it.startedAt,
+                        it.workout,
+                        true
                     )
                 }
             }

@@ -15,5 +15,6 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
     fun getTodaySchedules() = scheduleRepository.getOnDate(LocalDate.now())
 
-    fun fromEntity(entity: ScheduleEntity) = scheduleRepository.fromEntity(entity, workoutRepository)
+    fun fromEntity(entity: ScheduleEntity) =
+        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
 }

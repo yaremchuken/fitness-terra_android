@@ -49,6 +49,8 @@ fun WorkoutPerformScreen(
     var section = workout.sections[sectionIdx]
     var exerciseSet = section.sets[setIdx]
 
+    viewModel.markStart()
+
     Column(
         Modifier
             .fillMaxSize()
@@ -104,6 +106,7 @@ fun WorkoutPerformScreen(
                             setIdx == section.sets.size-1 &&
                             repeatIdx >= exerciseSet.repeats.size-1
                         ) {
+                            viewModel.persistHistory(workout)
                             state = COMPLETED
                         } else {
                             state = RECOVERY
@@ -118,7 +121,7 @@ fun WorkoutPerformScreen(
                 )
                 COMPLETED -> Column {
                     Button(
-                        onClick = { viewModel.persistHistory(workout); goHome() },
+                        onClick = { goHome() },
                         shape = UIConstants.ROUNDED_CORNER
                     ) {
                         Text(

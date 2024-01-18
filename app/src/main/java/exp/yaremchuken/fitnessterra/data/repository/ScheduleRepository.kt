@@ -3,6 +3,7 @@ package exp.yaremchuken.fitnessterra.data.repository
 import exp.yaremchuken.fitnessterra.data.dao.ScheduleDao
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.toInstant
 import java.time.DayOfWeek
 import java.time.Instant
@@ -65,11 +66,11 @@ class ScheduleRepository(
             sunday = schedule.weekdays.contains(DayOfWeek.SUNDAY)
         )
 
-    fun fromEntity(entity: ScheduleEntity, workoutRepository: WorkoutRepository) =
+    fun fromEntity(entity: ScheduleEntity, workout: Workout) =
         Schedule(
             id = entity.id,
             scheduledAt = Instant.ofEpochMilli(entity.scheduledAt),
-            workoutRepository.getById(entity.workoutId)!!,
+            workout,
             convertWeekdays(
                 listOf(
                     entity.monday, entity.tuesday, entity.wednesday, entity.thursday,

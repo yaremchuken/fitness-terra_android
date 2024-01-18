@@ -11,6 +11,7 @@ import exp.yaremchuken.fitnessterra.data.dao.WorkoutDao
 import exp.yaremchuken.fitnessterra.data.database.AppDatabase
 import exp.yaremchuken.fitnessterra.data.datasource.YamlDatasource
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
+import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import javax.inject.Singleton
@@ -40,4 +41,8 @@ class AppModule {
     @Provides
     @Singleton
     fun scheduleRepository(appDatabase: AppDatabase) = ScheduleRepository(appDatabase.scheduleDao())
+
+    @Provides
+    @Singleton
+    fun historyRepository(appDatabase: AppDatabase) = HistoryRepository(appDatabase.historyDao())
 }

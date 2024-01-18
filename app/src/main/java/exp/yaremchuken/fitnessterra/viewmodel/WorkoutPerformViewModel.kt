@@ -1,16 +1,31 @@
 package exp.yaremchuken.fitnessterra.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import exp.yaremchuken.fitnessterra.ui.view.perform.NextExerciseDto
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
 class WorkoutPerformViewModel @Inject constructor(
-    private val workoutRepository: WorkoutRepository
+    private val workoutRepository: WorkoutRepository,
+    private val historyRepository: HistoryRepository
 ): ViewModel() {
+    private var startedAt: Instant? = null
+
+    fun markStart() {
+        if (startedAt == null) {
+            startedAt = Instant.now()
+        }
+    }
+
     fun getWorkout(id: Long) = workoutRepository.getById(id)
 
     fun getNextExerciseDto(
@@ -47,6 +62,15 @@ class WorkoutPerformViewModel @Inject constructor(
     }
 
     fun persistHistory(workout: Workout) {
-        throw NotImplementedError("Persist Workout: ${workout.id}")
+        viewModelScope.launch (Dispatchers.IO){
+            historyRepository.insert(
+                History(
+                    id = null,
+                    startedAt = startedAt!!,
+                    finishedAt = Instant.now(),
+                    workout = workout
+                )
+            )
+        }
     }
 }

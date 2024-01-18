@@ -18,11 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
+import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
@@ -38,7 +40,8 @@ fun ScheduleCalendarDateView(
     width: Dp = 45.dp,
     date: LocalDate = LocalDate.now(),
     month: YearMonth = YearMonth.now(),
-    scheduled: List<Schedule> = schedulesStub.filter { it.scheduledAt.toLocalDate() == LocalDate.now() }
+    scheduled: List<Schedule> = schedulesStub.filter { it.scheduledAt.toLocalDate() == LocalDate.now() },
+    histories: List<History> = listOf()
 ) {
     val isNotInMonth = date.isBefore(month.atDay(1)) || date.isAfter(month.atEndOfMonth())
 
@@ -96,14 +99,22 @@ fun ScheduleCalendarDateView(
                 if (scheduled.size > 1) {
                     Text(
                         text = "${scheduled.size}",
-                        Modifier
-                            .padding(all = 2.dp)
-                            .align(Alignment.Center),
+                        Modifier.align(Alignment.Center),
                         style = Typography.titleLarge,
                         fontSize = 42.sp,
                         color = Color.White
                     )
                 }
+            }
+        } else if (histories.isNotEmpty()) {
+            Box(
+                Modifier.padding(all = 6.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_finish),
+                    contentDescription = null,
+                    contentScale = ContentScale.Fit
+                )
             }
         }
     }

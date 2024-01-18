@@ -3,8 +3,10 @@ package exp.yaremchuken.fitnessterra.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import exp.yaremchuken.fitnessterra.getHour
@@ -19,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ScheduleDateViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
-    private val workoutRepository: WorkoutRepository
+    private val workoutRepository: WorkoutRepository,
+    private val historyRepository: HistoryRepository
 ): ViewModel() {
     fun getSchedules(onDate: LocalDate) = scheduleRepository.getAllInPeriod(onDate, onDate, listOf(onDate.dayOfWeek))
 
@@ -31,9 +34,15 @@ class ScheduleDateViewModel @Inject constructor(
         viewModelScope.launch (Dispatchers.IO){ scheduleRepository.delete(schedule) }
     }
 
-    fun getWorkouts() = workoutRepository.getAll()
+    fun fromEntity(entity: ScheduleEntity) =
+        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
 
-    fun fromEntity(entity: ScheduleEntity) = scheduleRepository.fromEntity(entity, workoutRepository)
+    fun getHistories(onDate: LocalDate) = historyRepository.getInPeriod(onDate, onDate)
+
+    fun fromEntity(entity: HistoryEntity) =
+        historyRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
+
+    fun getWorkouts() = workoutRepository.getAll()
 
     /**
      * Checks if a workout is already scheduled for this time.

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -55,15 +56,25 @@ fun ScheduleCalendarScreen(
     viewModel: ScheduleCalendarViewModel = hiltViewModel()
 ) {
     var yearMonth by remember { mutableStateOf(YearMonth.now()) }
-    val periodSchedules = remember { mutableStateListOf<Schedule>() }
+    val schedules = remember { mutableStateListOf<Schedule>() }
+    val histories = remember { mutableStateListOf<History>() }
 
     val dates = viewModel.getDatesForMonth(yearMonth)
 
     LaunchedEffect(Unit) {
-        viewModel.getInPeriod(dates[0], dates[dates.size-1]).collect { schedules ->
-            periodSchedules.clear()
-            periodSchedules.addAll(
-                schedules.map { e -> viewModel.fromEntity(e) }
+        viewModel.getSchedules(dates[0], dates[dates.size-1]).collect { sch ->
+            schedules.clear()
+            schedules.addAll(
+                sch.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.getHistories(dates[0], dates[dates.size-1]).collect { his ->
+            histories.clear()
+            histories.addAll(
+                his.map { e -> viewModel.fromEntity(e) }
             )
         }
     }
@@ -123,7 +134,7 @@ fun ScheduleCalendarScreen(
                     style = Typography.bodyLarge
                 )
                 IconButton(
-                    onClick = { yearMonth = yearMonth.minusMonths(1) },
+                    onClick = { yearMonth = yearMonth.plusMonths(1) },
                     Modifier
                         .padding(all = 6.dp)
                         .width(30.dp)
@@ -164,7 +175,7 @@ fun ScheduleCalendarScreen(
                                 width = calendarDateWidth,
                                 date = onDate,
                                 month = yearMonth,
-                                scheduled = periodSchedules.filter { schedule ->
+                                scheduled = schedules.filter { schedule ->
                                     schedule.scheduledAt.toLocalDate() == onDate ||
                                             (onDate >= LocalDate.now() && schedule.weekdays.contains(onDate.dayOfWeek)
                                     )
