@@ -43,11 +43,13 @@ fun WorkoutPerformRecoveryBlock(
     var pause by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        while (!pause && timer.inWholeSeconds >= 0) {
-            delay(1.seconds)
-            timer = timer.minus(1.seconds)
-            if (timer.inWholeSeconds <= 0) {
-                onFinish()
+        while (true) {
+            delay(TICK)
+            if (!pause) {
+                timer = timer.minus(TICK)
+                if (timer.inWholeSeconds <= 0) {
+                    onFinish()
+                }
             }
         }
     }
