@@ -22,10 +22,11 @@
     <string name="skip_btn_title">пропустить</string>
     <string name="pause_btn_title">пауза</string>
     <string name="continue_btn_title">продолжить</string>
-    <string name="workout_perform_next_is">Следующий блок</string>
+    <string name="workout_perform_next_is">Далее</string>
     <string name="from">из</string>
     <string name="no_schedules_today_title">На сегодня ничего не запланированно</string>
     <string name="set_title">Сет</string>
     <string name="repeat_title">Повтор</string>
     <string name="finish_title">закончить</string>
+    <string name="recently_completed_workouts_title">Последние выполненые тренировки</string>
 </resources>

@@ -18,4 +18,7 @@ interface HistoryDao {
 
     @Query("select * from history where started_at >= :fromMillis and finished_at < :toMillis")
     fun getInPeriod(fromMillis: Long, toMillis: Long): Flow<List<HistoryEntity>>
+
+    @Query("select * from history order by started_at desc limit :limit")
+    fun getLatest(limit: Long): Flow<List<HistoryEntity>>
 }

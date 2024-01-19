@@ -78,7 +78,7 @@ entities:
           -
             exerciseId: 9
             weight: 5000
-            repeats: [10, 10, 10]
+            repeats: [20, 20, 20]
             recovery: 40000
           -
             exerciseId: 10
@@ -88,7 +88,7 @@ entities:
           -
             exerciseId: 11
             weight: 5000
-            repeats: [10, 10]
+            repeats: [20, 20]
             recovery: 40000
 
   -

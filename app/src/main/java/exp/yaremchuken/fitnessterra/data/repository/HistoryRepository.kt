@@ -15,15 +15,15 @@ class HistoryRepository(
 ) {
     suspend fun insert(history: History) = dao.insert(toEntity(history))
 
-    suspend fun delete(history: History) = dao.delete(toEntity(history))
-
     fun getInPeriod(from: LocalDate, to: LocalDate) =
         dao.getInPeriod(
             from.toInstant().toEpochMilli(),
             to.plusDays(1).toInstant().toEpochMilli()
         )
 
-    fun toEntity(history: History) =
+    fun getLatest(limit: Long) = dao.getLatest(limit)
+
+    private fun toEntity(history: History) =
         HistoryEntity(
             history.id,
             history.startedAt.toEpochMilli(),

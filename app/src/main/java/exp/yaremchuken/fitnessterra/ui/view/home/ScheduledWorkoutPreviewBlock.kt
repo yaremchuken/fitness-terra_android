@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,8 @@ import java.time.Instant
 fun ScheduledWorkoutPreviewBlock(
     onClick: () -> Unit,
     scheduledAt: Instant,
-    workout: Workout
+    workout: Workout,
+    short: Boolean = false
 ) {
     val preview = Utils.getWorkoutPreview(LocalContext.current, workout)
 
@@ -90,7 +92,15 @@ fun ScheduledWorkoutPreviewBlock(
         }
         Divider()
         Row(
-            Modifier
+            if (short)
+                Modifier
+                    .fillMaxWidth()
+                    .height(160.dp)
+                    .background(
+                        color = Color.LightGray,
+                        shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
+                    )
+            else Modifier
                 .fillMaxWidth()
                 .background(
                     color = Color.LightGray,

@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -44,12 +45,22 @@ fun HomeScreen(
 ) {
     val scrollState = rememberScrollState()
     val todaySchedules = remember { mutableStateListOf<Schedule>() }
+    val latestHistory = remember { mutableStateListOf<History>() }
 
     LaunchedEffect(Unit) {
-        todaySchedules.clear()
         viewModel.getTodaySchedules().collect { schedules ->
+            todaySchedules.clear()
             todaySchedules.addAll(
                 schedules.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.getLatestHistory(7).collect { his ->
+            latestHistory.clear()
+            latestHistory.addAll(
+                his.map { e -> viewModel.fromEntity(e) }
             )
         }
     }
@@ -89,6 +100,22 @@ fun HomeScreen(
                 Modifier.padding(vertical = 12.dp)
             ) {
                 CalendarLinkBlock(onClick = { gotoCalendar() })
+            }
+            Divider()
+            if (latestHistory.isNotEmpty()) {
+                Text(
+                    text = stringResource(R.string.recently_completed_workouts_title),
+                    Modifier.padding(vertical = 12.dp),
+                    style = Typography.titleLarge
+                )
+            }
+            latestHistory.forEach {
+                ScheduledWorkoutPreviewBlock(
+                    { gotoWorkout(it.workout.id) },
+                    it.startedAt,
+                    it.workout,
+                    true
+                )
             }
         }
     }

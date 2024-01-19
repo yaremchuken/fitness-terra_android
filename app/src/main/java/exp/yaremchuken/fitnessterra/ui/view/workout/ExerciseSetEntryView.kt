@@ -95,7 +95,7 @@ fun ExerciseSetEntryView(
                                     .align(Alignment.CenterVertically)
                             )
                             Text(
-                                text = "${exerciseSet.weight * .01}",
+                                text = "${exerciseSet.weight * .001}",
                                 style = Typography.bodyMedium
                             )
                         }

@@ -179,6 +179,9 @@ fun ScheduleCalendarScreen(
                                     schedule.scheduledAt.toLocalDate() == onDate ||
                                             (onDate >= LocalDate.now() && schedule.weekdays.contains(onDate.dayOfWeek)
                                     )
+                                },
+                                histories = histories.filter { history ->
+                                    history.startedAt.toLocalDate() == onDate
                                 }
                             )
                         }

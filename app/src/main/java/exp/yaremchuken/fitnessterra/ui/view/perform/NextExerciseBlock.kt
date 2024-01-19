@@ -70,15 +70,6 @@ fun NextExerciseBlock(
                     fontWeight = FontWeight.Bold
                 )
             }
-            Row(
-                Modifier.padding(start = 12.dp)
-            ) {
-                Text(
-                    text = "${stringResource(R.string.set_title)} ${dto.setIdx + 1} ${stringResource(id = R.string.from)} ${dto.section.sets.size}",
-                    style = Typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-            }
             if (set.repeats.isNotEmpty()) {
                 Row(
                     Modifier.padding(start = 12.dp)
@@ -94,7 +85,7 @@ fun NextExerciseBlock(
                 Modifier.padding(start = 12.dp)
             ) {
                 Text(
-                    text = exerciseLine(set, dto.repeatIdx + 1),
+                    text = exerciseLine(set, dto.repeatIdx),
                     style = Typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
