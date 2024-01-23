@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
@@ -21,7 +24,6 @@ import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.util.Utils
 
 data class NextExerciseDto (
@@ -31,17 +33,24 @@ data class NextExerciseDto (
     val repeatIdx: Int
 )
 
-@Preview
 @Composable
 fun NextExerciseBlock(
-    dto: NextExerciseDto = NextExerciseDto(
-        section = workoutStub.sections[0],
-        exercise = workoutStub.sections[0].sets[0].exercise,
-        0,
-        1
-    )
+    speakOut: (text: String) -> Unit,
+    dto: NextExerciseDto
 ) {
+    var spoken by remember { mutableStateOf(false) }
+
     val set = dto.section.sets[dto.setIdx]
+
+    if (!spoken) {
+        speakOut(
+            stringResource(id = R.string.speak_next_exercise_block)
+                .replace("%s", dto.section.title)
+                .replace("%e", dto.exercise.title)
+                .replace("%r", "${set.repeats[dto.repeatIdx]}")
+        )
+        spoken = true
+    }
 
     Box(
         Modifier.fillMaxWidth()

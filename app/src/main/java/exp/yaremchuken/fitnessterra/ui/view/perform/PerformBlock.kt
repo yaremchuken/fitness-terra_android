@@ -25,15 +25,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
-import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
 import kotlin.time.Duration
@@ -41,20 +38,25 @@ import kotlin.time.Duration.Companion.milliseconds
 
 val TICK = 100.milliseconds
 
-@Preview
 @Composable
 fun PerformBlock(
-    onFinish: () -> Unit = {},
-    section: WorkoutSection = workoutStub.sections[0],
-    set: ExerciseSet = workoutStub.sections[0].sets[0],
-    repeatIdx: Int = 0,
-    totalRepeats: Int = 3
+    onFinish: () -> Unit,
+    speakOut: (text: String) -> Unit,
+    set: ExerciseSet,
+    repeatIdx: Int,
+    totalRepeats: Int
 ) {
     var stopwatch by remember { mutableStateOf(0.milliseconds) }
     var durationTimer by remember { mutableStateOf(set.duration) }
     var repeatsCounter by remember { mutableLongStateOf(set.repeats[repeatIdx]) }
 
+    var speakStarted by remember { mutableStateOf(false) }
     var pause by remember { mutableStateOf(false) }
+
+    if (!speakStarted) {
+        speakOut(stringResource(id = R.string.speak_begin_perform))
+        speakStarted = true
+    }
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -65,6 +67,9 @@ fun PerformBlock(
                     val repeatsLeft = set.repeats[repeatIdx] - (stopwatch / set.exercise.repeatTime).toLong()
                     if (repeatsLeft != repeatsCounter) {
                         repeatsCounter = repeatsLeft
+                        if (repeatsCounter != 0L) {
+                            speakOut("$repeatsCounter")
+                        }
                     }
                     if (repeatsCounter == 0L) {
                         onFinish()

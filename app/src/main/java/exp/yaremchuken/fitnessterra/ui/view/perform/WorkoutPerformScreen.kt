@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -51,6 +52,12 @@ fun WorkoutPerformScreen(
 
     viewModel.markStart()
 
+    val workoutCompletedText = stringResource(id = R.string.speak_workout_completed)
+
+    if (state == GET_READY) {
+        viewModel.speakWorkoutBegin(stringResource(id = R.string.speak_workout_begin_template), workout)
+    }
+
     Column(
         Modifier
             .fillMaxSize()
@@ -67,7 +74,7 @@ fun WorkoutPerformScreen(
                     exercise = exerciseSet.exercise,
                     modifier = Modifier.fillMaxWidth()
                 )
-                RECOVERY -> WorkoutPerformRecoveryBlock(
+                RECOVERY -> WorkoutRecoveryBlock(
                     onFinish = {
                         repeatIdx++
                         if (repeatIdx >= exerciseSet.repeats.size) {
@@ -82,9 +89,13 @@ fun WorkoutPerformScreen(
                         exerciseSet = section.sets[setIdx]
                         state = PERFORM
                     },
+                    speakOut = { viewModel.speakOut(it) },
                     duration = getRecoveryAfterCompleteExercise(exerciseSet, repeatIdx)
                 )
-                COMPLETED -> Column {
+                COMPLETED -> Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(text = "FINISHED")
                 }
             }
@@ -98,28 +109,36 @@ fun WorkoutPerformScreen(
             when(state) {
                 GET_READY -> GetReadyBlock(
                     onFinish = { state = PERFORM },
+                    speakOut = { viewModel.speakOut(it) },
                     exercise = exerciseSet.exercise
                 )
                 PERFORM -> PerformBlock(
                     onFinish = {
-                        if (sectionIdx == workout.sections.size-1 &&
-                            setIdx == section.sets.size-1 &&
-                            repeatIdx >= exerciseSet.repeats.size-1
-                        ) {
-                            viewModel.persistHistory(workout)
-                            state = COMPLETED
-                        } else {
-                            state = RECOVERY
-                        }
+                        state =
+                            if (sectionIdx == workout.sections.size-1 &&
+                                setIdx == section.sets.size-1 &&
+                                repeatIdx >= exerciseSet.repeats.size-1
+                            ) {
+                                viewModel.persistHistory(workout)
+                                viewModel.speakOut(workoutCompletedText)
+                                COMPLETED
+                            } else {
+                                RECOVERY
+                            }
                     },
+                    speakOut = { viewModel.speakOut(it) },
                     set = exerciseSet,
                     repeatIdx = if (exerciseSet.repeats.isNotEmpty()) repeatIdx else -1,
                     totalRepeats = exerciseSet.repeats.size
                 )
                 RECOVERY -> NextExerciseBlock(
+                    speakOut = { viewModel.speakOut(it) },
                     viewModel.getNextExerciseDto(workout, sectionIdx, setIdx, repeatIdx)
                 )
-                COMPLETED -> Column {
+                COMPLETED -> Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Button(
                         onClick = { goHome() },
                         shape = UIConstants.ROUNDED_CORNER

@@ -10,7 +10,7 @@
     <string name="involved_muscles_title">Involved muscles</string>
     <string name="safety_precautions_title">Safety precautions</string>
     <string name="workout_calendar">Workout calendar</string>
-    <string name="schedule_workout">Schedule workout</string>
+    <string name="schedule_workout">Schedule</string>
     <string name="schedule_btn_title">schedule</string>
     <string name="cancel_schedule_btn_title">cancel</string>
     <string name="cancel_workout_schedule_dialog">Are you sure you want to cancel this workout?</string>
@@ -30,4 +30,10 @@
     <string name="repeat_title">Repeat</string>
     <string name="finish_title">finish</string>
     <string name="recently_completed_workouts_title">Recently completed workouts</string>
+    <string name="repeat_every_title">Repeat every</string>
+    <string name="speak_workout_begin_template">get ready for workout %w, first section %s, exercise %e %r repeats</string>
+    <string name="speak_begin_perform">start</string>
+    <string name="speak_recovery_time">recovery time %s seconds</string>
+    <string name="speak_workout_completed">workout completed</string>
+    <string name="speak_next_exercise_block">next section %s, exercise %e %r repeats</string>
 </resources>

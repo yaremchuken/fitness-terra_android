@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeightIn
+import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -66,6 +68,7 @@ fun WorkoutSelectableRowView(
         ) {
             Column(
                 Modifier
+                    .weight(1F)
                     .padding(start = 12.dp)
             ) {
                 Text(
@@ -76,7 +79,7 @@ fun WorkoutSelectableRowView(
             IconButton(
                 onClick = { onInfo() },
                 Modifier
-                    .padding(end = 20.dp)
+                    .padding(end = 14.dp)
                     .height(24.dp)
                     .width(24.dp)
                     .align(Alignment.CenterVertically)

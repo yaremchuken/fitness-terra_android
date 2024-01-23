@@ -11,6 +11,8 @@ object AppSettings {
      * Right now app supports only two locales EN and RU.
      */
     fun locale(): Locale =
-        if (Locale.getDefault() == Locale.forLanguageTag("ru")) Locale.forLanguageTag("ru")
-        else Locale.ENGLISH
+        when (Locale.getDefault().language) {
+            "ru" -> Locale.getDefault()
+            else -> Locale.ENGLISH
+        }
 }

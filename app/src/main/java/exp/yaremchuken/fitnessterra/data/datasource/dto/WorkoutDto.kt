@@ -11,7 +11,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class WorkoutDto {
     var id: Long = -1
-    lateinit var title: Map<Locale, String>
+    lateinit var title: Map<String, String>
     lateinit var type: WorkoutType
     lateinit var sections: List<WorkoutSectionDto>
 
@@ -19,11 +19,11 @@ class WorkoutDto {
         fun fromDto(dto: WorkoutDto, exercises: List<Exercise>) =
             Workout(
                 dto.id,
-                dto.title[AppSettings.locale()]!!,
+                dto.title[AppSettings.locale().language]!!,
                 dto.type,
                 dto.sections.map { sec ->
                     WorkoutSection(
-                        sec.title[AppSettings.locale()]!!,
+                        sec.title[AppSettings.locale().language]!!,
                         sec.sets.map { set ->
                             ExerciseSetDto.fromDto(
                                 set,

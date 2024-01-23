@@ -176,8 +176,8 @@ fun ScheduleCalendarScreen(
                                 date = onDate,
                                 month = yearMonth,
                                 scheduled = schedules.filter { schedule ->
-                                    schedule.scheduledAt.toLocalDate() == onDate ||
-                                            (onDate >= LocalDate.now() && schedule.weekdays.contains(onDate.dayOfWeek)
+                                    (schedule.scheduledAt.toLocalDate() == onDate && schedule.weekdays.isEmpty()) ||
+                                        (onDate >= LocalDate.now() && schedule.weekdays.contains(onDate.dayOfWeek)
                                     )
                                 },
                                 histories = histories.filter { history ->

@@ -9,7 +9,7 @@
     <string name="involved_muscles_title">Участвующие мышцы</string>
     <string name="safety_precautions_title">Меры предосторожности</string>
     <string name="workout_calendar">Тренировочный календарь</string>
-    <string name="schedule_workout">Запланировать тренировку</string>
+    <string name="schedule_workout">Планирование</string>
     <string name="schedule_btn_title">запланировать</string>
     <string name="cancel_schedule_btn_title">отменить</string>
     <string name="cancel_workout_schedule_dialog">Вы уверены что хотите отменить тренировку?</string>
@@ -29,4 +29,10 @@
     <string name="repeat_title">Повтор</string>
     <string name="finish_title">закончить</string>
     <string name="recently_completed_workouts_title">Последние выполненые тренировки</string>
+    <string name="repeat_every_title">Повторять каждые</string>
+    <string name="speak_workout_begin_template">приготовьтесь к выполнению %w, первая секция %s, упражнение %e %r повторений</string>
+    <string name="speak_begin_perform">начали</string>
+    <string name="speak_recovery_time">упражнение завершено</string>
+    <string name="speak_workout_completed">тренировка завершена</string>
+    <string name="speak_next_exercise_block">следующая секция %s, упражнение %e %r повторений</string>
 </resources>

@@ -89,7 +89,7 @@ fun ScheduleEditDialog(
                 onClick = { onBackPressedDispatcher?.onBackPressed() },
                 Modifier
                     .align(Alignment.TopStart)
-                    .padding(top = 6.dp, bottom = 6.dp, start = 12.dp)
+                    .padding(top = 6.dp, bottom = 6.dp, start = 6.dp)
                     .width(30.dp)
                     .height(30.dp)
             ) {
@@ -115,7 +115,7 @@ fun ScheduleEditDialog(
             )
             Divider(Modifier.padding(bottom = 6.dp))
             Text(
-                text = "Repeat every",
+                text = stringResource(R.string.repeat_every_title),
                 Modifier.fillMaxWidth(),
                 style = Typography.bodyLarge,
                 fontWeight = FontWeight.Bold,

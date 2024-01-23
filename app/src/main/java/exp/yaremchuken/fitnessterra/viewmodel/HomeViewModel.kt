@@ -7,6 +7,7 @@ import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
+import exp.yaremchuken.fitnessterra.service.TextToSpeechHelper
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -14,7 +15,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val workoutRepository: WorkoutRepository,
-    private val historyRepository: HistoryRepository
+    private val historyRepository: HistoryRepository,
+    // greedy tts initialization, so it'll be ready when other vm gonna need it
+    private val textToSpeechHelper: TextToSpeechHelper
 ): ViewModel() {
     fun getTodaySchedules() = scheduleRepository.getOnDate(LocalDate.now())
 

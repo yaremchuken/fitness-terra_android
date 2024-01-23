@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
@@ -33,22 +33,28 @@ import kotlinx.coroutines.delay
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-@Preview
 @Composable
-fun WorkoutPerformRecoveryBlock(
-    onFinish: () -> Unit = {},
-    duration: Duration = 10.seconds
+fun WorkoutRecoveryBlock(
+    onFinish: () -> Unit,
+    speakOut: (text: String) -> Unit,
+    duration: Duration
 ) {
     var timer by remember { mutableStateOf(duration) }
     var pause by remember { mutableStateOf(false) }
 
+    if (timer == duration) {
+        speakOut(stringResource(id = R.string.speak_recovery_time).replace("%s", "${duration.inWholeSeconds}"))
+    }
+
     LaunchedEffect(Unit) {
         while (true) {
-            delay(TICK)
+            delay(1.seconds)
             if (!pause) {
-                timer = timer.minus(TICK)
+                timer = timer.minus(1.seconds)
                 if (timer.inWholeSeconds <= 0) {
                     onFinish()
+                } else if (timer <= 10.seconds) {
+                    speakOut("${timer.inWholeSeconds}")
                 }
             }
         }
