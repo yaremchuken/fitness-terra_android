@@ -120,6 +120,7 @@ fun WorkoutPerformScreen(
                     duration = getRecoveryAfterCompleteExercise(setup, setIdx)
                 )
                 COMPLETED -> Column(
+                    Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -165,6 +166,7 @@ fun WorkoutPerformScreen(
                     viewModel.getNextExerciseDto(workout, sectionIdx, setupIdx, setIdx)
                 )
                 COMPLETED -> Column(
+                    Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
