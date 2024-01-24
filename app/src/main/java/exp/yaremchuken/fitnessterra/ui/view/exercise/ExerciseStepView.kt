@@ -19,17 +19,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import java.util.Locale
 
-@Preview
 @Composable
 fun ExerciseStepView(
-    index: Int = 1,
-    description: String = exerciseBicepsStub().steps[0]
+    index: Int,
+    description: String
 ) {
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(20f, 14f), 0f)
 

@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
@@ -40,7 +39,9 @@ import exp.yaremchuken.fitnessterra.viewmodel.HomeViewModel
 @Composable
 fun HomeScreen(
     gotoCalendar: () -> Unit,
-    gotoWorkout: (id: Long) -> Unit,
+    gotoExerciseLibrary: () -> Unit,
+    gotoWorkoutLibrary: () -> Unit,
+    gotoWorkout: (workoutId: Long) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -99,7 +100,28 @@ fun HomeScreen(
             Column(
                 Modifier.padding(vertical = 12.dp)
             ) {
-                CalendarLinkBlock(onClick = { gotoCalendar() })
+                LinkBlock(
+                    onClick = { gotoCalendar() },
+                    isCalendarLink = true
+                )
+            }
+            Divider()
+            Column(
+                Modifier.padding(vertical = 12.dp)
+            ) {
+                LinkBlock(
+                    onClick = { gotoExerciseLibrary() },
+                    isExerciseLink = true
+                )
+            }
+            Divider()
+            Column(
+                Modifier.padding(vertical = 12.dp)
+            ) {
+                LinkBlock(
+                    onClick = { gotoWorkoutLibrary() },
+                    isWorkoutLink = true
+                )
             }
             if (latestHistory.isNotEmpty()) {
                 Divider()
@@ -121,11 +143,24 @@ fun HomeScreen(
     }
 }
 
-@Preview
 @Composable
-fun CalendarLinkBlock(
-    onClick: () -> Unit = {}
+fun LinkBlock(
+    onClick: () -> Unit,
+    isCalendarLink: Boolean = false,
+    isExerciseLink: Boolean = false,
+    isWorkoutLink: Boolean = false
 ) {
+    val linkText =
+        if (isCalendarLink) {
+            stringResource(R.string.to_workouts_schedule_link)
+        } else if (isExerciseLink) {
+            stringResource(R.string.to_exercise_library_link)
+        } else if (isWorkoutLink) {
+            stringResource(R.string.to_workout_library_link)
+        } else {
+            "EMPTY LINK!"
+        }
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -144,14 +179,16 @@ fun CalendarLinkBlock(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_calendar),
+                painter =
+                    if (isCalendarLink) painterResource(id = R.drawable.ic_calendar)
+                    else painterResource(id = R.drawable.ic_library_icon),
                 contentDescription = null,
                 Modifier
                     .width(48.dp)
                     .height(48.dp)
             )
             Text(
-                text = stringResource(R.string.to_workouts_schedule_title),
+                text = linkText,
                 Modifier
                     .padding(start = 6.dp),
                 style = Typography.titleLarge,

@@ -237,19 +237,3 @@ fun ExerciseDetailsScreen(
         }
     }
 }
-
-fun exerciseBicepsStub() = Exercise(
-    id = 0,
-    title = "Biceps exercise",
-    description = "Simple biceps exercise",
-    equipment = EquipmentType.BARBELL,
-    muscleGroup = MuscleGroupType.CHEST
-)
-
-fun exerciseBackStub() = Exercise(
-    id = 1,
-    title = "Back exercise",
-    description = "Simple back exercise",
-    equipment = EquipmentType.BARBELL,
-    muscleGroup = MuscleGroupType.CHEST
-)

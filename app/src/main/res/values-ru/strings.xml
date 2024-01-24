@@ -16,7 +16,7 @@
     <string name="yes_btn_title">да</string>
     <string name="no_btn_title">нет</string>
     <string name="scheduled_for_today_title">Запланированно на сегодня</string>
-    <string name="to_workouts_schedule_title">К расписанию тренировок</string>
+    <string name="to_workouts_schedule_link">К расписанию тренировок</string>
     <string name="get_ready_title">Приготовьтесь</string>
     <string name="recovery_title">Отдых</string>
     <string name="skip_btn_title">пропустить</string>
@@ -37,4 +37,8 @@
     <string name="speak_next_exercise_block">следующее упражнение :exercise, вес :weight, всего сэтов :sets, первый сет :set повторений</string>
     <string name="speak_next_set_block">следующий сет :set повторений</string>
     <string name="speak_next_section_block">следующая секция :section</string>
+    <string name="exercise_library_title">Упражнения</string>
+    <string name="to_exercise_library_link">Библиотека упражнений</string>
+    <string name="to_workout_library_link">Библиотека тренировок</string>
+    <string name="workout_library_title">Тренировки</string>
 </resources>

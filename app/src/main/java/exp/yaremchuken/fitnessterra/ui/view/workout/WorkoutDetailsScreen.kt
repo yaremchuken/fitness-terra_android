@@ -111,7 +111,7 @@ fun WorkoutDetailsScreen(
                         style = Typography.titleLarge
                     )
                     section.setups.forEach {
-                        ExerciseSetEntryView({ showExerciseDetails(it.exercise.id) }, it)
+                        ExerciseSetupBlock({ showExerciseDetails(it.exercise.id) }, it)
                     }
                 }
             }

@@ -17,7 +17,7 @@
     <string name="yes_btn_title">yes</string>
     <string name="no_btn_title">no</string>
     <string name="scheduled_for_today_title">Scheduled for today</string>
-    <string name="to_workouts_schedule_title">To workouts schedule</string>
+    <string name="to_workouts_schedule_link">To workouts schedule</string>
     <string name="get_ready_title">Get ready</string>
     <string name="recovery_title">Recovery</string>
     <string name="skip_btn_title">skip</string>
@@ -38,4 +38,8 @@
     <string name="speak_next_exercise_block">next exercise :exercise, weight :weight, total sets :sets, first set :set repeats</string>
     <string name="speak_next_set_block">next set :set repeats</string>
     <string name="speak_next_section_block">next section :section</string>
+    <string name="exercise_library_title">Exercises</string>
+    <string name="to_exercise_library_link">Exercise library</string>
+    <string name="to_workout_library_link">Workout library</string>
+    <string name="workout_library_title">Workouts</string>
 </resources>

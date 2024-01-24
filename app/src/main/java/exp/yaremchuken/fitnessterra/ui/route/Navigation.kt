@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import exp.yaremchuken.fitnessterra.ui.view.exercise.ExerciseDetailsScreen
 import exp.yaremchuken.fitnessterra.ui.view.home.HomeScreen
+import exp.yaremchuken.fitnessterra.ui.view.library.exercise.ExerciseLibraryScreen
+import exp.yaremchuken.fitnessterra.ui.view.library.workout.WorkoutLibraryScreen
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.ScheduleCalendarScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.date.ScheduleDateScreen
@@ -22,12 +24,24 @@ fun Navigation() {
         composable(route = Screen.HOME_SCREEN.name) {
             HomeScreen(
                 gotoCalendar = { navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name) },
+                gotoExerciseLibrary = { navController.navigate(Screen.EXERCISE_LIBRARY_SCREEN.name) },
+                gotoWorkoutLibrary = { navController.navigate(Screen.WORKOUT_LIBRARY_SCREEN.name) },
                 gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") }
             )
         }
         composable(route = Screen.SCHEDULE_CALENDAR_SCREEN.name) {
             ScheduleCalendarScreen(
                 gotoCalendarDate = { date -> navController.navigate("${Screen.SCHEDULE_DATE_SCREEN.name}/${date.format(ISO_DATE)}") }
+            )
+        }
+        composable(route = Screen.EXERCISE_LIBRARY_SCREEN.name) {
+            ExerciseLibraryScreen(
+                gotoExercise = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") }
+            )
+        }
+        composable(route = Screen.WORKOUT_LIBRARY_SCREEN.name) {
+            WorkoutLibraryScreen(
+                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") }
             )
         }
         composable(

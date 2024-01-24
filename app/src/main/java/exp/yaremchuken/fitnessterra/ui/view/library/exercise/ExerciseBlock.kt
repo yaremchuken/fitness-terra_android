@@ -1,4 +1,4 @@
-package exp.yaremchuken.fitnessterra.ui.view.workout
+package exp.yaremchuken.fitnessterra.ui.view.library.exercise
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,38 +21,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
+import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
-import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
-import exp.yaremchuken.fitnessterra.util.Utils
 
 @Composable
-fun ExerciseSetupBlock(
+fun ExerciseBlock(
     onClick: () -> Unit,
-    setup: ExerciseSetup
+    exercise: Exercise
 ) {
-    val repeatsOrDuration =
-        if (setup.sets.isEmpty()) {
-            Utils.formatToTime(setup.duration)
-        } else if (allRepeatsAreSame(setup.sets)) {
-            "${setup.sets.size}x${setup.sets[0]}"
-        } else {
-            setup.sets.joinToString(",")
-        }
-
     Column(
         Modifier
             .clickable { onClick() }
             .background(Color.White)
-            .padding(top = 12.dp, bottom = 8.dp)
+            .padding(top = 12.dp, bottom = 8.dp, start = 12.dp, end = 12.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             ExerciseAnimation(
-                setup.exercise,
+                exercise,
                 Modifier
                     .height(64.dp)
                     .clip(UIConstants.ROUNDED_CORNER)
@@ -67,39 +56,9 @@ fun ExerciseSetupBlock(
                         .padding(start = 12.dp)
                 ) {
                     Text(
-                        text = setup.exercise.title,
+                        text = exercise.title,
                         style = AppType.titleMedium
                     )
-                    Row {
-                        Image(
-                            painter = painterResource(
-                                id = if (setup.sets.isEmpty()) R.drawable.ic_timer else R.drawable.ic_repeat
-                            ),
-                            contentDescription = null,
-                            Modifier
-                                .height(14.dp)
-                                .padding(end = 4.dp)
-                                .align(Alignment.CenterVertically)
-                        )
-                        Text(
-                            text = repeatsOrDuration,
-                            style = Typography.bodyMedium
-                        )
-                        if (setup.weight > 0) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_weight),
-                                contentDescription = null,
-                                Modifier
-                                    .height(14.dp)
-                                    .padding(start = 12.dp, end = 4.dp)
-                                    .align(Alignment.CenterVertically)
-                            )
-                            Text(
-                                text = "${setup.weight * .001}",
-                                style = Typography.bodyMedium
-                            )
-                        }
-                    }
                 }
                 IconButton(
                     onClick = { onClick() },
@@ -118,5 +77,3 @@ fun ExerciseSetupBlock(
         Divider(Modifier.padding(top = 20.dp))
     }
 }
-
-private fun allRepeatsAreSame(repeats: List<Long>) = repeats.find { it != repeats[0] } == null
