@@ -2,12 +2,9 @@ package exp.yaremchuken.fitnessterra.data.datasource.dto
 
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.data.model.Exercise
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.data.model.WorkoutType
-import java.util.Locale
-import kotlin.time.Duration.Companion.milliseconds
 
 class WorkoutDto {
     var id: Long = -1
@@ -24,10 +21,10 @@ class WorkoutDto {
                 dto.sections.map { sec ->
                     WorkoutSection(
                         sec.title[AppSettings.locale().language]!!,
-                        sec.sets.map { set ->
-                            ExerciseSetDto.fromDto(
-                                set,
-                                exercises.find { ex -> ex.id == set.exerciseId }!!
+                        sec.setups.map { setup ->
+                            ExerciseSetupDto.fromDto(
+                                setup,
+                                exercises.find { ex -> ex.id == setup.exerciseId }!!
                             )
                         }
                     )

@@ -52,7 +52,7 @@ data class Exercise(
     /**
      * Time, in which one repeat of exercise have to be performed.
      */
-    val repeatTime: Duration = 0.seconds,
+    val performTime: Duration = 0.seconds,
 
     /**
      * Amount ot time person needs to rest after performing this exercise.

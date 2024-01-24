@@ -1,5 +1,7 @@
 package exp.yaremchuken.fitnessterra.ui.view.perform
 
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -18,12 +21,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
@@ -43,16 +47,33 @@ fun WorkoutPerformScreen(
     var state by remember { mutableStateOf(GET_READY) }
 
     var sectionIdx by remember { mutableIntStateOf(0) }
+    var setupIdx by remember { mutableIntStateOf(0) }
     var setIdx by remember { mutableIntStateOf(0) }
-    var repeatIdx by remember { mutableIntStateOf(0) }
 
     val workout = viewModel.getWorkout(workoutId)!!
     var section = workout.sections[sectionIdx]
-    var exerciseSet = section.sets[setIdx]
+    var setup = section.setups[setupIdx]
 
     viewModel.markStart()
 
     val workoutCompletedText = stringResource(id = R.string.speak_workout_completed)
+
+    val backCallback = remember {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.clearSpeak()
+            }
+        }
+    }
+
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner, onBackPressedDispatcher) {
+        onBackPressedDispatcher?.addCallback(lifecycleOwner, backCallback)
+        onDispose {
+            backCallback.remove()
+        }
+    }
 
     if (state == GET_READY) {
         viewModel.speakWorkoutBegin(stringResource(id = R.string.speak_workout_begin_template), workout)
@@ -71,32 +92,35 @@ fun WorkoutPerformScreen(
         ) {
             when(state) {
                 GET_READY, PERFORM -> ExerciseAnimation(
-                    exercise = exerciseSet.exercise,
+                    exercise = setup.exercise,
                     modifier = Modifier.fillMaxWidth()
                 )
                 RECOVERY -> WorkoutRecoveryBlock(
                     onFinish = {
-                        repeatIdx++
-                        if (repeatIdx >= exerciseSet.repeats.size) {
-                            repeatIdx = 0
-                            setIdx++
-                            if (setIdx >= section.sets.size) {
-                                setIdx = 0;
+                        setIdx++
+                        if (setIdx >= setup.sets.size) {
+                            setIdx = 0
+                            setupIdx++
+                            if (setupIdx >= section.setups.size) {
+                                setupIdx = 0;
                                 sectionIdx++
                             }
                         }
                         section = workout.sections[sectionIdx]
-                        exerciseSet = section.sets[setIdx]
+                        setup = section.setups[setupIdx]
                         state = PERFORM
                     },
                     speakOut = { viewModel.speakOut(it) },
-                    duration = getRecoveryAfterCompleteExercise(exerciseSet, repeatIdx)
+                    duration = getRecoveryAfterCompleteExercise(setup, setIdx)
                 )
                 COMPLETED -> Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "FINISHED")
+                    Text(
+                        text = "Workout completed!",
+                        style = Typography.headlineLarge
+                    )
                 }
             }
         }
@@ -110,14 +134,14 @@ fun WorkoutPerformScreen(
                 GET_READY -> GetReadyBlock(
                     onFinish = { state = PERFORM },
                     speakOut = { viewModel.speakOut(it) },
-                    exercise = exerciseSet.exercise
+                    exercise = setup.exercise
                 )
                 PERFORM -> PerformBlock(
                     onFinish = {
                         state =
                             if (sectionIdx == workout.sections.size-1 &&
-                                setIdx == section.sets.size-1 &&
-                                repeatIdx >= exerciseSet.repeats.size-1
+                                setupIdx == section.setups.size-1 &&
+                                setIdx >= setup.sets.size-1
                             ) {
                                 viewModel.persistHistory(workout)
                                 viewModel.speakOut(workoutCompletedText)
@@ -127,13 +151,12 @@ fun WorkoutPerformScreen(
                             }
                     },
                     speakOut = { viewModel.speakOut(it) },
-                    set = exerciseSet,
-                    repeatIdx = if (exerciseSet.repeats.isNotEmpty()) repeatIdx else -1,
-                    totalRepeats = exerciseSet.repeats.size
+                    setup = setup,
+                    setIdx = if (setup.sets.isNotEmpty()) setIdx else -1
                 )
                 RECOVERY -> NextExerciseBlock(
                     speakOut = { viewModel.speakOut(it) },
-                    viewModel.getNextExerciseDto(workout, sectionIdx, setIdx, repeatIdx)
+                    viewModel.getNextExerciseDto(workout, sectionIdx, setupIdx, setIdx)
                 )
                 COMPLETED -> Column(
                     verticalArrangement = Arrangement.Center,
@@ -163,9 +186,9 @@ fun WorkoutPerformScreen(
  * The idea is than we don't need special recovery time for between sections,
  * and it's ok to use set recovery time between sections.
  */
-fun getRecoveryAfterCompleteExercise(set: ExerciseSet, repeatIdx: Int): Duration {
-    if (repeatIdx == set.repeats.size-1) {
-        return set.recovery
+fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int): Duration {
+    if (setIdx == setup.sets.size-1) {
+        return setup.recovery
     }
-    return set.exercise.recovery
+    return setup.exercise.recovery
 }

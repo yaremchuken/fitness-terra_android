@@ -34,21 +34,21 @@ class WorkoutPerformViewModel @Inject constructor(
     fun getNextExerciseDto(
         workout: Workout,
         sectionIdx: Int,
-        setIdx: Int,
-        repeatIdx: Int
+        setupIdx: Int,
+        setIdx: Int
     ): NextExerciseDto {
         val section = workout.sections[sectionIdx]
-        val set = section.sets[setIdx]
+        val setup = section.setups[setupIdx]
 
         var newSectionIdx = sectionIdx
-        var newSetIdx = setIdx
-        var newRepeatIdx = repeatIdx + 1
+        var newSetupIdx = setupIdx
+        var newSetIdx = setIdx + 1
 
-        if (repeatIdx + 1 >= set.repeats.size) {
-            newRepeatIdx = 0
-            newSetIdx++
-            if (setIdx + 1 >= section.sets.size) {
-                newSetIdx = 0
+        if (setIdx + 1 >= setup.sets.size) {
+            newSetIdx = 0
+            newSetupIdx++
+            if (setupIdx + 1 >= section.setups.size) {
+                newSetupIdx = 0
                 newSectionIdx++
                 if (sectionIdx + 1 >= workout.sections.size) {
                     throw IllegalArgumentException("Workout section is finished!")
@@ -58,23 +58,33 @@ class WorkoutPerformViewModel @Inject constructor(
 
         return NextExerciseDto(
             workout.sections[newSectionIdx],
-            workout.sections[newSectionIdx].sets[newSetIdx].exercise,
+            workout.sections[newSectionIdx].setups[newSetupIdx].exercise,
+            newSetupIdx,
             newSetIdx,
-            newRepeatIdx
+            newSectionIdx != sectionIdx,
+            newSetupIdx != setupIdx
         )
     }
 
     fun speakWorkoutBegin(template: String, workout: Workout) {
+        val section = workout.sections[0]
+        val setup = section.setups[0]
         textToSpeechHelper.speakOut(
-            template.replace("%w", workout.title)
-                .replace("%s", workout.sections[0].title)
-                .replace("%e", workout.sections[0].sets[0].exercise.title)
-                .replace("%r", "${workout.sections[0].sets[0].repeats[0]}")
+            template.replace(":workout", workout.title)
+                .replace(":section", section.title)
+                .replace(":exercises", "${section.setups.size}")
+                .replace(":exercise", setup.exercise.title)
+                .replace(":sets", "${setup.sets.size}")
+                .replace(":set", "${setup.sets[0]}")
         )
     }
 
     fun speakOut(text: String) {
         textToSpeechHelper.speakOut(text)
+    }
+
+    fun clearSpeak() {
+        textToSpeechHelper.clear()
     }
 
     fun persistHistory(workout: Workout) {

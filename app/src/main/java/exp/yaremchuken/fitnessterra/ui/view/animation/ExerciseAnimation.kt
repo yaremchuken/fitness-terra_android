@@ -19,7 +19,7 @@ fun ExerciseAnimation(
     val default = listOf(LocalContext.current.bitmap("exercise", "preview_default")!!.asImageBitmap())
     Animation(
         frames = frames.ifEmpty { default },
-        duration = exercise.repeatTime,
+        duration = exercise.performTime,
         modifier = modifier,
         contentScale = contentScale
     )

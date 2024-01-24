@@ -16,7 +16,7 @@ class ExerciseDto {
     var steps: Map<String, List<String>> = mapOf()
     var advises: Map<String, List<String>> = mapOf()
     var warnings: Map<String, List<String>> = mapOf()
-    var repeatTime: Long = 0
+    var performTime: Long = 0
     var recovery: Long = 0
 
     companion object {
@@ -31,7 +31,7 @@ class ExerciseDto {
                 dto.steps[AppSettings.locale().language]!!,
                 dto.advises[AppSettings.locale().language] ?: listOf(),
                 dto.warnings[AppSettings.locale().language] ?: listOf(),
-                dto.repeatTime.milliseconds,
+                dto.performTime.milliseconds,
                 dto.recovery.milliseconds
             )
     }

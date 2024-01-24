@@ -4,11 +4,11 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 /**
- * Repetitions of a specific Exercise as a part of Workout.
+ * Exercise with modifiable setup as a part of Workout.
  */
-data class ExerciseSet(
+data class ExerciseSetup(
     /**
-     * Type of exercise in set.
+     * Type of exercise.
      */
     val exercise: Exercise,
 
@@ -18,10 +18,10 @@ data class ExerciseSet(
     val weight: Long = 0,
 
     /**
-     * Amount of repeats for exercise in this Set.
+     * Amount of repeats for exercise.
      * Not needed if the duration is specified.
      */
-    val repeats: List<Long> = listOf(),
+    val sets: List<Long> = listOf(),
 
     /**
      * Duration of exercise performing.
@@ -30,7 +30,7 @@ data class ExerciseSet(
     val duration: Duration = 0.seconds,
 
     /**
-     * Amount ot time to rest after performing this set.
+     * Amount ot time to rest after performing this setup.
      */
     val recovery: Duration = 0.seconds
 ) {
@@ -38,7 +38,7 @@ data class ExerciseSet(
      * Get total duration of this set, including recovery time.
      */
     fun totalDuration(): Duration =
-        exercise.repeatTime.times(repeats.sum().toInt())
+        exercise.performTime.times(sets.sum().toInt())
             .plus(duration)
-            .plus(exercise.recovery.times((repeats.size-1).coerceAtLeast(0)))
+            .plus(exercise.recovery.times((sets.size-1).coerceAtLeast(0)))
 }

@@ -1,7 +1,6 @@
 package exp.yaremchuken.fitnessterra.data.model
 
 import exp.yaremchuken.fitnessterra.AppSettings
-import java.util.Locale
 
 /**
  * Type of equipment used in exercises.
@@ -13,7 +12,7 @@ enum class EquipmentType {
 
     companion object {
         fun i18n(type: EquipmentType) =
-            if (AppSettings.locale() == Locale.forLanguageTag("ru")) {
+            if (AppSettings.localeIsRu()) {
                 when(type) {
                     BARBELL -> "штанга"
                     DUMBBELLS -> "гантели"

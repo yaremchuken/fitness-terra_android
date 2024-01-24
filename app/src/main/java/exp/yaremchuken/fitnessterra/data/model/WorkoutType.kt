@@ -1,7 +1,6 @@
 package exp.yaremchuken.fitnessterra.data.model
 
 import exp.yaremchuken.fitnessterra.AppSettings
-import java.util.Locale
 
 /**
  * Main activity type of the workout.
@@ -19,7 +18,7 @@ enum class WorkoutType {
 
     companion object {
         fun i18n(type: WorkoutType) =
-            if (AppSettings.locale() == Locale.forLanguageTag("ru")) {
+            if (AppSettings.localeIsRu()) {
                 when(type) {
                     CARDIO -> "кардио"
                     STRENGTH -> "сила"

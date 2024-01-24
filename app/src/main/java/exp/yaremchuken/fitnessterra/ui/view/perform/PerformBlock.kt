@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
@@ -42,13 +42,12 @@ val TICK = 100.milliseconds
 fun PerformBlock(
     onFinish: () -> Unit,
     speakOut: (text: String) -> Unit,
-    set: ExerciseSet,
-    repeatIdx: Int,
-    totalRepeats: Int
+    setup: ExerciseSetup,
+    setIdx: Int
 ) {
     var stopwatch by remember { mutableStateOf(0.milliseconds) }
-    var durationTimer by remember { mutableStateOf(set.duration) }
-    var repeatsCounter by remember { mutableLongStateOf(set.repeats[repeatIdx]) }
+    var durationTimer by remember { mutableStateOf(setup.duration) }
+    var repeatsCounter by remember { mutableLongStateOf(setup.sets[setIdx]) }
 
     var speakStarted by remember { mutableStateOf(false) }
     var pause by remember { mutableStateOf(false) }
@@ -62,9 +61,9 @@ fun PerformBlock(
         while (true) {
             delay(TICK)
             if (!pause) {
-                if (set.repeats.isNotEmpty()) {
+                if (setup.sets.isNotEmpty()) {
                     stopwatch = stopwatch.plus(TICK)
-                    val repeatsLeft = set.repeats[repeatIdx] - (stopwatch / set.exercise.repeatTime).toLong()
+                    val repeatsLeft = setup.sets[setIdx] - (stopwatch / setup.exercise.performTime).toLong()
                     if (repeatsLeft != repeatsCounter) {
                         repeatsCounter = repeatsLeft
                         if (repeatsCounter != 0L) {
@@ -88,16 +87,10 @@ fun PerformBlock(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
     ){
-        Text(
-            text = set.exercise.title,
-            Modifier.padding(start = 12.dp),
-            style = Typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
         Column(
             Modifier.fillMaxWidth()
         ) {
-            if (set.repeats.isNotEmpty()) {
+            if (setup.sets.isNotEmpty()) {
                 Text(
                     text = "$repeatsCounter",
                     Modifier.fillMaxWidth(),
@@ -112,7 +105,7 @@ fun PerformBlock(
                         .padding(start = 38.dp, end = 38.dp, bottom = 24.dp)
                 ) {
                     LinearProgressIndicator(
-                        progress = getProgress (stopwatch, set.exercise.repeatTime),
+                        progress = getProgress (stopwatch, setup.exercise.performTime),
                         Modifier
                             .align(Alignment.Center)
                             .height(30.dp)
@@ -154,5 +147,5 @@ fun PerformBlock(
     }
 }
 
-private fun getProgress(stopwatch: Duration, repeatTime: Duration) =
-    ((stopwatch.inWholeMilliseconds % repeatTime.inWholeMilliseconds).milliseconds / repeatTime).toFloat()
+private fun getProgress(stopwatch: Duration, performTime: Duration) =
+    ((stopwatch.inWholeMilliseconds % performTime.inWholeMilliseconds).milliseconds / performTime).toFloat()

@@ -48,7 +48,7 @@ object Utils {
      * For simplicity lets just take preview of first exercise of this workout.
      */
     fun getWorkoutPreview(context: Context, workout: Workout) =
-        getExercisePreview(context, workout.sections[0].sets[0].exercise)
+        getExercisePreview(context, workout.sections[0].setups[0].exercise)
 
     /**
      * Represent seconds as time string.

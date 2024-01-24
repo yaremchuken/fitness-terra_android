@@ -43,7 +43,10 @@ fun WorkoutRecoveryBlock(
     var pause by remember { mutableStateOf(false) }
 
     if (timer == duration) {
-        speakOut(stringResource(id = R.string.speak_recovery_time).replace("%s", "${duration.inWholeSeconds}"))
+        speakOut(
+            stringResource(id = R.string.speak_recovery_time)
+                .replace(":seconds", "${duration.inWholeSeconds}")
+        )
     }
 
     LaunchedEffect(Unit) {
@@ -53,7 +56,7 @@ fun WorkoutRecoveryBlock(
                 timer = timer.minus(1.seconds)
                 if (timer.inWholeSeconds <= 0) {
                     onFinish()
-                } else if (timer <= 10.seconds) {
+                } else if (timer <= 5.seconds) {
                     speakOut("${timer.inWholeSeconds}")
                 }
             }

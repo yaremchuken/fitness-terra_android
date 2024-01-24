@@ -22,17 +22,19 @@
     <string name="skip_btn_title">пропустить</string>
     <string name="pause_btn_title">пауза</string>
     <string name="continue_btn_title">продолжить</string>
-    <string name="workout_perform_next_is">Далее</string>
+    <string name="workout_perform_next_title">Далее</string>
     <string name="from">из</string>
     <string name="no_schedules_today_title">На сегодня ничего не запланированно</string>
     <string name="set_title">Сет</string>
-    <string name="repeat_title">Повтор</string>
+    <string name="repeats_title">повторов</string>
     <string name="finish_title">закончить</string>
     <string name="recently_completed_workouts_title">Последние выполненые тренировки</string>
     <string name="repeat_every_title">Повторять каждые</string>
-    <string name="speak_workout_begin_template">приготовьтесь к выполнению %w, первая секция %s, упражнение %e %r повторений</string>
+    <string name="speak_workout_begin_template">приготовьтесь к тренировке :workout, первая секция :section, :exercises упражнений, первое упражнение :exercise, количество сетов :sets, первый сет :set повторений</string>
     <string name="speak_begin_perform">начали</string>
-    <string name="speak_recovery_time">упражнение завершено</string>
+    <string name="speak_recovery_time">восстановление :seconds секунд</string>
     <string name="speak_workout_completed">тренировка завершена</string>
-    <string name="speak_next_exercise_block">следующая секция %s, упражнение %e %r повторений</string>
+    <string name="speak_next_exercise_block">следующее упражнение :exercise, всего сэтов :sets, первый сет :set повторений</string>
+    <string name="speak_next_set_block">следующий сет :set повторений</string>
+    <string name="speak_next_section_block">следующая секция :section</string>
 </resources>

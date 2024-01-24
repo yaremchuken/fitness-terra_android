@@ -9,7 +9,7 @@ import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
 
 @Database(
-    version = 7,
+    version = 8,
     entities = [
         ScheduleEntity::class,
         HistoryEntity::class

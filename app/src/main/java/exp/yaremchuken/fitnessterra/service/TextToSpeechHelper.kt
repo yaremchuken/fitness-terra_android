@@ -32,9 +32,15 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
         if (!texts.contains(text)) {
             texts.add(text)
             if (texts.size == 1) {
+                println("SPEAK OUT: $text")
                 tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
             }
         }
+    }
+
+    fun clear() {
+        tts.stop()
+        texts.clear()
     }
 
     override fun onStart(utteranceId: String?) { }
@@ -43,6 +49,7 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
         if (utteranceId != null) {
             texts.remove(utteranceId)
             if (texts.isNotEmpty()) {
+                println("SPEAK OUT: ${texts[0]}")
                 tts.speak(texts[0], TextToSpeech.QUEUE_FLUSH, null, texts[0])
             }
         }

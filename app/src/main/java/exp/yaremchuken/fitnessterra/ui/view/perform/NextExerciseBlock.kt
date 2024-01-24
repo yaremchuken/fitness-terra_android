@@ -1,5 +1,7 @@
 package exp.yaremchuken.fitnessterra.ui.view.perform
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,22 +17,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
+import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
-import exp.yaremchuken.fitnessterra.util.Utils
 
 data class NextExerciseDto (
     val section: WorkoutSection,
     val exercise: Exercise,
+    val setupIdx: Int,
     val setIdx: Int,
-    val repeatIdx: Int
+    val isNewSection: Boolean,
+    val isNewExercise: Boolean
 )
 
 @Composable
@@ -40,17 +46,36 @@ fun NextExerciseBlock(
 ) {
     var spoken by remember { mutableStateOf(false) }
 
-    val set = dto.section.sets[dto.setIdx]
+    val setup = dto.section.setups[dto.setupIdx]
 
     if (!spoken) {
-        speakOut(
-            stringResource(id = R.string.speak_next_exercise_block)
-                .replace("%s", dto.section.title)
-                .replace("%e", dto.exercise.title)
-                .replace("%r", "${set.repeats[dto.repeatIdx]}")
-        )
+        if (dto.isNewSection) {
+            speakOut(
+                stringResource(id = R.string.speak_next_section_block)
+                    .replace(":section", dto.section.title)
+            )
+        }
+        if (dto.isNewExercise) {
+            speakOut(
+                stringResource(id = R.string.speak_next_exercise_block)
+                    .replace(":exercise", dto.exercise.title)
+                    .replace(":sets", "${setup.sets.size}")
+                    .replace(":set", "${setup.sets[dto.setIdx]}")
+            )
+        } else {
+            speakOut(
+                stringResource(id = R.string.speak_next_set_block)
+                    .replace(":set", "${setup.sets[dto.setIdx]}")
+            )
+        }
         spoken = true
     }
+
+    val setInfo =
+        """
+            ${stringResource(R.string.set_title)} ${dto.setIdx + 1} ${stringResource(id = R.string.from)} ${setup.sets.size}
+             - x${setup.sets[dto.setIdx]} ${stringResource(R.string.repeats_title)}
+        """.trimIndent().replace("\n", "")
 
     Box(
         Modifier.fillMaxWidth()
@@ -64,49 +89,41 @@ fun NextExerciseBlock(
         ) {
             ExerciseAnimation(dto.exercise, Modifier)
         }
-        Column {
-            Row(
-                Modifier.padding(start = 12.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.workout_perform_next_is),
-                    Modifier.padding(end = 8.dp),
-                    style = Typography.titleLarge
-                )
-                Text(
-                    text = dto.section.title,
-                    style = Typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            if (set.repeats.isNotEmpty()) {
-                Row(
-                    Modifier.padding(start = 12.dp)
-                ) {
-                    Text(
-                        text = "${stringResource(R.string.repeat_title)} ${dto.repeatIdx + 1} ${stringResource(id = R.string.from)} ${set.repeats.size}",
-                        style = Typography.titleLarge,
-                        fontWeight = FontWeight.Bold
+        Column (
+            Modifier
+                .padding(horizontal = 12.dp)
+        ) {
+            Column(
+                Modifier
+                    .background(
+                        color = AppColor.GrayTransparent,
+                        shape = UIConstants.ROUNDED_CORNER
                     )
-                }
-            }
-            Row(
-                Modifier.padding(start = 12.dp)
+                    .alpha(.7F)
+                    .border(
+                        width = 1.dp,
+                        color = Color.Gray,
+                        shape = UIConstants.ROUNDED_CORNER
+                    )
+                    .padding(all = 6.dp)
             ) {
                 Text(
-                    text = exerciseLine(set, dto.repeatIdx),
+                    text = setup.exercise.title,
+                    Modifier.padding(start = 8.dp),
                     style = Typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
+                if (setup.sets.isNotEmpty()) {
+                    Row {
+                        Text(
+                            text = setInfo,
+                            Modifier.padding(start = 8.dp),
+                            style = Typography.titleLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
         }
     }
-}
-
-private fun exerciseLine(set: ExerciseSet, repeatIdx: Int): String {
-    val title = set.exercise.title
-    val block =
-        if (set.repeats.isNotEmpty()) "x${set.repeats[repeatIdx]}"
-        else Utils.formatToTime(set.duration)
-    return "$title $block"
 }

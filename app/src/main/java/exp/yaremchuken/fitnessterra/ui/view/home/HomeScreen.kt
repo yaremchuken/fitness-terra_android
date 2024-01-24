@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
@@ -139,7 +138,9 @@ fun CalendarLinkBlock(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
-            Modifier.padding(all = 12.dp),
+            Modifier
+                .weight(1F)
+                .padding(all = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -151,7 +152,8 @@ fun CalendarLinkBlock(
             )
             Text(
                 text = stringResource(R.string.to_workouts_schedule_title),
-                Modifier.padding(start = 6.dp),
+                Modifier
+                    .padding(start = 6.dp),
                 style = Typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )

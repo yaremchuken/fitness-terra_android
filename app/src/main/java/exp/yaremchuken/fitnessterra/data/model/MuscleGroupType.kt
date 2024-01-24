@@ -1,7 +1,6 @@
 package exp.yaremchuken.fitnessterra.data.model
 
 import exp.yaremchuken.fitnessterra.AppSettings
-import java.util.Locale
 
 /**
  * The group of muscles (or specific muscle) that the exercise is aimed at.
@@ -26,7 +25,7 @@ enum class MuscleGroupType {
 
     companion object {
         fun i18n(type: MuscleGroupType) =
-            if (AppSettings.locale() == Locale.forLanguageTag("ru")) {
+            if (AppSettings.localeIsRu()) {
                 when(type) {
                     NECK -> "шея"
                     TRAPEZOID -> "трапеция"

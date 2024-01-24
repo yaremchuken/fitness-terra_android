@@ -19,29 +19,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.util.Utils
 
-@Preview
 @Composable
 fun ExerciseSetEntryView(
     onClick: () -> Unit,
-    exerciseSet: ExerciseSet
+    setup: ExerciseSetup
 ) {
     val repeatsOrDuration =
-        if (exerciseSet.repeats.isEmpty()) {
-            Utils.formatToTime(exerciseSet.duration)
-        } else if (allRepeatsAreSame(exerciseSet.repeats)) {
-            "${exerciseSet.repeats.size}x${exerciseSet.repeats[0]}"
+        if (setup.sets.isEmpty()) {
+            Utils.formatToTime(setup.duration)
+        } else if (allRepeatsAreSame(setup.sets)) {
+            "${setup.sets.size}x${setup.sets[0]}"
         } else {
-            exerciseSet.repeats.joinToString(",")
+            setup.sets.joinToString(",")
         }
 
     Column(
@@ -54,7 +52,7 @@ fun ExerciseSetEntryView(
             verticalAlignment = Alignment.CenterVertically
         ) {
             ExerciseAnimation(
-                exerciseSet.exercise,
+                setup.exercise,
                 Modifier
                     .height(64.dp)
                     .clip(UIConstants.ROUNDED_CORNER)
@@ -69,13 +67,13 @@ fun ExerciseSetEntryView(
                         .padding(start = 12.dp)
                 ) {
                     Text(
-                        text = exerciseSet.exercise.title,
+                        text = setup.exercise.title,
                         style = AppType.titleMedium
                     )
                     Row {
                         Image(
                             painter = painterResource(
-                                id = if (exerciseSet.repeats.isEmpty()) R.drawable.ic_timer else R.drawable.ic_repeat
+                                id = if (setup.sets.isEmpty()) R.drawable.ic_timer else R.drawable.ic_repeat
                             ),
                             contentDescription = null,
                             Modifier
@@ -87,7 +85,7 @@ fun ExerciseSetEntryView(
                             text = repeatsOrDuration,
                             style = Typography.bodyMedium
                         )
-                        if (exerciseSet.weight > 0) {
+                        if (setup.weight > 0) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_weight),
                                 contentDescription = null,
@@ -97,7 +95,7 @@ fun ExerciseSetEntryView(
                                     .align(Alignment.CenterVertically)
                             )
                             Text(
-                                text = "${exerciseSet.weight * .001}",
+                                text = "${setup.weight * .001}",
                                 style = Typography.bodyMedium
                             )
                         }

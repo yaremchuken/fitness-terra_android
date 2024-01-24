@@ -11,8 +11,8 @@ object AppSettings {
      * Right now app supports only two locales EN and RU.
      */
     fun locale(): Locale =
-        when (Locale.getDefault().language) {
-            "ru" -> Locale.getDefault()
-            else -> Locale.ENGLISH
-        }
+        if (localeIsRu()) Locale.getDefault()
+        else Locale.ENGLISH
+
+    fun localeIsRu() = Locale.getDefault().language.lowercase() == "ru"
 }

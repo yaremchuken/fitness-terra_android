@@ -1,6 +1,6 @@
 package exp.yaremchuken.fitnessterra.data.datasource.dto.shallow
 
-import exp.yaremchuken.fitnessterra.data.datasource.dto.ExerciseSetDto
+import exp.yaremchuken.fitnessterra.data.datasource.dto.ExerciseSetupDto
 import exp.yaremchuken.fitnessterra.data.model.Workout
 
 /**
@@ -15,8 +15,8 @@ data class WorkoutShallowDto(
                 workout.sections.map { section ->
                     WorkoutSectionShallowDto(
                         section.title,
-                        section.sets.map { set ->
-                            ExerciseSetDto.toDto(set)
+                        section.setups.map { setup ->
+                            ExerciseSetupDto.toDto(setup)
                         }
                     )
                 }

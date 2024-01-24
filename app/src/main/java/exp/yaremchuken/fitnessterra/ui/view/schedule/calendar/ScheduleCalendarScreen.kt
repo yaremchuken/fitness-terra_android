@@ -36,17 +36,14 @@ import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel.Companion.DAYS_IN_WEEK
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel.Companion.WEEKS_IN_CALENDAR
 import java.time.DayOfWeek
-import java.time.Instant
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
-import java.time.temporal.ChronoUnit
 
 val MONTH_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
 
@@ -191,37 +188,3 @@ fun ScheduleCalendarScreen(
         }
     }
 }
-
-val schedulesStub =
-    listOf(
-        Schedule(
-            0,
-            Instant.now().minus(3, ChronoUnit.DAYS),
-            workoutStub,
-            listOf()
-        ),
-        Schedule(
-            1,
-            Instant.now(),
-            workoutStub,
-            listOf(DayOfWeek.MONDAY)
-        ),
-        Schedule(
-            2,
-            Instant.now().plus(3, ChronoUnit.HOURS).plus(20, ChronoUnit.MINUTES),
-            workoutStub,
-            listOf(DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY)
-        ),
-        Schedule(
-            3,
-            Instant.now().plus(1, ChronoUnit.DAYS),
-            workoutStub,
-            listOf()
-        ),
-        Schedule(
-            4,
-            Instant.now().minus(1, ChronoUnit.DAYS),
-            workoutStub,
-            listOf()
-        ),
-    )

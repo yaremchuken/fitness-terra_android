@@ -31,18 +31,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSet
-import exp.yaremchuken.fitnessterra.data.model.Workout
-import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
-import exp.yaremchuken.fitnessterra.data.model.WorkoutType
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.exercise.exerciseBackStub
-import exp.yaremchuken.fitnessterra.ui.view.exercise.exerciseBicepsStub
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutDetailsViewModel
-import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun WorkoutDetailsScreen(
@@ -58,7 +51,7 @@ fun WorkoutDetailsScreen(
 
     val workoutStats =
         "${Utils.formatToTime(workout!!.totalDuration())} • " +
-        "${workout!!.sections.sumOf { it.sets.size }} ${stringResource(id = R.string.exercises_count_title)}"
+        "${workout!!.sections.sumOf { it.setups.size }} ${stringResource(id = R.string.exercises_count_title)}"
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -117,7 +110,7 @@ fun WorkoutDetailsScreen(
                         Modifier.padding(top = 12.dp),
                         style = Typography.titleLarge
                     )
-                    section.sets.forEach {
+                    section.setups.forEach {
                         ExerciseSetEntryView({ showExerciseDetails(it.exercise.id) }, it)
                     }
                 }
@@ -144,39 +137,3 @@ fun WorkoutDetailsScreen(
         }
     }
 }
-
-val workoutStub = Workout(
-    id = 0,
-    title = "Спина и бицепс",
-    type = WorkoutType.STRENGTH,
-    sections = listOf(
-        WorkoutSection(
-            "Спина",
-            listOf(
-                ExerciseSet(
-                    exercise = exerciseBackStub(),
-                    weight = 1200,
-                    repeats = listOf(12,10,10,8,6),
-                    recovery = 30.seconds
-                )
-            )
-        ),
-        WorkoutSection(
-            "Бицепс",
-            listOf(
-                ExerciseSet(
-                    exercise = exerciseBicepsStub(),
-                    weight = 500,
-                    repeats = listOf(10,10,10),
-                    recovery = 30.seconds
-                ),
-                ExerciseSet(
-                    exercise = exerciseBicepsStub(),
-                    weight = 500,
-                    repeats = listOf(10,10,10),
-                    recovery = 30.seconds
-                )
-            )
-        )
-    )
-)

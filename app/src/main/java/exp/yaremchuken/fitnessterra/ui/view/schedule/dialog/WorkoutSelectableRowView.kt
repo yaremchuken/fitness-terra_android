@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeightIn
-import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -22,22 +20,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.util.Utils
 
-@Preview
 @Composable
 fun WorkoutSelectableRowView(
-    onClick: () -> Unit = {},
-    onInfo: () -> Unit = {},
-    selected: Boolean = true,
-    workout: Workout = workoutStub
+    onClick: () -> Unit,
+    onInfo: () -> Unit,
+    selected: Boolean,
+    workout: Workout
 ) {
     val preview = Utils.getWorkoutPreview(LocalContext.current, workout)
 

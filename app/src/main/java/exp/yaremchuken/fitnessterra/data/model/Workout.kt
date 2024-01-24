@@ -28,7 +28,7 @@ data class Workout(
         sections.forEachIndexed { index, section ->
             total = total.plus(section.totalDuration())
             if (index != sections.size-1) {
-                total = total.plus(section.sets[section.sets.size-1].recovery)
+                total = total.plus(section.setups[section.setups.size-1].recovery)
             }
         }
         return total

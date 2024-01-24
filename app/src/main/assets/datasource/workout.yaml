@@ -11,41 +11,41 @@ entities:
         title:
           ru: Грудь
           en: Chest
-        sets:
+        setups:
           -
             exerciseId: 0
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000
           -
             exerciseId: 1
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000
           -
             exerciseId: 2
             weight: 5000
-            repeats: [12, 12, 12]
+            sets: [12, 12, 12]
             recovery: 40000
       -
         title:
           ru: Трицепс
           en: Triceps
-        sets:
+        setups:
           -
             exerciseId: 4
             weight: 5000
-            repeats: [12, 12, 12]
+            sets: [12, 12, 12]
             recovery: 40000
           -
             exerciseId: 5
             weight: 5000
-            repeats: [12, 12, 12]
+            sets: [12, 12, 12]
             recovery: 40000
           -
             exerciseId: 6
             weight: 5000
-            repeats: [12, 12, 12]
+            sets: [12, 12, 12]
             recovery: 40000
 
   -
@@ -59,36 +59,36 @@ entities:
         title:
           ru: Спина
           en: Back
-        sets:
+        setups:
           -
             exerciseId: 7
             weight: 5000
-            repeats: [12, 10, 10, 8, 6]
+            sets: [12, 10, 10, 8, 6]
             recovery: 40000
           -
             exerciseId: 8
             weight: 5000
-            repeats: [12, 10, 10, 8, 6]
+            sets: [12, 10, 10, 8, 6]
             recovery: 40000
       -
         title:
           ru: Бицепс
           en: Biceps
-        sets:
+        setups:
           -
             exerciseId: 9
             weight: 5000
-            repeats: [20, 20, 20]
+            sets: [20, 20, 20]
             recovery: 40000
           -
             exerciseId: 10
             weight: 5000
-            repeats: [10, 10, 10]
+            sets: [10, 10, 10]
             recovery: 40000
           -
             exerciseId: 11
             weight: 5000
-            repeats: [20, 20]
+            sets: [20, 20]
             recovery: 40000
 
   -
@@ -102,69 +102,69 @@ entities:
         title:
           ru: Квадрицепс
           en: Quadriceps
-        sets:
+        setups:
           -
             exerciseId: 12
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000
           -
             exerciseId: 13
             weight: 5000
-            repeats: [12, 12, 12]
+            sets: [12, 12, 12]
             recovery: 40000
           -
             exerciseId: 14
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000
       -
         title:
           ru: Задние отделы бедра
           en: Thighs back
-        sets:
+        setups:
           -
             exerciseId: 15
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000
       -
         title:
           ru: Икры
           en: Calves
-        sets:
+        setups:
           -
             exerciseId: 16
             weight: 5000
-            repeats: [15, 10]
+            sets: [15, 10]
             recovery: 40000
           -
             exerciseId: 17
             weight: 5000
-            repeats: [12, 10]
+            sets: [12, 10]
             recovery: 40000
       -
         title:
           ru: Плечи
           en: Shoulders
-        sets:
+        setups:
           -
             exerciseId: 18
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000
           -
             exerciseId: 19
             weight: 5000
-            repeats: [12, 10, 10]
+            sets: [12, 10, 10]
             recovery: 40000
           -
             exerciseId: 20
             weight: 5000
-            repeats: [12, 10, 10]
+            sets: [12, 10, 10]
             recovery: 40000
           -
             exerciseId: 21
             weight: 5000
-            repeats: [12, 10, 10, 8]
+            sets: [12, 10, 10, 8]
             recovery: 40000

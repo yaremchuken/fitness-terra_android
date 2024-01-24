@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
-import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
@@ -36,12 +35,12 @@ import java.time.YearMonth
 @Preview
 @Composable
 fun ScheduleCalendarDateView(
-    onClick: () -> Unit = {},
-    width: Dp = 45.dp,
-    date: LocalDate = LocalDate.now(),
-    month: YearMonth = YearMonth.now(),
-    scheduled: List<Schedule> = schedulesStub.filter { it.scheduledAt.toLocalDate() == LocalDate.now() },
-    histories: List<History> = listOf()
+    onClick: () -> Unit,
+    width: Dp,
+    date: LocalDate,
+    month: YearMonth,
+    scheduled: List<Schedule>,
+    histories: List<History>
 ) {
     val isNotInMonth = date.isBefore(month.atDay(1)) || date.isAfter(month.atEndOfMonth())
 

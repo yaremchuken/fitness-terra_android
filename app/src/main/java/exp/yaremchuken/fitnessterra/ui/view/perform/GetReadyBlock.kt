@@ -16,25 +16,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.workout.workoutStub
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
 private val GET_READY_DURATION = 15.seconds
 
-@Preview
 @Composable
 fun GetReadyBlock(
-    onFinish: () -> Unit = {},
-    speakOut: (text: String) -> Unit = {},
-    exercise: Exercise = workoutStub.sections[0].sets[0].exercise
+    onFinish: () -> Unit,
+    speakOut: (text: String) -> Unit,
+    exercise: Exercise
 ) {
 
     var timer by remember { mutableStateOf(GET_READY_DURATION) }
