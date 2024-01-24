@@ -31,6 +31,8 @@ class WorkoutPerformViewModel @Inject constructor(
         }
     }
 
+    fun isStarted() = startedAt != null
+
     fun getNextExerciseDto(
         workout: Workout,
         sectionIdx: Int,
@@ -64,6 +66,10 @@ class WorkoutPerformViewModel @Inject constructor(
             newSectionIdx != sectionIdx,
             newSetupIdx != setupIdx
         )
+    }
+
+    fun initSpeak() {
+        textToSpeechHelper.hold = false
     }
 
     fun speakWorkoutBegin(template: String, workout: Workout) {

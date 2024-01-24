@@ -12,6 +12,8 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
 
     private val texts: MutableList<String> = ArrayList()
 
+    var hold: Boolean = false
+
     init {
         tts = TextToSpeech(app, this)
         tts.setOnUtteranceProgressListener(this)
@@ -29,10 +31,12 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
     }
 
     fun speakOut(text: String) {
+        if (hold) {
+            return
+        }
         if (!texts.contains(text)) {
             texts.add(text)
             if (texts.size == 1) {
-                println("SPEAK OUT: $text")
                 tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
             }
         }
@@ -41,6 +45,7 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
     fun clear() {
         tts.stop()
         texts.clear()
+        hold = true
     }
 
     override fun onStart(utteranceId: String?) { }
@@ -48,8 +53,10 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
     override fun onDone(utteranceId: String?) {
         if (utteranceId != null) {
             texts.remove(utteranceId)
+            if (hold) {
+                return
+            }
             if (texts.isNotEmpty()) {
-                println("SPEAK OUT: ${texts[0]}")
                 tts.speak(texts[0], TextToSpeech.QUEUE_FLUSH, null, texts[0])
             }
         }

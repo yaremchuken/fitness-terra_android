@@ -25,7 +25,7 @@ import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
-private val GET_READY_DURATION = 15.seconds
+private val GET_READY_DURATION = 20.seconds
 
 @Composable
 fun GetReadyBlock(

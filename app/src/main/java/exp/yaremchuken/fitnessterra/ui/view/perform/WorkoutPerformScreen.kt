@@ -54,19 +54,25 @@ fun WorkoutPerformScreen(
     var section = workout.sections[sectionIdx]
     var setup = section.setups[setupIdx]
 
-    viewModel.markStart()
+    if (!viewModel.isStarted()) {
+        viewModel.markStart()
+        viewModel.initSpeak()
+    }
 
     val workoutCompletedText = stringResource(id = R.string.speak_workout_completed)
+
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     val backCallback = remember {
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.clearSpeak()
+                isEnabled = false
+                onBackPressedDispatcher?.onBackPressed()
             }
         }
     }
 
-    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner, onBackPressedDispatcher) {
         onBackPressedDispatcher?.addCallback(lifecycleOwner, backCallback)

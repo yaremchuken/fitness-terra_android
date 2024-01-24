@@ -59,6 +59,7 @@ fun NextExerciseBlock(
             speakOut(
                 stringResource(id = R.string.speak_next_exercise_block)
                     .replace(":exercise", dto.exercise.title)
+                    .replace(":weight", "${setup.weight/1000}")
                     .replace(":sets", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
             )
