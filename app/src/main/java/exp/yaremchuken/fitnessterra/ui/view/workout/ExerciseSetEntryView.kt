@@ -2,6 +2,7 @@ package exp.yaremchuken.fitnessterra.ui.view.workout
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,8 +32,8 @@ import exp.yaremchuken.fitnessterra.util.Utils
 @Preview
 @Composable
 fun ExerciseSetEntryView(
-    onClick: () -> Unit = {},
-    exerciseSet: ExerciseSet = workoutStub.sections[0].sets[0]
+    onClick: () -> Unit,
+    exerciseSet: ExerciseSet
 ) {
     val repeatsOrDuration =
         if (exerciseSet.repeats.isEmpty()) {
@@ -45,6 +46,7 @@ fun ExerciseSetEntryView(
 
     Column(
         Modifier
+            .clickable { onClick() }
             .background(Color.White)
             .padding(top = 12.dp, bottom = 8.dp)
     ) {

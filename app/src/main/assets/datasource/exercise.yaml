@@ -294,9 +294,11 @@ entities:
         - Perform the required number of repetitions
     advises:
       ru:
-        - Вы можете выполнять это упражнение, используя вместо гантелей трос нижнего блока с V-образной рукоятью или штангу. Также можно делать это упражнение с использованием супинированного или нейтрального хвата
+        - Вы можете выполнять это упражнение, используя вместо гантелей трос нижнего блока с V-образной рукоятью или штангу
+        - Также можно делать это упражнение с использованием супинированного или нейтрального хвата
       en:
-        - You can perform this exercise using a V-shaped lower block cable or a barbell instead of dumbbells. You can also do this exercise using a supinated or neutral grip
+        - You can perform this exercise using a V-shaped lower block cable or a barbell instead of dumbbells
+        - You can also do this exercise using a supinated or neutral grip
     warnings:
       ru:
         - Это упражнение не рекомендуется выполнять людям, у которых есть проблемы со спиной. В данном случае лучше выбрать упражнение Тяга на низком блоке

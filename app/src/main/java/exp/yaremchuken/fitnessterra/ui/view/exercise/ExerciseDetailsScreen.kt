@@ -66,7 +66,7 @@ fun ExerciseDetailsScreen(
             ExerciseAnimation(
                 exercise = exercise,
                 modifier = Modifier.align(Alignment.Center),
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.FillHeight
             )
             IconButton(
                 onClick = { onBackPressedDispatcher?.onBackPressed() },
@@ -88,7 +88,7 @@ fun ExerciseDetailsScreen(
         Column(
             Modifier
                 .padding(horizontal = 20.dp)
-                .weight(4F)
+                .weight(2F)
                 .verticalScroll(scrollState)
         ) {
             Text(
@@ -192,6 +192,13 @@ fun ExerciseDetailsScreen(
                         Row(
                             Modifier.padding(bottom = 8.dp)
                         ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_lamp_icon),
+                                contentDescription = null,
+                                Modifier
+                                    .height(20.dp)
+                                    .padding(horizontal = 5.dp)
+                            )
                             Text(
                                 text = it,
                                 style = Typography.bodyMedium

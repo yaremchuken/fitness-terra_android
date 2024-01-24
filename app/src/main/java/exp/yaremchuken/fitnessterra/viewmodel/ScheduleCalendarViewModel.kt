@@ -28,7 +28,7 @@ class ScheduleCalendarViewModel @Inject constructor(
         scheduleRepository.getAllInPeriod(from, to, weekdaysInPeriod(from, to))
 
     fun fromEntity(entity: ScheduleEntity) =
-        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
+        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
 
     fun getHistories(from: LocalDate, to: LocalDate) = historyRepository.getInPeriod(from, to)
 

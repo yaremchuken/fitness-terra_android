@@ -75,7 +75,7 @@ fun ExerciseStepView(
         Column {
             Text(
                 text = description,
-                Modifier.padding(top = 1.dp),
+                Modifier.padding(top = 6.dp),
                 style = Typography.bodyMedium
             )
         }

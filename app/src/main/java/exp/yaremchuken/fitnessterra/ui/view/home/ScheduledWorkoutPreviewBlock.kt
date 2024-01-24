@@ -29,11 +29,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.Instant
+import java.time.LocalDate
 
 @Composable
 fun ScheduledWorkoutPreviewBlock(
@@ -65,14 +67,16 @@ fun ScheduledWorkoutPreviewBlock(
         ) {
             Spacer(Modifier.padding(start = 12.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_clock),
+                painter = painterResource(if (isToday(scheduledAt)) R.drawable.ic_clock else R.drawable.ic_calendar),
                 contentDescription = null,
                 Modifier
                     .width(24.dp)
                     .height(24.dp)
             )
             Text(
-                text = Utils.TIME_FORMAT.format(scheduledAt),
+                text =
+                    if (isToday(scheduledAt)) Utils.TIME_FORMAT.format(scheduledAt)
+                    else Utils.DATE_SHORT_FORMAT.format(scheduledAt),
                 Modifier.padding(all = 12.dp),
                 style = Typography.bodyLarge,
                 fontWeight = FontWeight.Bold
@@ -116,3 +120,5 @@ fun ScheduledWorkoutPreviewBlock(
         }
     }
 }
+
+private fun isToday(instant: Instant) = instant.toLocalDate() == LocalDate.now()

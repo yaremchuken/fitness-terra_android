@@ -17,6 +17,7 @@ object Utils {
     const val PREVIEW_DEFAULT = "preview_default"
 
     val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault())
+    val DATE_SHORT_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM").withZone(ZoneId.systemDefault())
     val TIME_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:ss").withZone(ZoneId.systemDefault())
 
     /**

@@ -102,8 +102,8 @@ fun HomeScreen(
             ) {
                 CalendarLinkBlock(onClick = { gotoCalendar() })
             }
-            Divider()
             if (latestHistory.isNotEmpty()) {
+                Divider()
                 Text(
                     text = stringResource(R.string.recently_completed_workouts_title),
                     Modifier.padding(vertical = 12.dp),
@@ -157,11 +157,11 @@ fun CalendarLinkBlock(
             )
         }
         IconButton(
-            onClick = { },
+            onClick = { onClick() },
             Modifier
                 .padding(end = 20.dp)
-                .height(24.dp)
-                .width(24.dp)
+                .height(36.dp)
+                .width(36.dp)
                 .align(Alignment.CenterVertically)
         ) {
             Image(painter = painterResource(id = R.drawable.ic_forward_filled), contentDescription = null)

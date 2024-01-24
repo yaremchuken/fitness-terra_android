@@ -91,7 +91,7 @@ fun WorkoutDetailsScreen(
             }
         }
         Column(
-            Modifier.weight(4F)
+            Modifier.weight(3F)
         ) {
             Text(
                 text = workout!!.title,

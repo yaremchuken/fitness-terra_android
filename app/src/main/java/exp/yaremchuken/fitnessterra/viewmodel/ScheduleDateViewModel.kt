@@ -35,12 +35,12 @@ class ScheduleDateViewModel @Inject constructor(
     }
 
     fun fromEntity(entity: ScheduleEntity) =
-        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
+        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
 
     fun getHistories(onDate: LocalDate) = historyRepository.getInPeriod(onDate, onDate)
 
     fun fromEntity(entity: HistoryEntity) =
-        historyRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
+        historyRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
 
     fun getWorkouts() = workoutRepository.getAll()
 

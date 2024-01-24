@@ -22,10 +22,10 @@ class HomeViewModel @Inject constructor(
     fun getTodaySchedules() = scheduleRepository.getOnDate(LocalDate.now())
 
     fun fromEntity(entity: ScheduleEntity) =
-        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
+        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
 
     fun getLatestHistory(limit: Long) = historyRepository.getLatest(limit)
 
     fun fromEntity(entity: HistoryEntity)=
-        historyRepository.fromEntity(entity, workoutRepository.getById(entity.id!!)!!)
+        historyRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
 }
