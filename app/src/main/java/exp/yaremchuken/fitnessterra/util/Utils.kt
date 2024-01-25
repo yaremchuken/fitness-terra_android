@@ -13,8 +13,9 @@ import kotlin.time.Duration
 
 object Utils {
 
-    const val EXERCISES_FOLDER = "exercise"
-    const val PREVIEW_DEFAULT = "preview_default"
+    private const val EXERCISES_FOLDER = "exercise"
+    private const val WORKOUT_FOLDER = "workout"
+    private const val PREVIEW_DEFAULT = "preview_default"
 
     val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault())
     val DATE_SHORT_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM").withZone(ZoneId.systemDefault())
@@ -37,18 +38,12 @@ object Utils {
     }
 
     /**
-     * Get preview for current exercise, if it not exists then default preview.
+     * Get workout preview, or default preview if specified workout don't have one.
      */
-    fun getExercisePreview(context: Context, exercise: Exercise) = (
-            context.bitmap(EXERCISES_FOLDER, "${exercise.id}_0") ?:
-            context.bitmap(EXERCISES_FOLDER, PREVIEW_DEFAULT)!!
+    fun getWorkoutPreview(context: Context, workout: Workout) = (
+            context.bitmap(WORKOUT_FOLDER, "${workout.id}") ?:
+            context.bitmap(WORKOUT_FOLDER, PREVIEW_DEFAULT)!!
             ).asImageBitmap()
-
-    /**
-     * For simplicity lets just take preview of first exercise of this workout.
-     */
-    fun getWorkoutPreview(context: Context, workout: Workout) =
-        getExercisePreview(context, workout.sections[0].setups[0].exercise)
 
     /**
      * Represent seconds as time string.
@@ -66,4 +61,6 @@ object Utils {
 
         return "$hourStr${minutes.toString().padStart(2, '0')}:${remainder.toString().padStart(2, '0')}"
     }
+
+    fun exerciseGifPath(exercise: Exercise) = "$EXERCISES_FOLDER/${exercise.id}.gif"
 }

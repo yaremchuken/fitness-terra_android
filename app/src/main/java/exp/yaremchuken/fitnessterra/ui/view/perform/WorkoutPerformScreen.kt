@@ -29,12 +29,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.COMPLETED
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.GET_READY
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.PERFORM
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.RECOVERY
+import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutPerformViewModel
 import kotlin.time.Duration
 
@@ -97,9 +98,9 @@ fun WorkoutPerformScreen(
             verticalArrangement = Arrangement.Center
         ) {
             when(state) {
-                GET_READY, PERFORM -> ExerciseAnimation(
-                    exercise = setup.exercise,
-                    modifier = Modifier.fillMaxWidth()
+                GET_READY, PERFORM -> GifImage(
+                    Utils.exerciseGifPath(setup.exercise),
+                    Modifier.fillMaxWidth()
                 )
                 RECOVERY -> WorkoutRecoveryBlock(
                     onFinish = {

@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.util.Utils
 
 @Composable
@@ -51,8 +51,8 @@ fun ExerciseSetupBlock(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ExerciseAnimation(
-                setup.exercise,
+            GifImage(
+                Utils.exerciseGifPath(setup.exercise),
                 Modifier
                     .height(64.dp)
                     .clip(UIConstants.ROUNDED_CORNER)

@@ -32,12 +32,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.bitmap
 import exp.yaremchuken.fitnessterra.data.model.EquipmentType
-import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.MuscleGroupType
+import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
 import exp.yaremchuken.fitnessterra.uppercaseFirstChar
+import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.ExerciseDetailsViewModel
 
 @Composable
@@ -63,10 +63,10 @@ fun ExerciseDetailsScreen(
                 .fillMaxWidth()
                 .weight(1F)
         ) {
-            ExerciseAnimation(
-                exercise = exercise,
-                modifier = Modifier.align(Alignment.Center),
-                contentScale = ContentScale.FillHeight
+            GifImage(
+                Utils.exerciseGifPath(exercise),
+                Modifier.align(Alignment.Center),
+                ContentScale.FillHeight
             )
             IconButton(
                 onClick = { onBackPressedDispatcher?.onBackPressed() },
@@ -79,18 +79,19 @@ fun ExerciseDetailsScreen(
                 Image(painter = painterResource(id = R.drawable.ic_back_filled), contentDescription = null)
             }
         }
-        Text(
-            text = exercise.title,
-            Modifier.padding(vertical = 12.dp, horizontal = 20.dp),
-            style = Typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
+        Divider()
         Column(
             Modifier
                 .padding(horizontal = 20.dp)
                 .weight(2F)
                 .verticalScroll(scrollState)
         ) {
+            Text(
+                text = exercise.title,
+                Modifier.padding(vertical = 12.dp),
+                style = Typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
             Text(
                 text = exercise.description,
                 style = Typography.bodyMedium

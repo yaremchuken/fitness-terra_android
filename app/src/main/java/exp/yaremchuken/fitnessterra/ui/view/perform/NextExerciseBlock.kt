@@ -26,9 +26,10 @@ import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
-import exp.yaremchuken.fitnessterra.ui.view.animation.ExerciseAnimation
+import exp.yaremchuken.fitnessterra.util.Utils
 
 data class NextExerciseDto (
     val section: WorkoutSection,
@@ -88,7 +89,7 @@ fun NextExerciseBlock(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ExerciseAnimation(dto.exercise, Modifier)
+            GifImage(Utils.exerciseGifPath(dto.exercise))
         }
         Column (
             Modifier

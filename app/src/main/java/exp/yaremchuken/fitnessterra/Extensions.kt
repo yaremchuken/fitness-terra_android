@@ -3,8 +3,6 @@ package exp.yaremchuken.fitnessterra
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import exp.yaremchuken.fitnessterra.data.model.Exercise
-import exp.yaremchuken.fitnessterra.util.Utils.EXERCISES_FOLDER
 import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate
@@ -35,20 +33,6 @@ fun Context.bitmaps(path: String): Map<String, Bitmap> {
         } ?: mapOf()
     } catch (e: IOException) {
         throw RuntimeException("Unable to fetch bitmaps from path '$path'", e)
-    }
-}
-
-fun Context.bitmaps(exercise: Exercise): List<Bitmap> {
-    return try {
-        assets
-            .list(EXERCISES_FOLDER)
-            ?.filter { it.startsWith("${exercise.id}_") }
-            ?.map {
-                BitmapFactory.decodeStream(assets.open("${EXERCISES_FOLDER}/$it"))
-            }
-            ?: listOf()
-    } catch (e: IOException) {
-        throw RuntimeException("Unable to fetch bitmaps for exercise '${exercise.id}'", e)
     }
 }
 
