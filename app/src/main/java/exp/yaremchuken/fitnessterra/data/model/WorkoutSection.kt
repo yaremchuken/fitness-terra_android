@@ -7,6 +7,15 @@ import kotlin.time.Duration
  * like workout warmup section, or section contains exercises for specific muscle group or body part.
  */
 data class WorkoutSection(
+    /**
+     * Workout section unique identification.
+     */
+    val id: Long,
+
+    /**
+     * Position of this section in workout.
+     */
+    val order: Long,
 
     /**
      * Name of this section, like 'Warmup', 'Biceps' etc.

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import com.google.gson.Gson
+import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.bitmap
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.Workout
@@ -63,4 +65,17 @@ object Utils {
     }
 
     fun exerciseGifPath(exercise: Exercise) = "$EXERCISES_FOLDER/${exercise.id}.gif"
+
+    /**
+     * Parse localization strings to find appropriate locale.
+     * Default locale is en.
+     */
+    fun localeFromEntity(localeTokens: String): String {
+        val tokens = Gson().fromJson(localeTokens, Array<String>::class.java).toList()
+        var token = tokens.firstOrNull { it.startsWith(AppSettings.locale().language) }
+        if (token == null) {
+            token = tokens.first { it.startsWith("en:") }
+        }
+        return token.removePrefix("${AppSettings.locale().language}:")
+    }
 }

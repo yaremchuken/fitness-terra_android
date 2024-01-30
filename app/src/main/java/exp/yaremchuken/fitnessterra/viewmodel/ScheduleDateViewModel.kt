@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
-import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
+import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
+import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntity
+import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntityWrapper
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
@@ -22,7 +25,8 @@ import javax.inject.Inject
 class ScheduleDateViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val workoutRepository: WorkoutRepository,
-    private val historyRepository: HistoryRepository
+    private val historyRepository: HistoryRepository,
+    private val exerciseRepository: ExerciseRepository
 ): ViewModel() {
     fun getSchedules(onDate: LocalDate) = scheduleRepository.getAllInPeriod(onDate, onDate, listOf(onDate.dayOfWeek))
 
@@ -34,15 +38,17 @@ class ScheduleDateViewModel @Inject constructor(
         viewModelScope.launch (Dispatchers.IO){ scheduleRepository.delete(schedule) }
     }
 
-    fun fromEntity(entity: ScheduleEntity) =
-        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
+    fun fromEntity(entity: ScheduleEntityWrapper) =
+        scheduleRepository.fromEntity(entity, exerciseRepository.getAll())
 
     fun getHistories(onDate: LocalDate) = historyRepository.getInPeriod(onDate, onDate)
 
     fun fromEntity(entity: HistoryEntity) =
-        historyRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
+        historyRepository.fromEntity(entity, exerciseRepository.getAll())
 
     fun getWorkouts() = workoutRepository.getAll()
+
+    fun fromEntity(entity: WorkoutEntityWrapper) = WorkoutRepository.fromEntity(entity, exerciseRepository.getAll())
 
     /**
      * Checks if a workout is already scheduled for this time.

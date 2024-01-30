@@ -3,7 +3,8 @@ package exp.yaremchuken.fitnessterra.viewmodel
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
-import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
+import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
+import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class ScheduleCalendarViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val workoutRepository: WorkoutRepository,
+    private val exerciseRepository: ExerciseRepository,
     private val historyRepository: HistoryRepository
 ): ViewModel() {
     companion object {
@@ -27,13 +29,13 @@ class ScheduleCalendarViewModel @Inject constructor(
     fun getSchedules(from: LocalDate, to: LocalDate) =
         scheduleRepository.getAllInPeriod(from, to, weekdaysInPeriod(from, to))
 
-    fun fromEntity(entity: ScheduleEntity) =
-        scheduleRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
+    fun fromEntity(entity: ScheduleEntityWrapper) =
+        scheduleRepository.fromEntity(entity, exerciseRepository.getAll())
 
     fun getHistories(from: LocalDate, to: LocalDate) = historyRepository.getInPeriod(from, to)
 
     fun fromEntity(entity: HistoryEntity) =
-        historyRepository.fromEntity(entity, workoutRepository.getById(entity.workoutId)!!)
+        historyRepository.fromEntity(entity, exerciseRepository.getAll())
 
     fun getDatesForMonth(yearMonth: YearMonth): List<LocalDate> {
         val firstDay = yearMonth.atDay(1)

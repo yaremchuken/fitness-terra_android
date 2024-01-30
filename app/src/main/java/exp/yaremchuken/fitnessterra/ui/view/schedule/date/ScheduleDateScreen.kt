@@ -39,11 +39,13 @@ import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleDateViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
@@ -67,6 +69,7 @@ fun ScheduleDateScreen(
 
     val schedules = remember { mutableStateListOf<Schedule>() }
     val histories = remember { mutableStateListOf<History>() }
+    val existedWorkouts = remember { mutableStateListOf<Workout>() }
 
     var timelineOffset by remember { mutableIntStateOf(0) }
 
@@ -75,7 +78,14 @@ fun ScheduleDateScreen(
     val dateFormat =
         "${date.dayOfWeek.getDisplayName(TextStyle.SHORT, AppSettings.locale())}, ${date.format(Utils.DATE_FORMAT)}"
 
-    val existedWorkouts = viewModel.getWorkouts()
+    LaunchedEffect(Unit) {
+        viewModel.getWorkouts().collect { works ->
+            existedWorkouts.clear()
+            existedWorkouts.addAll(
+                works.map { w -> viewModel.fromEntity(w) }
+            )
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.getSchedules(date).collect { sch ->

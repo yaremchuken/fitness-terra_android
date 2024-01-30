@@ -46,7 +46,7 @@ fun ExerciseDetailsScreen(
     viewModel: ExerciseDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
-    val exercise = viewModel.getExercise(id)!!
+    val exercise = viewModel.getExercise(id).first()
 
     val equipment = LocalContext.current.bitmap("equipment", exercise.equipment?.name)?.asImageBitmap()
     val muscleGroup = LocalContext.current.bitmap("muscle_group", exercise.muscleGroup?.name)?.asImageBitmap()

@@ -6,6 +6,7 @@ import exp.yaremchuken.fitnessterra.data.model.Exercise
 class ExerciseRepository(
     private val dao: ExerciseDao
 ) {
-    fun getById(id: Long): Exercise? = dao.getById(id)
+    fun getByIds(ids: List<Long>): List<Exercise> = dao.getByIds(ids)
+
     fun getAll(): List<Exercise> = dao.getAll()
 }

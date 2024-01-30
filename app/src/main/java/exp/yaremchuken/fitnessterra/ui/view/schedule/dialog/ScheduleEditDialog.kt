@@ -221,7 +221,7 @@ fun ScheduleEditDialog(
                 }
             }
         } else {
-            if (template.id == null) {
+            if (!template.isExists) {
                 Button(
                     onClick = {
                                 onApprove(
@@ -261,7 +261,6 @@ fun ScheduleEditDialog(
                         onClick = {
                                     onApprove(
                                         ScheduleTemplate(template.scheduledAt)
-                                            .withId(template.id!!)
                                             .withWorkout(chosenWorkout!!)
                                             .withWeekdays(weekdays)
                                     );

@@ -8,6 +8,10 @@ import kotlin.time.Duration.Companion.seconds
  */
 data class ExerciseSetup(
     /**
+     * Section of workout.
+     */
+    val sectionId: Long,
+    /**
      * Type of exercise.
      */
     val exercise: Exercise,

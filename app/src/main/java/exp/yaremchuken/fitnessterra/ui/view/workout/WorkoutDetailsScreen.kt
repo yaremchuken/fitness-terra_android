@@ -17,9 +17,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -45,7 +48,15 @@ fun WorkoutDetailsScreen(
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
-    val workout by remember { mutableStateOf(viewModel.getWorkout(workoutId)) }
+    var workout by remember { mutableStateOf<Workout?>(null) }
+
+    LaunchedEffect(Unit) {
+        viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
+    }
+
+    if (workout == null) {
+        return
+    }
 
     val workoutPreview = viewModel.getPreview(workout!!, LocalContext.current)
 

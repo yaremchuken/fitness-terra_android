@@ -9,13 +9,15 @@ import androidx.room.PrimaryKey
  */
 @Entity("schedule")
 data class ScheduleEntity(
-    @PrimaryKey val id: Long?,
     /**
      * The datetime in milliseconds for which the workout is scheduled.
      */
-    @ColumnInfo("scheduled_at") val scheduledAt: Long,
+    @PrimaryKey
+    @ColumnInfo("scheduled_at")
+    val scheduledAt: Long,
 
-    @ColumnInfo("workout_id") val workoutId: Long,
+    @ColumnInfo("workout_id")
+    val workoutId: Long,
 
     /**
      * Mark schedule as repeatable, at specific day of week.

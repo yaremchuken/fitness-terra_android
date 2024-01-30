@@ -9,7 +9,6 @@ import java.time.Instant
  * In current state only one workout can be set to specified time period.
  */
 data class Schedule(
-    val id: Long?,
     /**
      * Date and time on which workout is scheduled.
      */

@@ -2,8 +2,9 @@ package exp.yaremchuken.fitnessterra.data.repository
 
 import exp.yaremchuken.fitnessterra.data.dao.ScheduleDao
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntity
+import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
+import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.Schedule
-import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.toInstant
 import java.time.DayOfWeek
 import java.time.Instant
@@ -22,23 +23,6 @@ class ScheduleRepository(
             date.plusDays(1).toInstant().toEpochMilli()
         )
 
-    fun getInPeriod(from: LocalDate, to: LocalDate) =
-        dao.getInPeriod(
-            from.toInstant().toEpochMilli(),
-            to.plusDays(1).toInstant().toEpochMilli()
-        )
-
-    fun getWeekly(weekdays: List<DayOfWeek>) =
-        dao.getWeekly(
-            mon = weekdays.contains(DayOfWeek.MONDAY),
-            tue = weekdays.contains(DayOfWeek.TUESDAY),
-            wed = weekdays.contains(DayOfWeek.WEDNESDAY),
-            thu = weekdays.contains(DayOfWeek.THURSDAY),
-            fri = weekdays.contains(DayOfWeek.FRIDAY),
-            sat = weekdays.contains(DayOfWeek.SATURDAY),
-            sun = weekdays.contains(DayOfWeek.SUNDAY)
-        )
-
     fun getAllInPeriod(from: LocalDate, to: LocalDate, weekdays: List<DayOfWeek>) =
         dao.getAllInPeriod(
             from.toInstant().toEpochMilli(),
@@ -54,7 +38,6 @@ class ScheduleRepository(
 
     private fun toEntity(schedule: Schedule) =
         ScheduleEntity(
-            id = schedule.id,
             scheduledAt = schedule.scheduledAt.toEpochMilli(),
             workoutId = schedule.workout.id,
             monday = schedule.weekdays.contains(DayOfWeek.MONDAY),
@@ -66,15 +49,19 @@ class ScheduleRepository(
             sunday = schedule.weekdays.contains(DayOfWeek.SUNDAY)
         )
 
-    fun fromEntity(entity: ScheduleEntity, workout: Workout) =
+    fun fromEntity(entity: ScheduleEntityWrapper, exercises: List<Exercise>) =
         Schedule(
-            id = entity.id,
-            scheduledAt = Instant.ofEpochMilli(entity.scheduledAt),
-            workout,
+            scheduledAt = Instant.ofEpochMilli(entity.scheduleEntity.scheduledAt),
+            WorkoutRepository.fromEntity(entity.workout, exercises),
             convertWeekdays(
                 listOf(
-                    entity.monday, entity.tuesday, entity.wednesday, entity.thursday,
-                    entity.friday, entity.saturday, entity.sunday
+                    entity.scheduleEntity.monday,
+                    entity.scheduleEntity.tuesday,
+                    entity.scheduleEntity.wednesday,
+                    entity.scheduleEntity.thursday,
+                    entity.scheduleEntity.friday,
+                    entity.scheduleEntity.saturday,
+                    entity.scheduleEntity.sunday
                 )
             )
         )

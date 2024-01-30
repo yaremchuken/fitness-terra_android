@@ -42,7 +42,12 @@ fun WorkoutLibraryScreen(
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     LaunchedEffect(Unit) {
-        workouts.addAll(viewModel.getWorkouts())
+        viewModel.getWorkouts().collect { works ->
+            workouts.clear()
+            workouts.addAll(
+                works.map { w -> viewModel.fromEntity(w) }
+            )
+        }
     }
 
     Column(

@@ -13,6 +13,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
+import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -50,9 +52,17 @@ fun WorkoutPerformScreen(
     var sectionIdx by remember { mutableIntStateOf(0) }
     var setupIdx by remember { mutableIntStateOf(0) }
     var setIdx by remember { mutableIntStateOf(0) }
+    var workout by remember { mutableStateOf<Workout?>(null) }
 
-    val workout = viewModel.getWorkout(workoutId)!!
-    var section = workout.sections[sectionIdx]
+    LaunchedEffect(Unit) {
+        viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
+    }
+
+    if (workout == null) {
+        return
+    }
+
+    var section = workout!!.sections[sectionIdx]
     var setup = section.setups[setupIdx]
 
     if (!viewModel.isStarted()) {
@@ -83,7 +93,7 @@ fun WorkoutPerformScreen(
     }
 
     if (state == GET_READY) {
-        viewModel.speakWorkoutBegin(stringResource(id = R.string.speak_workout_begin_template), workout)
+        viewModel.speakWorkoutBegin(stringResource(id = R.string.speak_workout_begin_template), workout!!)
     }
 
     Column(
@@ -113,7 +123,7 @@ fun WorkoutPerformScreen(
                                 sectionIdx++
                             }
                         }
-                        section = workout.sections[sectionIdx]
+                        section = workout!!.sections[sectionIdx]
                         setup = section.setups[setupIdx]
                         state = PERFORM
                     },
@@ -147,11 +157,11 @@ fun WorkoutPerformScreen(
                 PERFORM -> PerformBlock(
                     onFinish = {
                         state =
-                            if (sectionIdx == workout.sections.size-1 &&
+                            if (sectionIdx == workout!!.sections.size-1 &&
                                 setupIdx == section.setups.size-1 &&
                                 setIdx >= setup.sets.size-1
                             ) {
-                                viewModel.persistHistory(workout)
+                                viewModel.persistHistory(workout!!)
                                 viewModel.speakOut(workoutCompletedText)
                                 COMPLETED
                             } else {
@@ -164,7 +174,7 @@ fun WorkoutPerformScreen(
                 )
                 RECOVERY -> NextExerciseBlock(
                     speakOut = { viewModel.speakOut(it) },
-                    viewModel.getNextExerciseDto(workout, sectionIdx, setupIdx, setIdx)
+                    viewModel.getNextExerciseDto(workout!!, sectionIdx, setupIdx, setIdx)
                 )
                 COMPLETED -> Column(
                     Modifier.fillMaxSize(),

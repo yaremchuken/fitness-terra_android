@@ -6,15 +6,16 @@ import androidx.room.PrimaryKey
 
 @Entity("history")
 data class HistoryEntity(
-    @PrimaryKey val id: Long?,
+    @PrimaryKey
+    @ColumnInfo("started_at")
+    val startedAt: Long,
 
-    @ColumnInfo("started_at") val startedAt: Long,
-    @ColumnInfo("finished_at") val finishedAt: Long,
-
-    @ColumnInfo("workout_id") val workoutId: Long,
+    @ColumnInfo("finished_at")
+    val finishedAt: Long,
 
     /**
-     * JSON description of exercise where some stuff like weight, repeats, sets etc may be modified
+     * JSON description of performed workout.
      */
-    @ColumnInfo("content") val content: String
+    @ColumnInfo("workout_data")
+    val workoutData: String
 )

@@ -9,5 +9,5 @@ import javax.inject.Inject
 class ExerciseDetailsViewModel @Inject constructor(
     private val exerciseRepository: ExerciseRepository
 ): ViewModel() {
-    fun getExercise(id: Long) = exerciseRepository.getById(id)
+    fun getExercise(id: Long) = exerciseRepository.getByIds(listOf(id))
 }

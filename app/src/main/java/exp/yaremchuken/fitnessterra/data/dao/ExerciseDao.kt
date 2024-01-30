@@ -6,6 +6,8 @@ import exp.yaremchuken.fitnessterra.data.model.Exercise
 class ExerciseDao(
     private val datasource: YamlDatasource
 ) {
-    fun getById(id: Long): Exercise? = datasource.exercises.find { it.id == id }?.copy()
+    fun getByIds(ids: List<Long>): List<Exercise> =
+        datasource.exercises.filter { ids.contains(it.id) }.map { it.copy() }
+
     fun getAll(): List<Exercise> = datasource.exercises.map { it.copy() }
 }
