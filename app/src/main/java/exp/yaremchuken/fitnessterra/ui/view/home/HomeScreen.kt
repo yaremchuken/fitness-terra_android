@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -96,33 +97,40 @@ fun HomeScreen(
                     it.workout
                 )
             }
+
             Divider()
             Column(
                 Modifier.padding(vertical = 12.dp)
             ) {
-                LinkBlock(
-                    onClick = { gotoCalendar() },
-                    isCalendarLink = true
+                LinkHorizontalBlock(
+                    onClick = { gotoCalendar() }
                 )
             }
+
             Divider()
-            Column(
-                Modifier.padding(vertical = 12.dp)
-            ) {
-                LinkBlock(
-                    onClick = { gotoExerciseLibrary() },
-                    isExerciseLink = true
-                )
+            Row {
+                Column(
+                    Modifier
+                        .weight(1F)
+                        .padding(vertical = 12.dp)
+                ) {
+                    LinkVerticalBlock(
+                        onClick = { gotoExerciseLibrary() },
+                        isExerciseLink = true
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(
+                    Modifier
+                        .weight(1F)
+                        .padding(vertical = 12.dp)
+                ) {
+                    LinkVerticalBlock(
+                        onClick = { gotoWorkoutLibrary() }
+                    )
+                }
             }
-            Divider()
-            Column(
-                Modifier.padding(vertical = 12.dp)
-            ) {
-                LinkBlock(
-                    onClick = { gotoWorkoutLibrary() },
-                    isWorkoutLink = true
-                )
-            }
+
             if (latestHistory.isNotEmpty()) {
                 Divider()
                 Text(
@@ -144,26 +152,11 @@ fun HomeScreen(
 }
 
 @Composable
-fun LinkBlock(
-    onClick: () -> Unit,
-    isCalendarLink: Boolean = false,
-    isExerciseLink: Boolean = false,
-    isWorkoutLink: Boolean = false
+fun LinkHorizontalBlock(
+    onClick: () -> Unit
 ) {
-    val linkText =
-        if (isCalendarLink) {
-            stringResource(R.string.to_workouts_schedule_link)
-        } else if (isExerciseLink) {
-            stringResource(R.string.to_exercise_library_link)
-        } else if (isWorkoutLink) {
-            stringResource(R.string.to_workout_library_link)
-        } else {
-            "EMPTY LINK!"
-        }
-
     Row(
         Modifier
-            .fillMaxWidth()
             .clickable { onClick() }
             .border(
                 width = 1.dp,
@@ -179,16 +172,14 @@ fun LinkBlock(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter =
-                    if (isCalendarLink) painterResource(id = R.drawable.ic_calendar)
-                    else painterResource(id = R.drawable.ic_library_icon),
+                painter = painterResource(id = R.drawable.ic_calendar),
                 contentDescription = null,
                 Modifier
                     .width(48.dp)
                     .height(48.dp)
             )
             Text(
-                text = linkText,
+                text = stringResource(R.string.to_workouts_schedule_link),
                 Modifier
                     .padding(start = 6.dp),
                 style = Typography.titleLarge,
@@ -204,6 +195,50 @@ fun LinkBlock(
                 .align(Alignment.CenterVertically)
         ) {
             Image(painter = painterResource(id = R.drawable.ic_forward_filled), contentDescription = null)
+        }
+    }
+}
+
+@Composable
+fun LinkVerticalBlock(
+    onClick: () -> Unit,
+    isExerciseLink: Boolean = false
+) {
+    val linkText =
+        if (isExerciseLink) {
+            stringResource(R.string.to_exercise_library_link)
+        } else {
+            stringResource(R.string.to_workout_library_link)
+        }
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .border(
+                width = 1.dp,
+                color = Color.LightGray,
+                UIConstants.ROUNDED_CORNER
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column(
+            Modifier
+                .padding(all = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_library_icon),
+                contentDescription = null,
+                Modifier
+                    .width(56.dp)
+                    .height(56.dp)
+            )
+            Text(
+                text = linkText,
+                style = Typography.headlineSmall,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

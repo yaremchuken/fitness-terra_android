@@ -39,8 +39,8 @@
     <string name="speak_next_set_block">следующий сет :set повторений</string>
     <string name="speak_next_section_block">следующая секция :section</string>
     <string name="exercise_library_title">Упражнения</string>
-    <string name="to_exercise_library_link">Библиотека упражнений</string>
-    <string name="to_workout_library_link">Библиотека тренировок</string>
+    <string name="to_exercise_library_link">Упражнения</string>
+    <string name="to_workout_library_link">Тренировки</string>
     <string name="workout_library_title">Тренировки</string>
     <string name="weight_title">Вес</string>
     <string name="kg_title">кг</string>

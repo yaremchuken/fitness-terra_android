@@ -40,8 +40,8 @@
     <string name="speak_next_set_block">next set :set repeats</string>
     <string name="speak_next_section_block">next section :section</string>
     <string name="exercise_library_title">Exercises</string>
-    <string name="to_exercise_library_link">Exercise library</string>
-    <string name="to_workout_library_link">Workout library</string>
+    <string name="to_exercise_library_link">Exercises</string>
+    <string name="to_workout_library_link">Workouts</string>
     <string name="workout_library_title">Workouts</string>
     <string name="weight_title">Weight</string>
     <string name="kg_title">kg</string>
