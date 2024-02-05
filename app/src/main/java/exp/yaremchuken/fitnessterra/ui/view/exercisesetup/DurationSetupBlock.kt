@@ -165,7 +165,6 @@ fun DurationSetupBlock(
                         Column(
                             Modifier
                                 .height(TIME_BLOCK_HEIGHT * 3)
-                                .width(TIME_BLOCK_WIDTH)
                                 .verticalScroll(scroll.state)
                         ) {
                             for(i in -1 .. 60) {
