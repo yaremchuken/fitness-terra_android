@@ -1,6 +1,7 @@
 package exp.yaremchuken.fitnessterra.util
 
 import android.content.Context
+import android.util.TypedValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -12,6 +13,7 @@ import exp.yaremchuken.fitnessterra.data.model.Workout
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
+
 
 object Utils {
 
@@ -77,5 +79,9 @@ object Utils {
             token = tokens.first { it.startsWith("en:") }
         }
         return token.removePrefix("${AppSettings.locale().language}:")
+    }
+
+    fun dpToPx(dp: Float, context: Context): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
     }
 }

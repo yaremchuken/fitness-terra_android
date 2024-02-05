@@ -12,6 +12,8 @@ class ExerciseSetupRepository(
 ) {
     suspend fun insert(setup: ExerciseSetup) = dao.insert(toEntity(setup))
 
+    fun getBySectionAndExercise(sectionId: Long, exerciseId: Long) = dao.getBySectionAndExercise(sectionId, exerciseId)
+
     companion object {
         fun toEntity(setup: ExerciseSetup) =
             ExerciseSetupEntity(

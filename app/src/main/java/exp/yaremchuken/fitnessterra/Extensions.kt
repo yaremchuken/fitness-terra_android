@@ -3,6 +3,8 @@ package exp.yaremchuken.fitnessterra
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import exp.yaremchuken.fitnessterra.data.model.EquipmentType
+import exp.yaremchuken.fitnessterra.data.model.MuscleGroupType
 import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate
@@ -35,6 +37,14 @@ fun Context.bitmaps(path: String): Map<String, Bitmap> {
         throw RuntimeException("Unable to fetch bitmaps from path '$path'", e)
     }
 }
+
+fun Context.equipment(equipment: EquipmentType?) =
+    if (equipment == null) null
+    else this.bitmap("equipment", equipment.name)
+
+fun Context.muscle(muscle: MuscleGroupType?) =
+    if (muscle == null) null
+    else this.bitmap("muscle_group", muscle.name)
 
 fun LocalDate.toInstant(): Instant = this.atStartOfDay(ZoneId.systemDefault()).toInstant()
 

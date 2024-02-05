@@ -12,6 +12,6 @@ interface ExerciseSetupDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: ExerciseSetupEntity)
 
-    @Query("select * from exercise_setup where exercise_id in (:ids)")
-    fun getByExerciseIds(ids: List<Long>): Flow<List<ExerciseSetupEntity>>
+    @Query("select * from exercise_setup where section_id = :sectionId and exercise_id = :exerciseId")
+    fun getBySectionAndExercise(sectionId: Long, exerciseId: Long): Flow<ExerciseSetupEntity>
 }

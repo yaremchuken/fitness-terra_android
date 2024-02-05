@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import exp.yaremchuken.fitnessterra.ui.view.exercise.ExerciseDetailsScreen
+import exp.yaremchuken.fitnessterra.ui.view.exercisesetup.ExerciseSetupDetailsScreen
 import exp.yaremchuken.fitnessterra.ui.view.home.HomeScreen
 import exp.yaremchuken.fitnessterra.ui.view.library.exercise.ExerciseLibraryScreen
 import exp.yaremchuken.fitnessterra.ui.view.library.workout.WorkoutLibraryScreen
@@ -16,6 +17,19 @@ import exp.yaremchuken.fitnessterra.ui.view.schedule.date.ScheduleDateScreen
 import exp.yaremchuken.fitnessterra.ui.view.workout.WorkoutDetailsScreen
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ISO_DATE
+
+private object Arg {
+    val id =
+        navArgument(name = "id") {
+            type = NavType.IntType
+            nullable = false
+        }
+    val date =
+        navArgument(name = "date") {
+            type = NavType.StringType
+            nullable = false
+        }
+}
 
 @Composable
 fun Navigation() {
@@ -46,12 +60,7 @@ fun Navigation() {
         }
         composable(
             route = Screen.SCHEDULE_DATE_SCREEN.name + "/{date}",
-            arguments = listOf(
-                navArgument(name = "date") {
-                    type = NavType.StringType
-                    nullable = false
-                }
-            )
+            arguments = listOf(Arg.date)
         ) {
             ScheduleDateScreen(
                 onWorkoutDetailsClick = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") },
@@ -60,38 +69,42 @@ fun Navigation() {
         }
         composable(
             route = Screen.WORKOUT_DETAILS_SCREEN.name + "/{id}",
-            arguments = listOf(
-                navArgument(name = "id") {
-                    type = NavType.IntType
-                    nullable = false
-                }
-            )
+            arguments = listOf(Arg.id)
         ) {
             WorkoutDetailsScreen(
-                showExerciseDetails = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
+                showExerciseDetails = { sectionId, exerciseId -> navController.navigate("${Screen.EXERCISE_SETUP_DETAILS_SCREEN.name}?sectionId=$sectionId&exerciseId=$exerciseId") },
                 beginWorkout = { id -> navController.navigate("${Screen.WORKOUT_PERFORM_SCREEN}/$id") },
                 workoutId = it.arguments!!.getInt("id").toLong()
             )
         }
         composable(
-            route = Screen.EXERCISE_DETAILS_SCREEN.name + "/{id}",
+            route = Screen.EXERCISE_SETUP_DETAILS_SCREEN.name + "?sectionId={sectionId}&exerciseId={exerciseId}",
             arguments = listOf(
-                navArgument(name = "id") {
+                navArgument(name = "sectionId") {
+                    type = NavType.IntType
+                    nullable = false
+                },
+                navArgument(name = "exerciseId") {
                     type = NavType.IntType
                     nullable = false
                 }
             )
         ) {
+            ExerciseSetupDetailsScreen(
+                gotoExercise = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
+                sectionId = it.arguments!!.getInt("sectionId").toLong(),
+                exerciseId = it.arguments!!.getInt("exerciseId").toLong()
+            )
+        }
+        composable(
+            route = Screen.EXERCISE_DETAILS_SCREEN.name + "/{id}",
+            arguments = listOf(Arg.id)
+        ) {
             ExerciseDetailsScreen(it.arguments!!.getInt("id").toLong())
         }
         composable(
             route = Screen.WORKOUT_PERFORM_SCREEN.name + "/{id}",
-            arguments = listOf(
-                navArgument(name = "id") {
-                    type = NavType.IntType
-                    nullable = false
-                }
-            )
+            arguments = listOf(Arg.id)
         ) {
             WorkoutPerformScreen(
                 goHome = { navController.navigate(Screen.HOME_SCREEN.name) },

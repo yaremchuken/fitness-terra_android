@@ -24,4 +24,14 @@ class WorkoutDetailsViewModel @Inject constructor(
         )
 
     fun getPreview(workout: Workout, context: Context) = Utils.getWorkoutPreview(context, workout)
+
+    fun equipment(workout: Workout) =
+        workout.sections
+            .asSequence()
+            .map { it.setups }
+            .flatten()
+            .map { it.exercise.equipment }
+            .filterNotNull()
+            .distinct()
+            .toList()
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -33,7 +35,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.EquipmentType
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.equipment
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -42,7 +46,7 @@ import exp.yaremchuken.fitnessterra.viewmodel.WorkoutDetailsViewModel
 
 @Composable
 fun WorkoutDetailsScreen(
-    showExerciseDetails: (exerciseId: Long) -> Unit,
+    showExerciseDetails: (sectionId: Long, exerciseId: Long) -> Unit,
     beginWorkout: (workoutId: Long) -> Unit,
     workoutId: Long,
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
@@ -94,6 +98,7 @@ fun WorkoutDetailsScreen(
                 Image(painter = painterResource(id = R.drawable.ic_back_filled), contentDescription = null)
             }
         }
+        Divider()
         Column(
             Modifier.weight(3F)
         ) {
@@ -108,13 +113,41 @@ fun WorkoutDetailsScreen(
                 Modifier.padding(vertical = 6.dp, horizontal = 20.dp),
                 style = AppType.titleMedium
             )
-            Divider()
             Column(
                 Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
                     .padding(horizontal = 20.dp)
             ) {
+                if (viewModel.equipment(workout!!).isNotEmpty()) {
+                    Text(
+                        text = stringResource(id = R.string.equipment_title),
+                        style = AppType.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Row {
+                        viewModel.equipment(workout!!).forEachIndexed { idx, it ->
+                            Column(
+                                Modifier.padding(
+                                    top = 8.dp,
+                                    bottom = 8.dp,
+                                    start = if (idx == 0) 0.dp else 8.dp
+                                ),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Image(
+                                    bitmap = LocalContext.current.equipment(it)!!.asImageBitmap(),
+                                    contentDescription = null,
+                                    Modifier
+                                        .width(52.dp)
+                                        .height(52.dp)
+                                )
+                                Text(text = EquipmentType.i18n(it))
+                            }
+                        }
+                    }
+                    Divider()
+                }
                 workout!!.sections.forEach { section ->
                     Text(
                         text = section.title,
@@ -122,7 +155,7 @@ fun WorkoutDetailsScreen(
                         style = Typography.titleLarge
                     )
                     section.setups.forEach {
-                        ExerciseSetupBlock({ showExerciseDetails(it.exercise.id) }, it)
+                        ExerciseSetupBlock({ showExerciseDetails(section.id, it.exercise.id) }, it)
                     }
                 }
             }

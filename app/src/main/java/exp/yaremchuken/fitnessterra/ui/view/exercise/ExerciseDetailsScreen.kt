@@ -30,9 +30,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.bitmap
 import exp.yaremchuken.fitnessterra.data.model.EquipmentType
 import exp.yaremchuken.fitnessterra.data.model.MuscleGroupType
+import exp.yaremchuken.fitnessterra.equipment
+import exp.yaremchuken.fitnessterra.muscle
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -48,8 +49,8 @@ fun ExerciseDetailsScreen(
     val scrollState = rememberScrollState()
     val exercise = viewModel.getExercise(id).first()
 
-    val equipment = LocalContext.current.bitmap("equipment", exercise.equipment?.name)?.asImageBitmap()
-    val muscleGroup = LocalContext.current.bitmap("muscle_group", exercise.muscleGroup?.name)?.asImageBitmap()
+    val equipment = LocalContext.current.equipment(exercise.equipment)?.asImageBitmap()
+    val muscleGroup = LocalContext.current.muscle(exercise.muscleGroup)?.asImageBitmap()
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -145,7 +146,6 @@ fun ExerciseDetailsScreen(
                         ) {
                             Text(
                                 text = stringResource(id = R.string.equipment_title),
-                                Modifier.padding(bottom = 8.dp),
                                 style = AppType.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
