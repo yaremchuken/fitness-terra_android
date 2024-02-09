@@ -32,10 +32,15 @@ data class WorkoutSection(
      */
     fun totalDuration(): Duration {
         var total = Duration.ZERO
-        setups.forEachIndexed { index, set ->
-            total = total.plus(set.totalDuration())
+        setups.forEachIndexed { index, setup ->
+            total = total.plus(setup.totalDuration())
             if (index != setups.size-1) {
-                total = total.plus(set.recovery)
+                total = total.plus(setup.recovery)
+            }
+
+            if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_SET) {
+                total = total.plus(setup.totalDuration())
+                total = total.plus(setup.recovery)
             }
         }
         return total

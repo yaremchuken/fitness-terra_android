@@ -48,7 +48,10 @@ data class ExerciseSetup(
      * Get total duration of this set, including recovery time.
      */
     fun totalDuration(): Duration =
-        exercise.performTime.times(sets.sum().toInt())
+        exercise
+            .performTime.times(
+                sets.sum().toInt() * if (exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_REPEAT) 2 else 1
+            )
             .plus(duration)
             .plus(recovery.times((sets.size-1).coerceAtLeast(0)))
 }
