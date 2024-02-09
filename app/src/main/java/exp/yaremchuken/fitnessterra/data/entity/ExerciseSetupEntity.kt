@@ -3,7 +3,7 @@ package exp.yaremchuken.fitnessterra.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
-@Entity("exercise_setup", primaryKeys = ["section_id", "exercise_id"])
+@Entity("exercise_setup", primaryKeys = ["section_id", "exercise_id", "order"])
 data class ExerciseSetupEntity(
     @ColumnInfo("section_id")
     val sectionId: Long,
@@ -13,6 +13,12 @@ data class ExerciseSetupEntity(
      */
     @ColumnInfo("exercise_id")
     val exerciseId: Long,
+
+    /**
+     * Position of this exercise in section.
+     */
+    @ColumnInfo("order")
+    val order: Long,
 
     /**
      * Amount of weight used in sets in grams.

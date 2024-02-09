@@ -3,6 +3,7 @@ package exp.yaremchuken.fitnessterra.data.entity.dto
 data class HistoryExerciseSetupDto(
     val sectionId: Long,
     val exerciseId: Long,
+    val order: Long,
     val weight: Long,
     val sets: String,
 

@@ -107,8 +107,11 @@ fun Navigation() {
             arguments = listOf(Arg.id)
         ) {
             WorkoutPerformScreen(
-                goHome = { navController.navigate(Screen.HOME_SCREEN.name) },
-                it.arguments!!.getInt("id").toLong()
+                goHome = {
+                            navController.popBackStack(Screen.HOME_SCREEN.name, true)
+                            navController.navigate(Screen.HOME_SCREEN.name)
+                         },
+                workoutId = it.arguments!!.getInt("id").toLong()
             )
         }
     }

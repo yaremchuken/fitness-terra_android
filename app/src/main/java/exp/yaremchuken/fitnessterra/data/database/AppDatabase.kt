@@ -15,7 +15,7 @@ import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntity
 import exp.yaremchuken.fitnessterra.data.entity.WorkoutSectionEntity
 
 @Database(
-    version = 13,
+    version = 16,
     entities = [
         ScheduleEntity::class,
         HistoryEntity::class,

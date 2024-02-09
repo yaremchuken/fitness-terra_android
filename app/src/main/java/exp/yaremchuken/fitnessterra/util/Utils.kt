@@ -14,7 +14,6 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 
-
 object Utils {
 
     private const val EXERCISES_FOLDER = "exercise"

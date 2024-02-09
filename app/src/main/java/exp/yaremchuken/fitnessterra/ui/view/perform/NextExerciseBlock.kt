@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
@@ -36,8 +37,9 @@ data class NextExerciseDto (
     val exercise: Exercise,
     val setupIdx: Int,
     val setIdx: Int,
-    val isNewSection: Boolean,
-    val isNewExercise: Boolean
+    val isSideSwitch: Boolean = false,
+    val isNewSection: Boolean = false,
+    val isNewExercise: Boolean = false
 )
 
 @Composable
@@ -50,6 +52,11 @@ fun NextExerciseBlock(
     val setup = dto.section.setups[dto.setupIdx]
 
     if (!spoken) {
+        if (dto.isSideSwitch) {
+            speakOut(
+                stringResource(id = R.string.speak_side_switch)
+            )
+        }
         if (dto.isNewSection) {
             speakOut(
                 stringResource(id = R.string.speak_next_section_block)
@@ -63,12 +70,19 @@ fun NextExerciseBlock(
                     .replace(":weight", "${setup.weight/1000}")
                     .replace(":sets", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
+                    .replace(":side",
+                        if (setup.exercise.sideSwitchType != ExerciseSwitchType.SIDE_SWITCH_ON_SET) ""
+                        else stringResource(id = R.string.speak_each_side)
+                    )
             )
         } else {
             speakOut(
                 stringResource(id = R.string.speak_next_set_block)
                     .replace(":set", "${setup.sets[dto.setIdx]}")
             )
+            if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_REPEAT) {
+                speakOut(stringResource(id = R.string.speak_each_side))
+            }
         }
         spoken = true
     }

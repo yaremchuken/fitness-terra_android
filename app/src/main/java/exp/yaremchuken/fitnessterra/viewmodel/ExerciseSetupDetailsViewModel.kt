@@ -27,6 +27,7 @@ class ExerciseSetupDetailsViewModel @Inject constructor(
                 ExerciseSetup(
                     initial.sectionId,
                     initial.exercise,
+                    initial.order,
                     weight,
                     sets,
                     duration,
@@ -40,6 +41,7 @@ class ExerciseSetupDetailsViewModel @Inject constructor(
         ExerciseSetup(
             entity.sectionId,
             exerciseRepository.getByIds(listOf(entity.exerciseId)).first(),
+            entity.order,
             entity.weight,
             Gson().fromJson(entity.sets, Array<Long>::class.java).toList(),
             entity.duration.seconds,

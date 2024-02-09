@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 14,
-    "identityHash": "440865e0c07753edd19cb624f067692c",
+    "identityHash": "a22b5a3c88619fd1f292ef333acf6853",
     "entities": [
       {
         "tableName": "schedule",
@@ -106,7 +106,7 @@
       },
       {
         "tableName": "exercise_setup",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`section_id` INTEGER NOT NULL, `exercise_id` INTEGER NOT NULL, `weight` INTEGER NOT NULL, `sets` TEXT NOT NULL, `duration` INTEGER NOT NULL, `recovery` INTEGER NOT NULL, PRIMARY KEY(`section_id`, `exercise_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`section_id` INTEGER NOT NULL, `exercise_id` INTEGER NOT NULL, `order` INTEGER NOT NULL, `weight` INTEGER NOT NULL, `sets` TEXT NOT NULL, `duration` INTEGER NOT NULL, `recovery` INTEGER NOT NULL, PRIMARY KEY(`section_id`, `exercise_id`, `order`))",
         "fields": [
           {
             "fieldPath": "sectionId",
@@ -117,6 +117,12 @@
           {
             "fieldPath": "exerciseId",
             "columnName": "exercise_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "order",
+            "columnName": "order",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -149,7 +155,8 @@
           "autoGenerate": false,
           "columnNames": [
             "section_id",
-            "exercise_id"
+            "exercise_id",
+            "order"
           ]
         },
         "indices": [],
@@ -229,7 +236,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '440865e0c07753edd19cb624f067692c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a22b5a3c88619fd1f292ef333acf6853')"
     ]
   }
 }

@@ -38,6 +38,7 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
             texts.add(text)
             if (texts.size == 1) {
                 tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
+                println(text)
             }
         }
     }
@@ -58,6 +59,7 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
             }
             if (texts.isNotEmpty()) {
                 tts.speak(texts[0], TextToSpeech.QUEUE_FLUSH, null, texts[0])
+                println(texts[0])
             }
         }
     }

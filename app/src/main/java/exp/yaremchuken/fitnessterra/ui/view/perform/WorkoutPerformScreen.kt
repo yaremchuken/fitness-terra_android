@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
@@ -39,7 +39,6 @@ import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.PERFORM
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState.RECOVERY
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutPerformViewModel
-import kotlin.time.Duration
 
 @Composable
 fun WorkoutPerformScreen(
@@ -53,6 +52,8 @@ fun WorkoutPerformScreen(
     var setupIdx by remember { mutableIntStateOf(0) }
     var setIdx by remember { mutableIntStateOf(0) }
     var workout by remember { mutableStateOf<Workout?>(null) }
+
+    var sideSwitched by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
@@ -93,7 +94,11 @@ fun WorkoutPerformScreen(
     }
 
     if (state == GET_READY) {
-        viewModel.speakWorkoutBegin(stringResource(id = R.string.speak_workout_begin_template), workout!!)
+        viewModel.speakWorkoutBegin(
+            stringResource(id = R.string.speak_workout_begin_template),
+            stringResource(id = R.string.speak_each_side),
+            workout!!
+        )
     }
 
     Column(
@@ -114,21 +119,26 @@ fun WorkoutPerformScreen(
                 )
                 RECOVERY -> WorkoutRecoveryBlock(
                     onFinish = {
-                        setIdx++
-                        if (setIdx >= setup.sets.size) {
-                            setIdx = 0
-                            setupIdx++
-                            if (setupIdx >= section.setups.size) {
-                                setupIdx = 0;
-                                sectionIdx++
+                        if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_SET && !sideSwitched) {
+                            sideSwitched = true
+                        } else {
+                            setIdx++
+                            if (setIdx >= setup.sets.size) {
+                                setIdx = 0
+                                setupIdx++
+                                if (setupIdx >= section.setups.size) {
+                                    setupIdx = 0;
+                                    sectionIdx++
+                                }
                             }
+                            section = workout!!.sections[sectionIdx]
+                            setup = section.setups[setupIdx]
+                            sideSwitched = false
                         }
-                        section = workout!!.sections[sectionIdx]
-                        setup = section.setups[setupIdx]
                         state = PERFORM
                     },
                     speakOut = { viewModel.speakOut(it) },
-                    duration = getRecoveryAfterCompleteExercise(setup, setIdx)
+                    duration = viewModel.getRecoveryAfterCompleteExercise(setup, setIdx)
                 )
                 COMPLETED -> Column(
                     Modifier.fillMaxWidth(),
@@ -174,7 +184,7 @@ fun WorkoutPerformScreen(
                 )
                 RECOVERY -> NextExerciseBlock(
                     speakOut = { viewModel.speakOut(it) },
-                    viewModel.getNextExerciseDto(workout!!, sectionIdx, setupIdx, setIdx)
+                    viewModel.getNextExerciseDto(workout!!, sectionIdx, setupIdx, setIdx, sideSwitched)
                 )
                 COMPLETED -> Column(
                     Modifier.fillMaxSize(),
@@ -196,18 +206,4 @@ fun WorkoutPerformScreen(
             }
         }
     }
-}
-
-/**
- * Recovery time between exercises.
- * For last exercise in set we take recovery time for set,
- * and for the last set in section we will take recovery for set too.
- * The idea is than we don't need special recovery time for between sections,
- * and it's ok to use set recovery time between sections.
- */
-fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int): Duration {
-    if (setIdx == setup.sets.size-1) {
-        return setup.recovery
-    }
-    return setup.exercise.recovery
 }

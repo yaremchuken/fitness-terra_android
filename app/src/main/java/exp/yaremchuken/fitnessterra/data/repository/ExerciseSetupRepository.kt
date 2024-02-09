@@ -19,6 +19,7 @@ class ExerciseSetupRepository(
             ExerciseSetupEntity(
                 setup.sectionId,
                 setup.exercise.id,
+                setup.order,
                 setup.weight,
                 Gson().toJson(setup.sets),
                 setup.duration.inWholeSeconds,
@@ -29,6 +30,7 @@ class ExerciseSetupRepository(
             ExerciseSetup(
                 sectionId,
                 exercise,
+                entity.order,
                 entity.weight,
                 Gson().fromJson(entity.sets, Array<Long>::class.java).asList(),
                 entity.duration.seconds,

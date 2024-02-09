@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntityWrapper
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
@@ -15,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
+import kotlin.time.Duration
 
 @HiltViewModel
 class WorkoutPerformViewModel @Inject constructor(
@@ -46,10 +49,21 @@ class WorkoutPerformViewModel @Inject constructor(
         workout: Workout,
         sectionIdx: Int,
         setupIdx: Int,
-        setIdx: Int
+        setIdx: Int,
+        sideSwitched: Boolean
     ): NextExerciseDto {
         val section = workout.sections[sectionIdx]
         val setup = section.setups[setupIdx]
+
+        if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_SET && !sideSwitched) {
+            return NextExerciseDto(
+                workout.sections[sectionIdx],
+                workout.sections[sectionIdx].setups[setupIdx].exercise,
+                setupIdx,
+                setIdx,
+                true
+            )
+        }
 
         var newSectionIdx = sectionIdx
         var newSetupIdx = setupIdx
@@ -72,6 +86,7 @@ class WorkoutPerformViewModel @Inject constructor(
             workout.sections[newSectionIdx].setups[newSetupIdx].exercise,
             newSetupIdx,
             newSetIdx,
+            false,
             newSectionIdx != sectionIdx,
             newSetupIdx != setupIdx
         )
@@ -81,7 +96,7 @@ class WorkoutPerformViewModel @Inject constructor(
         textToSpeechHelper.hold = false
     }
 
-    fun speakWorkoutBegin(template: String, workout: Workout) {
+    fun speakWorkoutBegin(template: String, sideSwitchTxt: String, workout: Workout) {
         val section = workout.sections[0]
         val setup = section.setups[0]
         textToSpeechHelper.speakOut(
@@ -91,6 +106,11 @@ class WorkoutPerformViewModel @Inject constructor(
                 .replace(":exercise", setup.exercise.title)
                 .replace(":sets", "${setup.sets.size}")
                 .replace(":set", "${setup.sets[0]}")
+                .replace(
+                    ":side",
+                    if (setup.exercise.sideSwitchType != ExerciseSwitchType.SIDE_SWITCH_ON_SET) ""
+                    else sideSwitchTxt
+                )
         )
     }
 
@@ -112,5 +132,19 @@ class WorkoutPerformViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    /**
+     * Recovery time between exercises.
+     * For last exercise in set we take recovery time for set,
+     * and for the last set in section we will take recovery for set too.
+     * The idea is than we don't need special recovery time for between sections,
+     * and it's ok to use set recovery time between sections.
+     */
+    fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int): Duration {
+        if (setIdx == setup.sets.size-1) {
+            return setup.recovery
+        }
+        return setup.recovery
     }
 }

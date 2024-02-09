@@ -29,10 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
+import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
+import kotlin.math.ceil
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -45,15 +47,23 @@ fun PerformBlock(
     setup: ExerciseSetup,
     setIdx: Int
 ) {
+    val totalRepeats =
+        setup.sets[setIdx] * if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_REPEAT) 2 else 1
+
     var stopwatch by remember { mutableStateOf(0.milliseconds) }
     var durationTimer by remember { mutableStateOf(setup.duration) }
-    var repeatsCounter by remember { mutableLongStateOf(setup.sets[setIdx]) }
+    var repeatsCounter by remember { mutableLongStateOf(totalRepeats) }
+    var displayCounter by remember { mutableLongStateOf(setup.sets[setIdx]) }
 
     var speakStarted by remember { mutableStateOf(false) }
     var pause by remember { mutableStateOf(false) }
 
     if (!speakStarted) {
-        speakOut(stringResource(id = R.string.speak_begin_perform))
+        if (setup.sets.isNotEmpty()) {
+            speakOut("${setup.sets[setIdx]}")
+        } else {
+            speakOut(stringResource(id = R.string.speak_begin_perform))
+        }
         speakStarted = true
     }
 
@@ -63,11 +73,15 @@ fun PerformBlock(
             if (!pause) {
                 if (setup.sets.isNotEmpty()) {
                     stopwatch = stopwatch.plus(TICK)
-                    val repeatsLeft = setup.sets[setIdx] - (stopwatch / setup.exercise.performTime).toLong()
+                    val repeatsLeft = totalRepeats - (stopwatch / setup.exercise.performTime).toLong()
                     if (repeatsLeft != repeatsCounter) {
                         repeatsCounter = repeatsLeft
                         if (repeatsCounter != 0L) {
-                            speakOut("$repeatsCounter")
+                            displayCounter = repeatsCounter
+                            if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_REPEAT) {
+                                displayCounter = ceil(displayCounter.toDouble()/2).toLong()
+                            }
+                            speakOut("$displayCounter")
                         }
                     }
                     if (repeatsCounter == 0L) {
@@ -92,7 +106,7 @@ fun PerformBlock(
         ) {
             if (setup.sets.isNotEmpty()) {
                 Text(
-                    text = "$repeatsCounter",
+                    text = "$displayCounter",
                     Modifier.fillMaxWidth(),
                     fontWeight = FontWeight.Bold,
                     style = Typography.headlineLarge,

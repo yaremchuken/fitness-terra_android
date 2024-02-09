@@ -35,6 +35,11 @@ data class Exercise(
     val equipment: EquipmentType?,
 
     /**
+     * Does the trainee have to switch sides, while performing exercises.
+     */
+    val sideSwitchType: ExerciseSwitchType = ExerciseSwitchType.NO_SIDE_SWITCH,
+
+    /**
      * Steps of exercise performing.
      */
     val steps: List<String> = listOf(),
@@ -52,10 +57,5 @@ data class Exercise(
     /**
      * Time, in which one repeat of exercise have to be performed.
      */
-    val performTime: Duration = 0.seconds,
-
-    /**
-     * Amount ot time person needs to rest after performing this exercise.
-     */
-    val recovery: Duration = 0.seconds
+    val performTime: Duration = 0.seconds
 )

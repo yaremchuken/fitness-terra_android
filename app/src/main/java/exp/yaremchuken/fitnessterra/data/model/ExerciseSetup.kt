@@ -11,10 +11,16 @@ data class ExerciseSetup(
      * Section of workout.
      */
     val sectionId: Long,
+
     /**
      * Type of exercise.
      */
     val exercise: Exercise,
+
+    /**
+     * Position of this exercise in section.
+     */
+    val order: Long,
 
     /**
      * Amount of weight used in sets in grams.
@@ -44,5 +50,5 @@ data class ExerciseSetup(
     fun totalDuration(): Duration =
         exercise.performTime.times(sets.sum().toInt())
             .plus(duration)
-            .plus(exercise.recovery.times((sets.size-1).coerceAtLeast(0)))
+            .plus(recovery.times((sets.size-1).coerceAtLeast(0)))
 }

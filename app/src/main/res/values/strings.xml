@@ -32,13 +32,15 @@
     <string name="finish_title">finish</string>
     <string name="recently_completed_workouts_title">Recently completed workouts</string>
     <string name="repeat_every_title">Repeat every</string>
-    <string name="speak_workout_begin_template">get ready for workout :workout, first section :section, :exercises exercises, first exercise :exercise, sets amount :sets, first set :set repeats</string>
+    <string name="speak_workout_begin_template">get ready for workout :workout, first section :section, :exercises exercises, first exercise :exercise, sets amount :sets :side, first set :set repeats</string>
     <string name="speak_begin_perform">start</string>
     <string name="speak_recovery_time">recovery :seconds seconds</string>
     <string name="speak_workout_completed">workout completed</string>
-    <string name="speak_next_exercise_block">next exercise :exercise, weight :weight, total sets :sets, first set :set repeats</string>
+    <string name="speak_next_exercise_block">next exercise :exercise, weight :weight, total sets :sets :side, first set :set repeats</string>
     <string name="speak_next_set_block">next set :set repeats</string>
+    <string name="speak_each_side">for each side</string>
     <string name="speak_next_section_block">next section :section</string>
+    <string name="speak_side_switch">switch side</string>
     <string name="exercise_library_title">Exercises</string>
     <string name="to_exercise_library_link">Exercises</string>
     <string name="to_workout_library_link">Workouts</string>
