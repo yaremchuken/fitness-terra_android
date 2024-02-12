@@ -135,15 +135,12 @@ class WorkoutPerformViewModel @Inject constructor(
     }
 
     /**
-     * Recovery time between exercises.
-     * For last exercise in set we take recovery time for set,
-     * and for the last set in section we will take recovery for set too.
-     * The idea is than we don't need special recovery time for between sections,
-     * and it's ok to use set recovery time between sections.
+     * Recovery time between sets and exercises.
+     * After final set recovery time is 4x times more that between sets.
      */
     fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int): Duration {
         if (setIdx == setup.sets.size-1) {
-            return setup.recovery
+            return setup.recovery * 4
         }
         return setup.recovery
     }
