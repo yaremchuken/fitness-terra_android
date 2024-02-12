@@ -3,12 +3,15 @@ package exp.yaremchuken.fitnessterra.ui.view.perform
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -80,15 +84,16 @@ fun WorkoutRecoveryBlock(
             style = Typography.headlineLarge,
             fontSize = 64.sp
         )
-        Column(
+        Row(
             Modifier
-                .padding(vertical = 8.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
             Button(
                 onClick = { pause = !pause },
-                shape = UIConstants.ROUNDED_CORNER
+                Modifier.weight(1F),
+                shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
             ) {
                 Image(
                     painter = painterResource(if (pause) R.drawable.ic_continue else R.drawable.ic_pause),
@@ -100,17 +105,18 @@ fun WorkoutRecoveryBlock(
                 Text(
                     text = stringResource(if (pause) R.string.continue_btn_title else R.string.pause_btn_title),
                     Modifier.padding(vertical = 4.dp),
-                    style = Typography.headlineMedium,
+                    style = Typography.headlineSmall,
                     textAlign = TextAlign.Center
                 )
             }
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
             Button(
                 onClick = { onFinish() },
-                shape = UIConstants.ROUNDED_CORNER
+                Modifier.weight(1F),
+                shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_fast_forward),
+                    painter = painterResource(R.drawable.ic_fast_forward),
                     contentDescription = null,
                     Modifier
                         .height(32.dp)
@@ -119,7 +125,8 @@ fun WorkoutRecoveryBlock(
                 Text(
                     text = stringResource(R.string.skip_btn_title),
                     Modifier.padding(vertical = 4.dp),
-                    style = Typography.headlineMedium
+                    style = Typography.headlineSmall,
+                    textAlign = TextAlign.Center
                 )
             }
         }
