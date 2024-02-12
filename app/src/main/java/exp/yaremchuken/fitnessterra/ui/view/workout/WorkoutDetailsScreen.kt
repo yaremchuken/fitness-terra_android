@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.EquipmentType
+import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.equipment
 import exp.yaremchuken.fitnessterra.ui.UIConstants
@@ -43,19 +44,32 @@ import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutDetailsViewModel
+import java.time.Instant
 
 @Composable
 fun WorkoutDetailsScreen(
-    showExerciseDetails: (sectionId: Long, exerciseId: Long) -> Unit,
+    gotoExerciseSetupDetails: (sectionId: Long, exerciseId: Long) -> Unit,
+    gotoExerciseDetails: (exerciseId: Long) -> Unit,
     beginWorkout: (workoutId: Long) -> Unit,
-    workoutId: Long,
+    workoutId: Long? = null,
+    startedAt: Instant? = null,
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
     var workout by remember { mutableStateOf<Workout?>(null) }
+    var history by remember { mutableStateOf<History?>(null) }
 
     LaunchedEffect(Unit) {
-        viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
+        if (workoutId != null) {
+            viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
+        } else if (startedAt != null) {
+            viewModel.getHistory(startedAt).collect {
+                history = viewModel.fromEntity(it)
+                workout = history!!.workout
+            }
+        } else {
+            throw IllegalArgumentException("Workout.id or history.startedAt must be provided")
+        }
     }
 
     if (workout == null) {
@@ -155,28 +169,36 @@ fun WorkoutDetailsScreen(
                         style = Typography.titleLarge
                     )
                     section.setups.forEach {
-                        ExerciseSetupBlock({ showExerciseDetails(section.id, it.exercise.id) }, it)
+                        ExerciseSetupBlock(
+                            {
+                                if (workoutId == null) gotoExerciseDetails(it.exercise.id)
+                                else gotoExerciseSetupDetails(section.id, it.exercise.id)
+                            },
+                            it
+                        )
                     }
                 }
             }
         }
-        Column (
-            Modifier
-                .fillMaxWidth()
-                .background(Color.LightGray),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(
-                onClick = { beginWorkout(workoutId) },
+        if (workoutId != null) {
+            Column (
                 Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 50.dp),
-                shape = UIConstants.ROUNDED_CORNER
+                    .background(Color.LightGray),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = stringResource(id = R.string.start_btn_title),
-                    style = Typography.titleLarge
-                )
+                Button(
+                    onClick = { beginWorkout(workoutId) },
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp, horizontal = 50.dp),
+                    shape = UIConstants.ROUNDED_CORNER
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.start_btn_title),
+                        style = Typography.titleLarge
+                    )
+                }
             }
         }
     }

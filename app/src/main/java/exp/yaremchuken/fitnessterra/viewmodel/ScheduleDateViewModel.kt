@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
-import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntity
 import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntityWrapper
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
@@ -44,7 +43,7 @@ class ScheduleDateViewModel @Inject constructor(
     fun getHistories(onDate: LocalDate) = historyRepository.getInPeriod(onDate, onDate)
 
     fun fromEntity(entity: HistoryEntity) =
-        historyRepository.fromEntity(entity, exerciseRepository.getAll())
+        HistoryRepository.fromEntity(entity, exerciseRepository.getAll())
 
     fun getWorkouts() = workoutRepository.getAll()
 

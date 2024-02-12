@@ -15,6 +15,8 @@ class HistoryRepository(
 ) {
     suspend fun insert(history: History) = dao.insert(toEntity(history))
 
+    fun getByStartedAt(startedAt: Instant) = dao.getByStartedAt(startedAt.toEpochMilli())
+
     fun getInPeriod(from: LocalDate, to: LocalDate) =
         dao.getInPeriod(
             from.toInstant().toEpochMilli(),
@@ -23,19 +25,21 @@ class HistoryRepository(
 
     fun getLatest(limit: Long) = dao.getLatest(limit)
 
-    private fun toEntity(history: History) =
-        HistoryEntity(
-            history.startedAt.toEpochMilli(),
-            history.finishedAt.toEpochMilli(),
-            Gson().toJson(HistoryWorkoutDto.fromWorkout(history.workout))
-        )
+    companion object {
+        private fun toEntity(history: History) =
+            HistoryEntity(
+                history.startedAt.toEpochMilli(),
+                history.finishedAt.toEpochMilli(),
+                Gson().toJson(HistoryWorkoutDto.fromWorkout(history.workout))
+            )
 
-    fun fromEntity(entity: HistoryEntity, exercises: List<Exercise>): History {
-        val historyWorkoutDto = Gson().fromJson(entity.workoutData, HistoryWorkoutDto::class.java)
-        return History(
-            Instant.ofEpochMilli(entity.startedAt),
-            Instant.ofEpochMilli(entity.finishedAt),
-            historyWorkoutDto.toWorkout(exercises)
-        )
+        fun fromEntity(entity: HistoryEntity, exercises: List<Exercise>): History {
+            val historyWorkoutDto = Gson().fromJson(entity.workoutData, HistoryWorkoutDto::class.java)
+            return History(
+                Instant.ofEpochMilli(entity.startedAt),
+                Instant.ofEpochMilli(entity.finishedAt),
+                historyWorkoutDto.toWorkout(exercises)
+            )
+        }
     }
 }

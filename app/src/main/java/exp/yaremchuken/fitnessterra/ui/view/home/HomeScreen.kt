@@ -36,6 +36,7 @@ import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.viewmodel.HomeViewModel
+import java.time.Instant
 
 @Composable
 fun HomeScreen(
@@ -43,6 +44,7 @@ fun HomeScreen(
     gotoExerciseLibrary: () -> Unit,
     gotoWorkoutLibrary: () -> Unit,
     gotoWorkout: (workoutId: Long) -> Unit,
+    gotoHistory: (startedAt: Instant) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -141,7 +143,7 @@ fun HomeScreen(
             }
             latestHistory.forEach {
                 ScheduledWorkoutPreviewBlock(
-                    { gotoWorkout(it.workout.id) },
+                    { gotoHistory(it.startedAt) },
                     it.startedAt,
                     it.workout,
                     true

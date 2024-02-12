@@ -26,5 +26,5 @@ class HomeViewModel @Inject constructor(
 
     fun getLatestHistory(limit: Long) = historyRepository.getLatest(limit)
 
-    fun fromEntity(entity: HistoryEntity) = historyRepository.fromEntity(entity, exerciseRepository.getAll())
+    fun fromEntity(entity: HistoryEntity) = HistoryRepository.fromEntity(entity, exerciseRepository.getAll())
 }

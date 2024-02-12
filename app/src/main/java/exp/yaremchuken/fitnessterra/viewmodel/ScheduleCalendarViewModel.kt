@@ -35,7 +35,7 @@ class ScheduleCalendarViewModel @Inject constructor(
     fun getHistories(from: LocalDate, to: LocalDate) = historyRepository.getInPeriod(from, to)
 
     fun fromEntity(entity: HistoryEntity) =
-        historyRepository.fromEntity(entity, exerciseRepository.getAll())
+        HistoryRepository.fromEntity(entity, exerciseRepository.getAll())
 
     fun getDatesForMonth(yearMonth: YearMonth): List<LocalDate> {
         val firstDay = yearMonth.atDay(1)

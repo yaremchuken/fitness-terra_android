@@ -15,13 +15,14 @@ import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.ScheduleCalendarScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.date.ScheduleDateScreen
 import exp.yaremchuken.fitnessterra.ui.view.workout.WorkoutDetailsScreen
+import java.time.Instant
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ISO_DATE
 
 private object Arg {
     val id =
         navArgument(name = "id") {
-            type = NavType.IntType
+            type = NavType.LongType
             nullable = false
         }
     val date =
@@ -40,7 +41,8 @@ fun Navigation() {
                 gotoCalendar = { navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name) },
                 gotoExerciseLibrary = { navController.navigate(Screen.EXERCISE_LIBRARY_SCREEN.name) },
                 gotoWorkoutLibrary = { navController.navigate(Screen.WORKOUT_LIBRARY_SCREEN.name) },
-                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") }
+                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
+                gotoHistory = { startedAt -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?startedAt=${startedAt.toEpochMilli()}") }
             )
         }
         composable(route = Screen.SCHEDULE_CALENDAR_SCREEN.name) {
@@ -55,7 +57,7 @@ fun Navigation() {
         }
         composable(route = Screen.WORKOUT_LIBRARY_SCREEN.name) {
             WorkoutLibraryScreen(
-                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") }
+                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") }
             )
         }
         composable(
@@ -63,44 +65,55 @@ fun Navigation() {
             arguments = listOf(Arg.date)
         ) {
             ScheduleDateScreen(
-                onWorkoutDetailsClick = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}/$id") },
+                onWorkoutDetailsClick = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
                 date = LocalDate.parse(it.arguments!!.getString("date"))
             )
         }
         composable(
-            route = Screen.WORKOUT_DETAILS_SCREEN.name + "/{id}",
-            arguments = listOf(Arg.id)
+            route = Screen.WORKOUT_DETAILS_SCREEN.name + "?workoutId={workoutId}&startedAt={startedAt}",
+            arguments = listOf(
+                navArgument(name = "workoutId") {
+                    type = NavType.StringType
+                    nullable = true
+                },
+                navArgument(name = "startedAt") {
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
         ) {
             WorkoutDetailsScreen(
-                showExerciseDetails = { sectionId, exerciseId -> navController.navigate("${Screen.EXERCISE_SETUP_DETAILS_SCREEN.name}?sectionId=$sectionId&exerciseId=$exerciseId") },
+                gotoExerciseSetupDetails = { sectionId, exerciseId -> navController.navigate("${Screen.EXERCISE_SETUP_DETAILS_SCREEN.name}?sectionId=$sectionId&exerciseId=$exerciseId") },
+                gotoExerciseDetails = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
                 beginWorkout = { id -> navController.navigate("${Screen.WORKOUT_PERFORM_SCREEN}/$id") },
-                workoutId = it.arguments!!.getInt("id").toLong()
+                workoutId = it.arguments?.getString("workoutId")?.toLong(),
+                startedAt = it.arguments?.getString("startedAt")?.toLong()?.let { i -> Instant.ofEpochMilli(i) }
             )
         }
         composable(
             route = Screen.EXERCISE_SETUP_DETAILS_SCREEN.name + "?sectionId={sectionId}&exerciseId={exerciseId}",
             arguments = listOf(
                 navArgument(name = "sectionId") {
-                    type = NavType.IntType
+                    type = NavType.LongType
                     nullable = false
                 },
                 navArgument(name = "exerciseId") {
-                    type = NavType.IntType
+                    type = NavType.LongType
                     nullable = false
                 }
             )
         ) {
             ExerciseSetupDetailsScreen(
                 gotoExercise = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
-                sectionId = it.arguments!!.getInt("sectionId").toLong(),
-                exerciseId = it.arguments!!.getInt("exerciseId").toLong()
+                sectionId = it.arguments!!.getLong("sectionId"),
+                exerciseId = it.arguments!!.getLong("exerciseId")
             )
         }
         composable(
             route = Screen.EXERCISE_DETAILS_SCREEN.name + "/{id}",
             arguments = listOf(Arg.id)
         ) {
-            ExerciseDetailsScreen(it.arguments!!.getInt("id").toLong())
+            ExerciseDetailsScreen(it.arguments!!.getLong("id"))
         }
         composable(
             route = Screen.WORKOUT_PERFORM_SCREEN.name + "/{id}",
@@ -111,7 +124,7 @@ fun Navigation() {
                             navController.popBackStack(Screen.HOME_SCREEN.name, true)
                             navController.navigate(Screen.HOME_SCREEN.name)
                          },
-                workoutId = it.arguments!!.getInt("id").toLong()
+                workoutId = it.arguments!!.getLong("id")
             )
         }
     }
