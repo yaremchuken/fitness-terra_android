@@ -4,14 +4,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -107,36 +112,45 @@ fun PerformBlock(
             Modifier.fillMaxWidth()
         ) {
             if (setup.sets.isNotEmpty()) {
-                Text(
-                    text = "$displayCounter",
-                    Modifier.fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    style = Typography.headlineLarge,
-                    fontSize = 120.sp,
-                    textAlign = TextAlign.Center
-                )
                 Box(
                     Modifier
                         .fillMaxWidth()
-                        .padding(start = 38.dp, end = 38.dp, bottom = 24.dp)
+                        .height(IntrinsicSize.Max)
                 ) {
-                    LinearProgressIndicator(
-                        progress = getProgress (stopwatch, setup.exercise.performTime),
+                    Column(
+                        Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "$displayCounter",
+                            fontWeight = FontWeight.Bold,
+                            style = Typography.headlineLarge,
+                            fontSize = 128.sp,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    CircularProgressIndicator(
+                        progress = getProgress(stopwatch, setup.exercise.performTime),
                         Modifier
-                            .align(Alignment.Center)
-                            .height(30.dp)
+                            .height(200.dp)
+                            .width(200.dp)
+                            .align(Alignment.Center),
+                        strokeWidth = 12.dp,
+                        trackColor = Color.LightGray
                     )
                 }
-
             } else {
                 Text(
                     text = Utils.formatToTime(durationTimer),
                     fontWeight = FontWeight.Bold,
                     style = Typography.headlineLarge,
-                    fontSize = 64.sp
+                    fontSize = 96.sp
                 )
             }
+            Spacer(Modifier.padding(vertical = 12.dp))
         }
+
         Row(
             Modifier
                 .fillMaxWidth()

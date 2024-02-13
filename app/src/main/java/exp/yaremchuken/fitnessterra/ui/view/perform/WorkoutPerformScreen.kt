@@ -161,7 +161,7 @@ fun WorkoutPerformScreen(
         ) {
             when(state) {
                 GET_READY -> GetReadyBlock(
-                    onFinish = { state = PERFORM },
+                    onFinish = { viewModel.stopSpeak(); state = PERFORM },
                     speakOut = { viewModel.speakOut(it) },
                     exercise = setup.exercise
                 )
