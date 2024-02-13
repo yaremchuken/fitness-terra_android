@@ -118,6 +118,10 @@ class WorkoutPerformViewModel @Inject constructor(
         textToSpeechHelper.speakOut(text)
     }
 
+    fun stopSpeak() {
+        textToSpeechHelper.stop()
+    }
+
     fun clearSpeak() {
         textToSpeechHelper.clear()
     }
@@ -134,14 +138,17 @@ class WorkoutPerformViewModel @Inject constructor(
         }
     }
 
+    fun isBeforeSideSwitched(setup: ExerciseSetup, sideSwitched: Boolean) =
+        setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_SET && !sideSwitched
+
     /**
      * Recovery time between sets and exercises.
      * After final set recovery time is 4x times more that between sets.
      */
-    fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int): Duration {
-        if (setIdx == setup.sets.size-1) {
-            return setup.recovery * 4
-        }
-        return setup.recovery
-    }
+    fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int, sideSwitched: Boolean) =
+        setup.recovery *
+                if (setIdx == setup.sets.size-1) {
+                    if (isBeforeSideSwitched(setup, sideSwitched)) 1 else 4
+                }
+                else 1
 }

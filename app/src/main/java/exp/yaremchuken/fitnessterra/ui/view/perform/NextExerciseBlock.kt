@@ -78,6 +78,8 @@ fun NextExerciseBlock(
         } else {
             speakOut(
                 stringResource(id = R.string.speak_next_set_block)
+                    .replace(":setnum", "${dto.setIdx + 1}")
+                    .replace(":settotal", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
             )
             if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_REPEAT) {

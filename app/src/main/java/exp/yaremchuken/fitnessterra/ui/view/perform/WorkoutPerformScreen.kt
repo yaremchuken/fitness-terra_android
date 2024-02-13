@@ -119,7 +119,8 @@ fun WorkoutPerformScreen(
                 )
                 RECOVERY -> WorkoutRecoveryBlock(
                     onFinish = {
-                        if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_SET && !sideSwitched) {
+                        viewModel.stopSpeak()
+                        if (viewModel.isBeforeSideSwitched(setup, sideSwitched)) {
                             sideSwitched = true
                         } else {
                             setIdx++
@@ -138,7 +139,7 @@ fun WorkoutPerformScreen(
                         state = PERFORM
                     },
                     speakOut = { viewModel.speakOut(it) },
-                    duration = viewModel.getRecoveryAfterCompleteExercise(setup, setIdx)
+                    duration = viewModel.getRecoveryAfterCompleteExercise(setup, setIdx, sideSwitched)
                 )
                 COMPLETED -> Column(
                     Modifier.fillMaxWidth(),
@@ -166,10 +167,12 @@ fun WorkoutPerformScreen(
                 )
                 PERFORM -> PerformBlock(
                     onFinish = {
+                        viewModel.stopSpeak()
                         state =
                             if (sectionIdx == workout!!.sections.size-1 &&
                                 setupIdx == section.setups.size-1 &&
-                                setIdx >= setup.sets.size-1
+                                setIdx >= setup.sets.size-1 &&
+                                (setup.exercise.sideSwitchType != ExerciseSwitchType.SIDE_SWITCH_ON_SET || sideSwitched)
                             ) {
                                 viewModel.persistHistory(workout!!)
                                 viewModel.speakOut(workoutCompletedText)

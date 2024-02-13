@@ -43,9 +43,13 @@ class TextToSpeechHelper(app: Application): TextToSpeech.OnInitListener, Utteran
         }
     }
 
-    fun clear() {
+    fun stop() {
         tts.stop()
         texts.clear()
+    }
+
+    fun clear() {
+        stop()
         hold = true
     }
 

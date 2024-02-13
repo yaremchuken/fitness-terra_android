@@ -36,7 +36,7 @@
     <string name="speak_recovery_time">восстановление :seconds секунд</string>
     <string name="speak_workout_completed">тренировка завершена</string>
     <string name="speak_next_exercise_block">следующее упражнение :exercise, вес :weight, всего сэтов :sets, первый сет :set повторений</string>
-    <string name="speak_next_set_block">следующий сет :set повторений</string>
+    <string name="speak_next_set_block">сет :setnum из :settotal :set повторений</string>
     <string name="speak_each_side">для каждой стороны</string>
     <string name="speak_next_section_block">следующая секция :section</string>
     <string name="speak_side_switch">смена стороны</string>

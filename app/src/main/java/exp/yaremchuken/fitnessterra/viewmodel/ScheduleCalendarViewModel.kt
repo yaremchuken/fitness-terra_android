@@ -7,7 +7,6 @@ import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
-import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -16,7 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ScheduleCalendarViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
-    private val workoutRepository: WorkoutRepository,
     private val exerciseRepository: ExerciseRepository,
     private val historyRepository: HistoryRepository
 ): ViewModel() {

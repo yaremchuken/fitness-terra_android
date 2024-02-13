@@ -37,7 +37,7 @@
     <string name="speak_recovery_time">recovery :seconds seconds</string>
     <string name="speak_workout_completed">workout completed</string>
     <string name="speak_next_exercise_block">next exercise :exercise, weight :weight, total sets :sets :side, first set :set repeats</string>
-    <string name="speak_next_set_block">next set :set repeats</string>
+    <string name="speak_next_set_block">set :setnum from :settotal :set repeats</string>
     <string name="speak_each_side">for each side</string>
     <string name="speak_next_section_block">next section :section</string>
     <string name="speak_side_switch">switch side</string>
