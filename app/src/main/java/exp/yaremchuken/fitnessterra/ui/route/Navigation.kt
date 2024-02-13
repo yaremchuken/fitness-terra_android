@@ -65,7 +65,8 @@ fun Navigation() {
             arguments = listOf(Arg.date)
         ) {
             ScheduleDateScreen(
-                onWorkoutDetailsClick = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
+                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
+                gotoHistory = { startedAt -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?startedAt=${startedAt.toEpochMilli()}") },
                 date = LocalDate.parse(it.arguments!!.getString("date"))
             )
         }
