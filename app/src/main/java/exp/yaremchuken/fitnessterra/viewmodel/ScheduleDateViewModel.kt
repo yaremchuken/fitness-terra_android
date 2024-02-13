@@ -27,7 +27,7 @@ class ScheduleDateViewModel @Inject constructor(
     private val historyRepository: HistoryRepository,
     private val exerciseRepository: ExerciseRepository
 ): ViewModel() {
-    fun getSchedules(onDate: LocalDate) = scheduleRepository.getAllInPeriod(onDate, onDate, listOf(onDate.dayOfWeek))
+    fun getSchedules(onDate: LocalDate) = scheduleRepository.getOnDate(onDate)
 
     fun insertSchedule(schedule: Schedule) {
         viewModelScope.launch (Dispatchers.IO){ scheduleRepository.insert(schedule) }

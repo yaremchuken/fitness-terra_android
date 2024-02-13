@@ -27,7 +27,7 @@ class ScheduleCalendarViewModel @Inject constructor(
     }
 
     fun getSchedules(from: LocalDate, to: LocalDate) =
-        scheduleRepository.getAllInPeriod(from, to, weekdaysInPeriod(from, to))
+        scheduleRepository.getInPeriod(from, to, weekdaysInPeriod(from, to))
 
     fun fromEntity(entity: ScheduleEntityWrapper) =
         scheduleRepository.fromEntity(entity, exerciseRepository.getAll())

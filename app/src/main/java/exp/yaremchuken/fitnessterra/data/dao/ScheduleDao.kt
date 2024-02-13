@@ -17,9 +17,6 @@ interface ScheduleDao {
     @Delete
     suspend fun delete(entity: ScheduleEntity)
 
-    @Query("select * from schedule where scheduled_at >= :fromMillis and scheduled_at < :toMillis")
-    fun getInPeriod(fromMillis: Long, toMillis: Long): Flow<List<ScheduleEntityWrapper>>
-
     @Query(
         """
             select * from schedule
@@ -32,7 +29,7 @@ interface ScheduleDao {
             or (saturday = 1 and saturday = :sat)
             or (sunday = 1 and sunday = :sun)
         """)
-    fun getAllInPeriod(
+    fun getInPeriod(
         fromMillis: Long, toMillis: Long,
         mon: Boolean, tue: Boolean, wed: Boolean, thu: Boolean, fri: Boolean, sat: Boolean, sun: Boolean
     ): Flow<List<ScheduleEntityWrapper>>

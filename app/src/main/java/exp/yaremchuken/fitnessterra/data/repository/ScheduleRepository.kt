@@ -17,14 +17,10 @@ class ScheduleRepository(
 
     suspend fun delete(schedule: Schedule) = dao.delete(toEntity(schedule))
 
-    fun getOnDate(date: LocalDate) =
-        dao.getInPeriod(
-            date.toInstant().toEpochMilli(),
-            date.plusDays(1).toInstant().toEpochMilli()
-        )
+    fun getOnDate(date: LocalDate) = getInPeriod(date, date, listOf(date.dayOfWeek))
 
-    fun getAllInPeriod(from: LocalDate, to: LocalDate, weekdays: List<DayOfWeek>) =
-        dao.getAllInPeriod(
+    fun getInPeriod(from: LocalDate, to: LocalDate, weekdays: List<DayOfWeek>) =
+        dao.getInPeriod(
             from.toInstant().toEpochMilli(),
             to.plusDays(1).toInstant().toEpochMilli(),
             mon = weekdays.contains(DayOfWeek.MONDAY),
