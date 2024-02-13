@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,7 +32,6 @@ import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.LocalDate
 import java.time.YearMonth
 
-@Preview
 @Composable
 fun ScheduleCalendarDateView(
     onClick: () -> Unit,
@@ -55,38 +54,37 @@ fun ScheduleCalendarDateView(
             .padding(horizontal = 1.dp, vertical = 8.dp)
             .border(
                 1.dp,
-                if (isNotInMonth) Color.LightGray else Color.Gray,
+                if (isNotInMonth || date < LocalDate.now()) Color.LightGray else Color.Gray,
                 shape = UIConstants.ROUNDED_CORNER
             )
             .background(
-                if (scheduled.isEmpty()) Color.White else Color.LightGray,
+                if (scheduled.isEmpty()) Color.Transparent else Color.LightGray,
                 shape = UIConstants.ROUNDED_CORNER
             )
-            .clickable { onClick() }
+            .clickable { if(date >= LocalDate.now() || histories.isNotEmpty()) onClick() }
     ) {
         Box(
-            Modifier.align(Alignment.End)
-        ) {
-            Box(
-                Modifier
-                    .background(
-                        color = if (date == LocalDate.now()) Color.Red else Color.Transparent,
-                        shape = UIConstants.ROUNDED_CORNER
-                    )
-            ) {
-                Text(
-                    text = "${date.dayOfMonth}".padStart(2, '0'),
-                    Modifier.padding(horizontal = 4.dp),
-                    style = Typography.titleLarge,
-                    color =
-                        if (date == LocalDate.now()) Color.White
-                        else if (isNotInMonth) Color.Gray
-                        else Color.Black
+            Modifier
+                .fillMaxWidth()
+                .align(Alignment.End)
+                .background(
+                    color = if (date == LocalDate.now()) Color.Red else Color.Transparent,
+                    shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
                 )
-            }
+        ) {
+            Text(
+                text = "${date.dayOfMonth}".padStart(2, '0'),
+                Modifier
+                    .padding(horizontal = 4.dp),
+                style = Typography.titleLarge,
+                color =
+                    if (date == LocalDate.now()) Color.White
+                    else if (isNotInMonth) Color.Gray
+                    else Color.Black
+            )
         }
         if (scheduled.isNotEmpty()) {
-            Box(Modifier.padding(top = 2.dp)) {
+            Box {
                 if (preview != null) {
                     Image(
                         bitmap = preview,

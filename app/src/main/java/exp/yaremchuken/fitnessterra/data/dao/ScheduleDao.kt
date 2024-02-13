@@ -17,6 +17,9 @@ interface ScheduleDao {
     @Delete
     suspend fun delete(entity: ScheduleEntity)
 
+    @Query("select * from schedule where scheduled_at >= :fromMillis and scheduled_at < :toMillis")
+    fun getOnDate(fromMillis: Long, toMillis: Long): Flow<List<ScheduleEntityWrapper>>
+
     @Query(
         """
             select * from schedule

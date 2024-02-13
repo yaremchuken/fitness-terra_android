@@ -107,7 +107,7 @@ fun ScheduleDateScreen(
 
     // Refresher for current time red line.
     LaunchedEffect(Unit) {
-        while (true) {
+        do {
             val now = Instant.now().atZone(ZoneId.systemDefault())
             val hourOffset = (now.hour * HOUR_BLOCK_HEIGHT.value).toInt()
             val minuteOffset = now.minute * (HOUR_BLOCK_HEIGHT.value / 60.0).toInt()
@@ -115,7 +115,7 @@ fun ScheduleDateScreen(
             timelineOffset = hourOffset + minuteOffset
 
             delay(REFRESH_TIMER_DELAY)
-        }
+        } while (date == LocalDate.now())
     }
 
     val configuration = LocalConfiguration.current
@@ -182,13 +182,15 @@ fun ScheduleDateScreen(
                     .fillMaxSize()
                     .padding(start = 64.dp, end = 8.dp)
             ) {
-                schedules.forEach {
-                    ScheduledWorkoutBlockView(
-                        { editedSchedule = ScheduleTemplate.toTemplate(it) },
-                        it.scheduledAt,
-                        it.workout,
-                        false
-                    )
+                if (date >= LocalDate.now()) {
+                    schedules.forEach {
+                        ScheduledWorkoutBlockView(
+                            { editedSchedule = ScheduleTemplate.toTemplate(it) },
+                            it.scheduledAt,
+                            it.workout,
+                            false
+                        )
+                    }
                 }
                 histories.forEach {
                     ScheduledWorkoutBlockView(
@@ -199,20 +201,22 @@ fun ScheduleDateScreen(
                     )
                 }
             }
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
-            ) {
-                Row(
-                    Modifier.offset(y = timelineOffset.dp),
-                    verticalAlignment = Alignment.CenterVertically
+            if (date == LocalDate.now()) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.ic_red_dot), contentDescription = null)
-                    Divider(
-                        thickness = 2.dp,
-                        color = Color.Red
-                    )
+                    Row(
+                        Modifier.offset(y = timelineOffset.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(painter = painterResource(id = R.drawable.ic_red_dot), contentDescription = null)
+                        Divider(
+                            thickness = 2.dp,
+                            color = Color.Red
+                        )
+                    }
                 }
             }
         }
