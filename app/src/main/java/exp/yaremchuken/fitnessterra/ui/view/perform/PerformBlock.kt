@@ -1,13 +1,14 @@
 package exp.yaremchuken.fitnessterra.ui.view.perform
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
+import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
@@ -126,7 +128,7 @@ fun PerformBlock(
                             text = "$displayCounter",
                             fontWeight = FontWeight.Bold,
                             style = Typography.headlineLarge,
-                            fontSize = 128.sp,
+                            fontSize = 96.sp,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -135,10 +137,26 @@ fun PerformBlock(
                         Modifier
                             .height(200.dp)
                             .width(200.dp)
-                            .align(Alignment.Center),
+                            .align(Alignment.Center)
+                            .clickable { pause = !pause },
                         strokeWidth = 12.dp,
                         trackColor = Color.LightGray
                     )
+                    Column(
+                        Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Bottom,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                if (pause) R.drawable.ic_play_filled else R.drawable.ic_pause_filled
+                            ),
+                            contentDescription = null,
+                            Modifier
+                                .height(48.dp)
+                                .padding(bottom = 20.dp)
+                        )
+                    }
                 }
             } else {
                 Text(
@@ -158,29 +176,12 @@ fun PerformBlock(
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = { pause = !pause },
-                Modifier.weight(1F),
-                shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
-            ) {
-                Image(
-                    painter = painterResource(if (pause) R.drawable.ic_continue else R.drawable.ic_pause),
-                    contentDescription = null,
-                    Modifier
-                        .height(32.dp)
-                        .padding(end = 12.dp)
-                )
-                Text(
-                    text = stringResource(if (pause) R.string.continue_btn_title else R.string.pause_btn_title),
-                    Modifier.padding(vertical = 4.dp),
-                    style = Typography.headlineSmall,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Button(
                 onClick = { onFinish() },
-                Modifier.weight(1F),
-                shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                Modifier
+                    .width(IntrinsicSize.Min)
+                    .border(2.dp, Color.Black, UIConstants.ROUNDED_CORNER),
+                shape = UIConstants.ROUNDED_CORNER,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_fast_forward),
@@ -193,7 +194,8 @@ fun PerformBlock(
                     text = stringResource(R.string.skip_btn_title),
                     Modifier.padding(vertical = 4.dp),
                     style = Typography.headlineSmall,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = Color.Black
                 )
             }
         }

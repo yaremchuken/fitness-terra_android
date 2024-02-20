@@ -1,6 +1,7 @@
 package exp.yaremchuken.fitnessterra.ui.view.perform
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
@@ -91,8 +93,11 @@ fun WorkoutRecoveryBlock(
         ) {
             Button(
                 onClick = { pause = !pause },
-                Modifier.weight(1F),
-                shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
+                Modifier
+                    .weight(1F)
+                    .border(2.dp, Color.Black, RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)),
+                shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
             ) {
                 Image(
                     painter = painterResource(if (pause) R.drawable.ic_continue else R.drawable.ic_pause),
@@ -105,14 +110,17 @@ fun WorkoutRecoveryBlock(
                     text = stringResource(if (pause) R.string.continue_btn_title else R.string.pause_btn_title),
                     Modifier.padding(vertical = 4.dp),
                     style = Typography.headlineSmall,
+                    color = Color.Black,
                     textAlign = TextAlign.Center
                 )
             }
             Button(
                 onClick = { onFinish() },
-                Modifier.weight(1F),
+                Modifier
+                    .weight(1F)
+                    .border(2.dp, Color.Black, RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp)),
                 shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_fast_forward),
@@ -125,6 +133,7 @@ fun WorkoutRecoveryBlock(
                     text = stringResource(R.string.skip_btn_title),
                     Modifier.padding(vertical = 4.dp),
                     style = Typography.headlineSmall,
+                    color = Color.Black,
                     textAlign = TextAlign.Center
                 )
             }
