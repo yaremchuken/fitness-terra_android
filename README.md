@@ -1,7 +1,11 @@
 ### Fitness Terra
 
 <div align="center">
+  <img src="app_preview-homescreen.png" height="400" />
+  <img src="app_preview-workout_details.png" height="400" />
   <img src="app_preview-exercise_details.png" height="400" />
+  <img src="app_preview-perform.png" height="400" />
+  <img src="app_preview-recovery.png" height="400" />
 </div>
 
 ## Table Of Contents
@@ -10,7 +14,6 @@
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
-* [Roadmap](#roadmap)
 
 ## About The Project
 
