@@ -85,7 +85,7 @@ fun ExerciseSetupBlock(
                             text = repeatsOrDuration,
                             style = Typography.bodyMedium
                         )
-                        if (setup.weight > 0) {
+                        if (setup.equipment.sumOf { it.weight } > 0) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_weight),
                                 contentDescription = null,
@@ -94,10 +94,12 @@ fun ExerciseSetupBlock(
                                     .padding(start = 12.dp, end = 4.dp)
                                     .align(Alignment.CenterVertically)
                             )
-                            Text(
-                                text = "${setup.weight * .001}",
-                                style = Typography.bodyMedium
-                            )
+                            setup.equipment.filter { it.weight > 0 }.forEach {
+                                Text(
+                                    text = "${(if (it.quantity > 1) "${it.quantity}X" else "")}${it.weight * .001}",
+                                    style = Typography.bodyMedium
+                                )
+                            }
                         }
                     }
                 }

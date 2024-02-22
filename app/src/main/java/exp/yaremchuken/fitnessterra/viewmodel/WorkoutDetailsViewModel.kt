@@ -38,8 +38,8 @@ class WorkoutDetailsViewModel @Inject constructor(
             .asSequence()
             .map { it.setups }
             .flatten()
-            .map { it.exercise.equipment }
-            .filterNotNull()
+            .map { it.exercise.equipment.map { e -> e.type }.distinct() }
+            .flatten()
             .distinct()
             .toList()
 }

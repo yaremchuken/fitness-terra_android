@@ -23,9 +23,9 @@ data class ExerciseSetup(
     val order: Long,
 
     /**
-     * Amount of weight used in sets in grams.
+     * Setup for equipment used in sets.
      */
-    val weight: Long = 0,
+    val equipment: List<Equipment> = listOf(),
 
     /**
      * Amount of repeats for exercise.

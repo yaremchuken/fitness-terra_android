@@ -30,9 +30,9 @@ data class Exercise(
     val muscles: List<MuscleGroupType> = listOf(),
 
     /**
-     * Type of equipment using during the exercise.
+     * Equipment used during the exercise.
      */
-    val equipment: EquipmentType?,
+    val equipment: List<EquipmentBase> = listOf(),
 
     /**
      * Does the trainee have to switch sides, while performing exercises.

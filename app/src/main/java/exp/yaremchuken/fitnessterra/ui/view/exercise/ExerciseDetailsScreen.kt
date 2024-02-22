@@ -49,7 +49,7 @@ fun ExerciseDetailsScreen(
     val scrollState = rememberScrollState()
     val exercise = viewModel.getExercise(id).first()
 
-    val equipment = LocalContext.current.equipment(exercise.equipment)?.asImageBitmap()
+    val equipment = exercise.equipment.associate { it.type to LocalContext.current.equipment(it.type)?.asImageBitmap() }
     val muscleGroup = LocalContext.current.muscle(exercise.muscleGroup)?.asImageBitmap()
 
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -97,7 +97,7 @@ fun ExerciseDetailsScreen(
                 text = exercise.description,
                 style = Typography.bodyMedium
             )
-            if (exercise.equipment != null || exercise.muscleGroup != null) {
+            if (exercise.equipment.isNotEmpty() || exercise.muscleGroup != null) {
                 Column(
                     Modifier
                         .fillMaxWidth()
@@ -139,7 +139,7 @@ fun ExerciseDetailsScreen(
                             }
                         }
                     }
-                    if (equipment != null) {
+                    if (equipment.isNotEmpty()) {
                         Divider()
                         Column(
                             Modifier.padding(vertical = 8.dp)
@@ -149,17 +149,22 @@ fun ExerciseDetailsScreen(
                                 style = AppType.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Image(
-                                    bitmap = equipment,
-                                    contentDescription = null,
-                                    Modifier
-                                        .width(52.dp)
-                                        .height(52.dp)
-                                )
-                                Text(text = EquipmentType.i18n(exercise.equipment!!))
+                            Row {
+                                exercise.equipment.forEachIndexed { idx, it ->
+                                    Column(
+                                        Modifier.padding(start = if (idx == 0) 0.dp else 8.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            bitmap = equipment[it.type]!!,
+                                            contentDescription = null,
+                                            Modifier
+                                                .width(52.dp)
+                                                .height(52.dp)
+                                        )
+                                        Text(text = EquipmentType.i18n(it.type))
+                                    }
+                                }
                             }
                         }
                     }

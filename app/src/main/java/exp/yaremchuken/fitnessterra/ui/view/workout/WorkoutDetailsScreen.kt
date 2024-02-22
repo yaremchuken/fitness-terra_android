@@ -3,6 +3,7 @@ package exp.yaremchuken.fitnessterra.ui.view.workout
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,6 +57,8 @@ fun WorkoutDetailsScreen(
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val equipmentScrollState = rememberScrollState()
+
     var workout by remember { mutableStateOf<Workout?>(null) }
     var history by remember { mutableStateOf<History?>(null) }
 
@@ -139,7 +142,9 @@ fun WorkoutDetailsScreen(
                         style = AppType.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
-                    Row {
+                    Row (
+                        Modifier.horizontalScroll(equipmentScrollState)
+                    ) {
                         viewModel.equipment(workout!!).forEachIndexed { idx, it ->
                             Column(
                                 Modifier.padding(

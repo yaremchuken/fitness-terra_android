@@ -1,7 +1,7 @@
 package exp.yaremchuken.fitnessterra.data.datasource.dto
 
 import exp.yaremchuken.fitnessterra.AppSettings
-import exp.yaremchuken.fitnessterra.data.model.EquipmentType
+import exp.yaremchuken.fitnessterra.data.model.EquipmentBase
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.MuscleGroupType
@@ -13,7 +13,7 @@ class ExerciseDto {
     lateinit var description: Map<String, String>
     var muscleGroup: MuscleGroupType? = null
     var muscles: List<MuscleGroupType> = listOf()
-    var equipment: EquipmentType? = null
+    var equipment: List<EquipmentBase> = listOf()
     var sideSwitchType: ExerciseSwitchType? = null
     var steps: Map<String, List<String>> = mapOf()
     var advises: Map<String, List<String>> = mapOf()

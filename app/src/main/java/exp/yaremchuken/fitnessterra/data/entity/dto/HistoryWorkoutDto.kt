@@ -33,7 +33,7 @@ data class HistoryWorkoutDto(
                                 section.id,
                                 setup.exercise.id,
                                 setup.order,
-                                setup.weight,
+                                setup.equipment,
                                 Gson().toJson(setup.sets),
                                 setup.duration.inWholeSeconds,
                                 setup.recovery.inWholeSeconds
@@ -59,7 +59,7 @@ data class HistoryWorkoutDto(
                             section.id,
                             exercises.find { ex -> ex.id == setup.exerciseId }!!,
                             setup.order,
-                            setup.weight,
+                            setup.equipment,
                             Gson().fromJson(setup.sets, Array<Long>::class.java).toList(),
                             setup.duration.seconds,
                             setup.recovery.seconds

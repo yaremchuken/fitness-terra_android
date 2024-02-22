@@ -24,7 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.gson.Gson
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.Equipment
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
@@ -56,7 +56,7 @@ fun ExerciseSetupDetailsScreen(
     viewModel: ExerciseSetupDetailsViewModel = hiltViewModel()
 ) {
     var setup by remember { mutableStateOf<ExerciseSetup?>(null) }
-    var weight by remember { mutableLongStateOf(0) }
+    val equipment = remember { mutableStateListOf<Equipment>() }
     val sets = remember { mutableStateListOf<Long>() }
     var duration by remember { mutableStateOf(0.seconds) }
     var recovery by remember { mutableStateOf(0.seconds) }
@@ -66,7 +66,8 @@ fun ExerciseSetupDetailsScreen(
     LaunchedEffect(Unit) {
         viewModel.getSetup(sectionId, exerciseId).collect {
             setup = viewModel.fromEntity(it)
-            weight = it.weight
+            equipment.clear()
+            equipment.addAll(Gson().fromJson(it.equipment, Array<Equipment>::class.java))
             sets.clear()
             sets.addAll(Gson().fromJson(it.sets, Array<Long>::class.java))
             duration = it.duration.seconds
@@ -161,8 +162,16 @@ fun ExerciseSetupDetailsScreen(
                     }
                 }
 
-                if (weight > 0) {
-                    WeightSetupBlock(adjust = { weight += it }, weight = weight)
+                equipment.filter { it.weight > 0 }.forEach { equip ->
+                    EquipmentSetupBlock(
+                        adjust = { w ->
+                            val replaced = viewModel.adjustEquipment(equipment, equip.type, w)
+                            equipment.clear()
+                            equipment.addAll(replaced)
+                        },
+//                        adjust = { equipment.find { e -> e.type == equip.type }.weight += it },
+                        equipment = equip
+                    )
                 }
 
                 if (sets.isNotEmpty()) {
@@ -204,7 +213,7 @@ fun ExerciseSetupDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { viewModel.updateSetup(setup!!, weight, sets, duration, recovery) },
+                onClick = { viewModel.updateSetup(setup!!, equipment, sets, duration, recovery) },
                 Modifier
                     .fillMaxWidth()
                     .padding(vertical = 10.dp, horizontal = 50.dp),

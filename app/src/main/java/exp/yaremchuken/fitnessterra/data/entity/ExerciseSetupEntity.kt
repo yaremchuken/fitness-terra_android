@@ -21,10 +21,10 @@ data class ExerciseSetupEntity(
     val order: Long,
 
     /**
-     * Amount of weight used in sets in grams.
+     * Equipment used in sets.
      */
-    @ColumnInfo("weight")
-    val weight: Long,
+    @ColumnInfo("equipment")
+    val equipment: String,
 
     /**
      * Amount of repeats for exercise.

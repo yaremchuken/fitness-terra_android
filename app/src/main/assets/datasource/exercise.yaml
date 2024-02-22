@@ -14,7 +14,10 @@ entities:
     muscles:
       - DELTOIDS
       - TRICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
+      - type: WORKOUT_BENCH
     steps:
       ru:
         - Лягте на наклонную скамью, держа гантели в каждой руки на бёдрах ваших ног, при этом ладони направлены друг на друга
@@ -51,7 +54,10 @@ entities:
     muscles:
       - DELTOIDS
       - TRICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
+      - type: WORKOUT_BENCH
     steps:
       ru:
         - Лягте на горизонтальную скамью, держа гантели в каждой руки на бёдрах ваших ног, при этом ладони направлены друг на друга
@@ -83,7 +89,10 @@ entities:
       ru: Данное упражнение позволяет изолировать внешнюю, среднюю и нижнюю часть грудной мышцы. При выполнении данного упражнения также задействованы передние дельты (плечи).
       en: This exercise allows you to isolate the outer, middle and lower part of the pectoral muscle. The anterior deltas (shoulders) are also involved in this exercise.
     muscleGroup: CHEST
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
+      - type: WORKOUT_BENCH
     steps:
       ru:
         - Поднять руки вертикально вверх, одновременно делая выдох
@@ -104,7 +113,9 @@ entities:
     muscleGroup: CHEST
     muscles:
       - LATISSIMUS_DORSI
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+      - type: WORKOUT_BENCH
     steps:
       ru:
         - Поставьте гантель стоя на скамью
@@ -140,7 +151,9 @@ entities:
       ru: Упражнение на трицепс, выполняется лёжа на скамье.
       en: Triceps exercise, performed lying on a bench.
     muscleGroup: TRICEPS
-    equipment: BARBELL
+    equipment:
+      - type: BARBELL
+      - type: WORKOUT_BENCH
     steps:
       ru:
         - Для выполнения этого упражнения нужно лечь спиной на горизонтальную скамью, ноги согнуты в коленях, ступни - на полу. Предварительно положите штангу с прямым или E-Z грифом (я отдаю предпочтение этой разновидности штанги) на подставку у основания скамьи (с той стороны, где будет находиться голова)
@@ -179,7 +192,9 @@ entities:
       ru: Упражнение на мышцы трицепса, выполняется с помощью гантели, попеременно для каждой руки.
       en: Triceps muscle exercise, performed with a dumbbell, alternately for each arm.
     muscleGroup: TRICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+      - type: WORKOUT_BENCH
     sideSwitchType: SIDE_SWITCH_ON_SET
     steps:
       ru:
@@ -206,7 +221,8 @@ entities:
     muscles:
       - CHEST
       - DELTOIDS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
     sideSwitchType: SIDE_SWITCH_ON_SET
     steps:
       ru:
@@ -236,7 +252,9 @@ entities:
       - LATISSIMUS_DORSI
       - DELTOIDS
       - BICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+      - type: WORKOUT_BENCH
     sideSwitchType: SIDE_SWITCH_ON_SET
     steps:
       ru:
@@ -275,7 +293,9 @@ entities:
       - LATISSIMUS_DORSI
       - DELTOIDS
       - BICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - Возьмите в обе руки гантели, ладони должны быть обращены к туловищу. Слегка согните колени и наклоните туловище вперед, сгибаясь в пояснице до тех пор, пока спина не будет практически параллельна полу, при этом держите спину прямо. Следите за тем, чтобы голова была поднята вверх. Руки должны свисать перпендикулярно полу и туловищу. Это Ваше исходное положение
@@ -316,7 +336,10 @@ entities:
       ru: Сгибание рук сидя в наклоне.
       en: Bending the arms while sitting in a tilt.
     muscleGroup: BICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
+      - type: WORKOUT_BENCH
     sideSwitchType: SIDE_SWITCH_ON_REPEAT
     steps:
       ru:
@@ -342,7 +365,8 @@ entities:
     muscleGroup: BICEPS
     muscles:
       - FOREARMS
-    equipment: BARBELL
+    equipment:
+      - type: BARBELL
     steps:
       ru:
         - Встаньте прямо, предварительно взяв в руку штангу. Руки должны находится на уровне плеч. Хват снизу. Локти находятся близко к телу. Это будет вашей стартовой позицией
@@ -374,7 +398,9 @@ entities:
     muscleGroup: BICEPS
     muscles:
       - FOREARMS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     sideSwitchType: SIDE_SWITCH_ON_REPEAT
     steps:
       ru:
@@ -411,7 +437,9 @@ entities:
       - CALVES
       - GLUTES
       - HAMSTRINGS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     sideSwitchType: SIDE_SWITCH_ON_REPEAT
     steps:
       ru:
@@ -455,7 +483,10 @@ entities:
       - CALVES
       - GLUTES
       - HAMSTRINGS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
+      - type: STEP_PLATFORM
     sideSwitchType: SIDE_SWITCH_ON_REPEAT
     steps:
       ru:
@@ -491,7 +522,9 @@ entities:
       - GLUTES
       - HAMSTRINGS
       - LUMBAR
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - "Возьмите гантели в обе руки (ладони обращены к бедрам) и станьте прямо. Ноги на ширине плеч, носки слегка расставлены наружу. На протяжении всего упражнения голова должна быть поднята, а спина прямая, т.к. если опустить голову, то Вы можете потерять равновесие. Это — исходное положение. Примечание: мы используем среднюю постановку ног (на ширине плеч), т.к. она приводит к общему развитию всех мышц, но Вы, преследуя другие цели, можете выбрать широкую или узкую постановку"
@@ -528,7 +561,9 @@ entities:
     muscles:
       - LUMBAR
       - HAMSTRINGS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - Возьмите в обе руки гантели. Руки вытянуты вдоль туловища
@@ -567,7 +602,9 @@ entities:
       ru: Поочерёдный подъём на икры с гантелью.
       en: Alternate calf lift with a dumbbell.
     muscleGroup: CALVES
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+      - type: WORKOUT_BENCH
     sideSwitchType: SIDE_SWITCH_ON_SET
     steps:
       ru:
@@ -600,7 +637,9 @@ entities:
       ru: Данное упражнение выполняется для тренировки мышц икр. Для его выполнения вам понадобится доска и две гантели.
       en: This exercise is performed to train the calf muscles. To do it, you will need a board and two dumbbells.
     muscleGroup: CALVES
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - Встаньте прямо, взяв в руки гантели, руки расположены по сторонам. Поставьте часть ноги, где расположены пальцы, на доску. Пятка должна находиться на полу. Это будет стартовой позицией данного упражнения
@@ -627,7 +666,9 @@ entities:
     muscleGroup: DELTOIDS
     muscles:
       - TRICEPS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - Поставьте ноги на ширину плеч. Возьмите гантели в каждую из рук и поднимите их, согнув локти под углом в 90 градусов. Это будет вашей стартовой позицией
@@ -648,7 +689,9 @@ entities:
       ru: Разведения гантелей стоя прицельно утюжат средние дельты, которые определяют ширину плеч — первое, что бросается в глаза и подчеркивает атлетичность телосложения. Упражнение прорезает четкую разделительную линию вокруг средней головки дельты и усиливает ее «полосатость».
       en: Dumbbell dilutions while standing aimlessly iron the middle deltas, which determine the width of the shoulders — the first thing that catches the eye and emphasizes the athleticism of the physique. The exercise cuts a clear dividing line around the middle head of the delta and enhances its "banding".
     muscleGroup: DELTOIDS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - Поставьте ноги на ширине плеч или чуть шире, возьмите гантели и станьте ровно. Руки выпрямлены и слегка расслаблены, гантели «свисают» по бокам бедер и чуть повернуты внутрь, взгляд направлен вперед. Это и есть исходное положение
@@ -686,7 +729,9 @@ entities:
       ru: Разведение гантелей в наклоне задействуют задние дельты, трапеции и мышцы-вращатели плеча. Это формирующее упражнение прорабатывает форму и рельеф задних пучков плеч. Разведения в наклоне изолируют нагрузку на заднюю головку дельт и применяются для того, чтобы придать этому пучку мышц отчетливую бугристую форму, добавить «полосатости» и выделить его на фоне мышц спины.
       en: The dilution of dumbbells in a tilt involves the posterior deltas, trapezoids and shoulder rotator muscles. This formative exercise works out the shape and relief of the posterior shoulder bundles. Tilt dilutions isolate the load on the posterior head of the deltas and are used to give this bundle of muscles a distinct bumpy shape, add "stripes" and highlight it against the background of the back muscles.
     muscleGroup: DELTOIDS
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - Возьмите легкие гантели в обе руки нейтральным хватом (ладони смотрят друг на друга)
@@ -736,7 +781,9 @@ entities:
       ru: Шраги гантелями.
       en: Dumbbell shrugs.
     muscleGroup: TRAPEZOID
-    equipment: DUMBBELLS
+    equipment:
+      - type: DUMBBELLS
+        quantity: 2
     steps:
       ru:
         - "Исходное положение: cтойте прямо, с гантелями в каждой руке, руки вдоль тела, ладони обращены к телу"
