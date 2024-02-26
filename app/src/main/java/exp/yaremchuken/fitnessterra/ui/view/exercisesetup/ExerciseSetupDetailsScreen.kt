@@ -213,7 +213,10 @@ fun ExerciseSetupDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { viewModel.updateSetup(setup!!, equipment, sets, duration, recovery) },
+                onClick = {
+                            viewModel.updateSetup(setup!!, equipment, sets, duration, recovery)
+                            onBackPressedDispatcher?.onBackPressed()
+                          },
                 Modifier
                     .fillMaxWidth()
                     .padding(vertical = 10.dp, horizontal = 50.dp),
