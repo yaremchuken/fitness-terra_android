@@ -157,7 +157,7 @@ fun WorkoutPerformScreen(
         Column(
             Modifier
                 .fillMaxWidth()
-                .weight(1F)
+                .weight(viewModel.getBottomBlockWeight(state))
         ) {
             when(state) {
                 GET_READY -> GetReadyBlock(

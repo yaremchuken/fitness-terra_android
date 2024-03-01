@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -147,11 +148,13 @@ fun WorkoutDetailsScreen(
                     ) {
                         viewModel.equipment(workout!!).forEachIndexed { idx, it ->
                             Column(
-                                Modifier.padding(
-                                    top = 8.dp,
-                                    bottom = 8.dp,
-                                    start = if (idx == 0) 0.dp else 8.dp
-                                ),
+                                Modifier
+                                    .width(IntrinsicSize.Min)
+                                    .padding(
+                                        top = 8.dp,
+                                        bottom = 8.dp,
+                                        start = if (idx == 0) 0.dp else 8.dp
+                                    ),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Image(

@@ -8,9 +8,9 @@ import exp.yaremchuken.fitnessterra.AppSettings
 enum class EquipmentType {
     BARBELL,
     DUMBBELLS,
-    WORKOUT_BENCH,
+    BENCH,
     CARPET,
-    STEP_PLATFORM;
+    PLATFORM;
 
     companion object {
         fun i18n(type: EquipmentType) =
@@ -18,9 +18,9 @@ enum class EquipmentType {
                 when(type) {
                     BARBELL -> "штанга"
                     DUMBBELLS -> "гантели"
-                    WORKOUT_BENCH -> "Силовая скамья"
+                    BENCH -> "Скамья"
                     CARPET -> "коврик"
-                    STEP_PLATFORM -> "степ платформа"
+                    PLATFORM -> "платформа"
                 }
             } else {
                 type.name.lowercase().replace("_", " ")

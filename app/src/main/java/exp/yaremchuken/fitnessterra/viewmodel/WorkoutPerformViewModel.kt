@@ -13,6 +13,7 @@ import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import exp.yaremchuken.fitnessterra.service.TextToSpeechHelper
 import exp.yaremchuken.fitnessterra.ui.view.perform.NextExerciseDto
+import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -151,4 +152,10 @@ class WorkoutPerformViewModel @Inject constructor(
                     if (isBeforeSideSwitched(setup, sideSwitched)) 1 else 4
                 }
                 else 1
+
+    fun getBottomBlockWeight(state: WorkoutPerformState) =
+        when(state) {
+            WorkoutPerformState.RECOVERY -> 2F
+            else -> 1F
+        }
 }

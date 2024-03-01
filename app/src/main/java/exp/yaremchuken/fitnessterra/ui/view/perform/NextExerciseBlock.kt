@@ -1,13 +1,14 @@
 package exp.yaremchuken.fitnessterra.ui.view.perform
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,10 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Exercise
@@ -28,7 +31,6 @@ import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
-import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 
@@ -67,7 +69,7 @@ fun NextExerciseBlock(
             speakOut(
                 stringResource(id = R.string.speak_next_exercise_block)
                     .replace(":exercise", dto.exercise.title)
-                    .replace(":weight", "${setup.equipment.sumOf { it.weight }/1000}")
+                    .replace(":weight", "${setup.equipment.sumOf { it.weight }.toFloat()/1000}")
                     .replace(":sets", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
                     .replace(":side",
@@ -89,35 +91,17 @@ fun NextExerciseBlock(
         spoken = true
     }
 
-    val setInfo =
-        """
-            ${stringResource(R.string.set_title)} ${dto.setIdx + 1} ${stringResource(id = R.string.from)} ${setup.sets.size}
-             - x${setup.sets[dto.setIdx]} ${stringResource(R.string.repeats_title)}
-        """.trimIndent().replace("\n", "")
-
-    Box(
-        Modifier.fillMaxWidth()
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min)
     ) {
-        Row(
-            Modifier
-                .fillMaxSize()
-                .padding(top = 12.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            GifImage(Utils.exerciseGifPath(dto.exercise))
-        }
         Column (
             Modifier
                 .padding(horizontal = 12.dp)
         ) {
             Column(
                 Modifier
-                    .background(
-                        color = AppColor.GrayTransparent,
-                        shape = UIConstants.ROUNDED_CORNER
-                    )
-                    .alpha(.7F)
                     .border(
                         width = 1.dp,
                         color = Color.Gray,
@@ -129,19 +113,65 @@ fun NextExerciseBlock(
                     text = setup.exercise.title,
                     Modifier.padding(start = 8.dp),
                     style = Typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
-                if (setup.sets.isNotEmpty()) {
-                    Row {
-                        Text(
-                            text = setInfo,
-                            Modifier.padding(start = 8.dp),
-                            style = Typography.titleLarge,
-                            fontWeight = FontWeight.Bold
-                        )
+                if (setup.sets.isNotEmpty() || setup.equipment.sumOf { it.weight } > 0) {
+                    Row(
+                        Modifier.padding(horizontal = 8.dp),
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        if (setup.sets.isNotEmpty()) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_repeat),
+                                contentDescription = null,
+                                Modifier.height(24.dp)
+                            )
+                            setup.sets.forEachIndexed { index, set ->
+                                Text(
+                                    text = "$set",
+                                    Modifier.padding(start = 8.dp),
+                                    style = if (index == dto.setIdx) Typography.titleLarge else Typography.titleMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    textDecoration = if (index == dto.setIdx) TextDecoration.Underline else TextDecoration.None
+                                )}
+                        }
+                        if (setup.equipment.sumOf { it.weight } > 0) {
+                            if (setup.sets.isNotEmpty()) {
+                                Text(
+                                    text = "|",
+                                    Modifier.padding(horizontal = 12.dp),
+                                    style = Typography.titleLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.LightGray
+                                )
+                            }
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_weight),
+                                contentDescription = null,
+                                Modifier.height(24.dp)
+                            )
+                            Text(
+                                text = "${setup.equipment.sumOf { it.weight }.toFloat()/1000}",
+                                Modifier.padding(start = 8.dp),
+                                style = Typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
                     }
                 }
             }
+        }
+        Row(
+            Modifier
+                .fillMaxSize()
+                .padding(top = 12.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            GifImage(Utils.exerciseGifPath(dto.exercise))
         }
     }
 }
