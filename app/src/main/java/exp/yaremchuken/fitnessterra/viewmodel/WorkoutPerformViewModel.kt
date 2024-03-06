@@ -18,7 +18,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
-import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
+
+private val SIDE_SWITCH_PERIOD = 8.seconds
+private val EXERCISE_RECOVERY_PERIOD = 90.seconds
 
 @HiltViewModel
 class WorkoutPerformViewModel @Inject constructor(
@@ -144,14 +147,11 @@ class WorkoutPerformViewModel @Inject constructor(
 
     /**
      * Recovery time between sets and exercises.
-     * After final set recovery time is 4x times more that between sets.
      */
     fun getRecoveryAfterCompleteExercise(setup: ExerciseSetup, setIdx: Int, sideSwitched: Boolean) =
-        setup.recovery *
-                if (setIdx == setup.sets.size-1) {
-                    if (isBeforeSideSwitched(setup, sideSwitched)) 1 else 4
-                }
-                else 1
+        if (isBeforeSideSwitched(setup, sideSwitched)) SIDE_SWITCH_PERIOD
+        else if (setIdx == setup.sets.size-1) EXERCISE_RECOVERY_PERIOD
+        else setup.recovery
 
     fun getBottomBlockWeight(state: WorkoutPerformState) =
         when(state) {

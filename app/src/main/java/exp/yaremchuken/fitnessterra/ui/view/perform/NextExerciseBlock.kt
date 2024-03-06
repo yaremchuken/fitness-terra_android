@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
+import exp.yaremchuken.fitnessterra.data.model.Equipment
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSection
@@ -77,7 +78,7 @@ fun NextExerciseBlock(
                         else stringResource(id = R.string.speak_each_side)
                     )
             )
-        } else {
+        } else if (!dto.isSideSwitch){
             speakOut(
                 stringResource(id = R.string.speak_next_set_block)
                     .replace(":setnum", "${dto.setIdx + 1}")
@@ -174,4 +175,10 @@ fun NextExerciseBlock(
             GifImage(Utils.exerciseGifPath(dto.exercise))
         }
     }
+}
+
+private fun getWeightSpeak(equipment: List<Equipment>, gramsDivider: String): String {
+    val kg = equipment.sumOf { it.weight } / 1000
+    val gr = equipment.sumOf { it.weight } - kg * 1000
+    return "$kg${if (gr > 0) " $gramsDivider ${gr/100}" else ""}"
 }

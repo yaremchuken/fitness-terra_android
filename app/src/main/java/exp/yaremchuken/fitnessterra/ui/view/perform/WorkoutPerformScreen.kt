@@ -139,7 +139,8 @@ fun WorkoutPerformScreen(
                         state = PERFORM
                     },
                     speakOut = { viewModel.speakOut(it) },
-                    duration = viewModel.getRecoveryAfterCompleteExercise(setup, setIdx, sideSwitched)
+                    duration = viewModel.getRecoveryAfterCompleteExercise(setup, setIdx, sideSwitched),
+                    isSideSwitch = viewModel.isBeforeSideSwitched(setup, sideSwitched)
                 )
                 COMPLETED -> Column(
                     Modifier.fillMaxWidth(),

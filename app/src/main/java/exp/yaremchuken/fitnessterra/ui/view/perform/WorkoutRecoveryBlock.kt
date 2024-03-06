@@ -29,7 +29,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
-import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import kotlinx.coroutines.delay
@@ -40,14 +39,15 @@ import kotlin.time.Duration.Companion.seconds
 fun WorkoutRecoveryBlock(
     onFinish: () -> Unit,
     speakOut: (text: String) -> Unit,
-    duration: Duration
+    duration: Duration,
+    isSideSwitch: Boolean
 ) {
     var timer by remember { mutableStateOf(duration) }
     var pause by remember { mutableStateOf(false) }
 
     val speakThreshold = if (duration >= 30.seconds) 10.seconds else 5.seconds
 
-    if (timer == duration) {
+    if (timer == duration && !isSideSwitch) {
         speakOut(
             stringResource(id = R.string.speak_recovery_time)
                 .replace(":seconds", "${duration.inWholeSeconds}")
