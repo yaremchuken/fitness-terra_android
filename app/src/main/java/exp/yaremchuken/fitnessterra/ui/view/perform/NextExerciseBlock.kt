@@ -70,7 +70,9 @@ fun NextExerciseBlock(
             speakOut(
                 stringResource(id = R.string.speak_next_exercise_block)
                     .replace(":exercise", dto.exercise.title)
-                    .replace(":weight", "${setup.equipment.sumOf { it.weight }.toFloat()/1000}")
+                    .replace(":weight",
+                        getWeightSpeak(setup.equipment, stringResource(R.string.speak_next_exercise_block))
+                    )
                     .replace(":sets", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
                     .replace(":side",
