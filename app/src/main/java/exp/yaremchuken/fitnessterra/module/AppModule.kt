@@ -15,6 +15,7 @@ import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutSectionRepository
+import exp.yaremchuken.fitnessterra.data.repository.WorkoutSequenceRepository
 import exp.yaremchuken.fitnessterra.service.TextToSpeechHelper
 import javax.inject.Singleton
 
@@ -56,6 +57,10 @@ class AppModule {
     @Provides
     @Singleton
     fun historyRepository(appDatabase: AppDatabase) = HistoryRepository(appDatabase.historyDao())
+
+    @Provides
+    @Singleton
+    fun workoutSequenceRepository(appDatabase: AppDatabase) = WorkoutSequenceRepository(appDatabase.workoutSequenceDao())
 
     @Provides
     @Singleton

@@ -3,6 +3,7 @@ package exp.yaremchuken.fitnessterra.ui.route
 enum class Screen {
     HOME_SCREEN,
     SCHEDULE_CALENDAR_SCREEN,
+    SEQUENCER_SCREEN,
     EXERCISE_LIBRARY_SCREEN,
     WORKOUT_LIBRARY_SCREEN,
     SCHEDULE_DATE_SCREEN,

@@ -41,6 +41,7 @@ import java.time.Instant
 @Composable
 fun HomeScreen(
     gotoCalendar: () -> Unit,
+    gotoSequencer: () -> Unit,
     gotoExerciseLibrary: () -> Unit,
     gotoWorkoutLibrary: () -> Unit,
     gotoWorkout: (workoutId: Long) -> Unit,
@@ -105,7 +106,17 @@ fun HomeScreen(
                 Modifier.padding(vertical = 12.dp)
             ) {
                 LinkHorizontalBlock(
-                    onClick = { gotoCalendar() }
+                    onClick = { gotoCalendar() },
+                    isScheduleLink = true
+                )
+            }
+
+            Divider()
+            Column(
+                Modifier.padding(vertical = 12.dp)
+            ) {
+                LinkHorizontalBlock(
+                    onClick = { gotoSequencer() }
                 )
             }
 
@@ -155,7 +166,8 @@ fun HomeScreen(
 
 @Composable
 fun LinkHorizontalBlock(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isScheduleLink: Boolean = false
 ) {
     Row(
         Modifier
@@ -174,16 +186,18 @@ fun LinkHorizontalBlock(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_calendar),
+                painter = painterResource(id = if (isScheduleLink) R.drawable.ic_calendar else R.drawable.ic_sequence),
                 contentDescription = null,
                 Modifier
                     .width(48.dp)
                     .height(48.dp)
             )
             Text(
-                text = stringResource(R.string.to_workouts_schedule_link),
-                Modifier
-                    .padding(start = 6.dp),
+                text = stringResource(
+                    if (isScheduleLink) R.string.to_workout_schedules_link
+                    else R.string.to_workout_sequences_link
+                ),
+                Modifier.padding(start = 6.dp),
                 style = Typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -230,7 +244,7 @@ fun LinkVerticalBlock(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_library_icon),
+                painter = painterResource(id = if (isExerciseLink) R.drawable.ic_exercise else R.drawable.ic_workout),
                 contentDescription = null,
                 Modifier
                     .width(56.dp)

@@ -8,6 +8,7 @@ import exp.yaremchuken.fitnessterra.data.model.MuscleGroupType
 import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 
 const val EXTENSION_PNG = ".png"
@@ -47,8 +48,9 @@ fun Context.muscle(muscle: MuscleGroupType?) =
     else this.bitmap("muscle_group", muscle.name)
 
 fun LocalDate.toInstant(): Instant = this.atStartOfDay(ZoneId.systemDefault()).toInstant()
-
 fun Instant.toLocalDate(): LocalDate = this.atZone(ZoneId.systemDefault()).toLocalDate()
+
+fun LocalDateTime.toInstant(): Instant = this.atZone(ZoneId.systemDefault()).toInstant()
 
 fun Instant.getHour(): Int = this.atZone(ZoneId.systemDefault()).hour
 

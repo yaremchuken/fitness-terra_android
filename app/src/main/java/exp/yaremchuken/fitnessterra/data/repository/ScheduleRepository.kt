@@ -6,6 +6,7 @@ import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.toInstant
+import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
@@ -49,7 +50,7 @@ class ScheduleRepository(
         Schedule(
             scheduledAt = Instant.ofEpochMilli(entity.scheduleEntity.scheduledAt),
             WorkoutRepository.fromEntity(entity.workout, exercises),
-            convertWeekdays(
+            Utils.flagsToWeekdays(
                 listOf(
                     entity.scheduleEntity.monday,
                     entity.scheduleEntity.tuesday,
@@ -61,14 +62,4 @@ class ScheduleRepository(
                 )
             )
         )
-
-    private fun convertWeekdays(dayFlags: List<Boolean>): List<DayOfWeek> {
-        val weekdays = ArrayList<DayOfWeek>()
-        dayFlags.forEachIndexed { i, flag ->
-            if (flag) {
-                weekdays.add(DayOfWeek.of(i + 1))
-            }
-        }
-        return weekdays
-    }
 }

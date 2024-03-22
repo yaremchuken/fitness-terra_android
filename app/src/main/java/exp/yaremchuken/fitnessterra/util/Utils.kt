@@ -10,6 +10,7 @@ import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.bitmap
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import java.time.DayOfWeek
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
@@ -82,5 +83,15 @@ object Utils {
 
     fun dpToPx(dp: Float, context: Context): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
+    }
+
+    fun flagsToWeekdays(dayFlags: List<Boolean>): List<DayOfWeek> {
+        val weekdays = ArrayList<DayOfWeek>()
+        dayFlags.forEachIndexed { i, flag ->
+            if (flag) {
+                weekdays.add(DayOfWeek.of(i + 1))
+            }
+        }
+        return weekdays
     }
 }

@@ -14,6 +14,7 @@ import exp.yaremchuken.fitnessterra.ui.view.library.workout.WorkoutLibraryScreen
 import exp.yaremchuken.fitnessterra.ui.view.perform.WorkoutPerformScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.calendar.ScheduleCalendarScreen
 import exp.yaremchuken.fitnessterra.ui.view.schedule.date.ScheduleDateScreen
+import exp.yaremchuken.fitnessterra.ui.view.sequencer.WorkoutSequencerScreen
 import exp.yaremchuken.fitnessterra.ui.view.workout.WorkoutDetailsScreen
 import java.time.Instant
 import java.time.LocalDate
@@ -39,6 +40,7 @@ fun Navigation() {
         composable(route = Screen.HOME_SCREEN.name) {
             HomeScreen(
                 gotoCalendar = { navController.navigate(Screen.SCHEDULE_CALENDAR_SCREEN.name) },
+                gotoSequencer = { navController.navigate(Screen.SEQUENCER_SCREEN.name) },
                 gotoExerciseLibrary = { navController.navigate(Screen.EXERCISE_LIBRARY_SCREEN.name) },
                 gotoWorkoutLibrary = { navController.navigate(Screen.WORKOUT_LIBRARY_SCREEN.name) },
                 gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
@@ -48,6 +50,11 @@ fun Navigation() {
         composable(route = Screen.SCHEDULE_CALENDAR_SCREEN.name) {
             ScheduleCalendarScreen(
                 gotoCalendarDate = { date -> navController.navigate("${Screen.SCHEDULE_DATE_SCREEN.name}/${date.format(ISO_DATE)}") }
+            )
+        }
+        composable(route = Screen.SEQUENCER_SCREEN.name) {
+            WorkoutSequencerScreen(
+                gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") }
             )
         }
         composable(route = Screen.EXERCISE_LIBRARY_SCREEN.name) {

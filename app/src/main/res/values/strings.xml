@@ -17,7 +17,8 @@
     <string name="yes_btn_title">yes</string>
     <string name="no_btn_title">no</string>
     <string name="scheduled_for_today_title">Scheduled for today</string>
-    <string name="to_workouts_schedule_link">To workouts schedule</string>
+    <string name="to_workout_schedules_link">Workout schedules</string>
+    <string name="to_workout_sequences_link">Workout sequences</string>
     <string name="get_ready_title">Get ready</string>
     <string name="recovery_title">Recovery</string>
     <string name="skip_btn_title">skip</string>
@@ -45,6 +46,7 @@
     <string name="to_exercise_library_link">Exercises</string>
     <string name="to_workout_library_link">Workouts</string>
     <string name="workout_library_title">Workouts</string>
+    <string name="workout_sequences_title">Sequences</string>
     <string name="weight_title">Weight</string>
     <string name="kg_title">kg</string>
     <string name="gr_title">gr</string>

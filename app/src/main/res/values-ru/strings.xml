@@ -16,7 +16,8 @@
     <string name="yes_btn_title">да</string>
     <string name="no_btn_title">нет</string>
     <string name="scheduled_for_today_title">Запланированно на сегодня</string>
-    <string name="to_workouts_schedule_link">К расписанию тренировок</string>
+    <string name="to_workout_schedules_link">Расписание тренировок</string>
+    <string name="to_workout_sequences_link">Последовательность тренировок</string>
     <string name="get_ready_title">Приготовьтесь</string>
     <string name="recovery_title">Отдых</string>
     <string name="skip_btn_title">пропуск</string>
@@ -44,6 +45,7 @@
     <string name="to_exercise_library_link">Упражнения</string>
     <string name="to_workout_library_link">Тренировки</string>
     <string name="workout_library_title">Тренировки</string>
+    <string name="workout_sequences_title">Последовательности</string>
     <string name="weight_title">Вес</string>
     <string name="kg_title">кг</string>
     <string name="gr_title">гр</string>

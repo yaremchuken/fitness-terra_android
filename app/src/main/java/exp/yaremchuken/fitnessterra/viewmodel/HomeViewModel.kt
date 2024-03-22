@@ -10,6 +10,7 @@ import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.ScheduleRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutSectionRepository
+import exp.yaremchuken.fitnessterra.data.repository.WorkoutSequenceRepository
 import exp.yaremchuken.fitnessterra.service.TextToSpeechHelper
 import java.time.LocalDate
 import javax.inject.Inject
@@ -22,6 +23,7 @@ class HomeViewModel @Inject constructor(
     private val exerciseSetupRepository: ExerciseSetupRepository,
     private val workoutRepository: WorkoutRepository,
     private val workoutSectionRepository: WorkoutSectionRepository,
+    private val workoutSequenceRepository: WorkoutSequenceRepository,
     // greedy tts initialization, so it'll be ready when other vm gonna need it
     private val textToSpeechHelper: TextToSpeechHelper
 ): ViewModel() {
