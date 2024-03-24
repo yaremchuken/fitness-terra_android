@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
+import exp.yaremchuken.fitnessterra.data.entity.WorkoutSequenceEntityWrapper
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseSetupRepository
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
@@ -35,4 +36,9 @@ class HomeViewModel @Inject constructor(
     fun getLatestHistory(limit: Long) = historyRepository.getLatest(limit)
 
     fun fromEntity(entity: HistoryEntity) = HistoryRepository.fromEntity(entity, exerciseRepository.getAll())
+
+    fun getSequences() = workoutSequenceRepository.getAll()
+
+    fun fromEntity(entity: WorkoutSequenceEntityWrapper) =
+        WorkoutSequenceRepository.fromEntity(entity, exerciseRepository.getAll())
 }

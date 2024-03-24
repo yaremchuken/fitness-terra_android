@@ -33,11 +33,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.TimedWorkout
+import exp.yaremchuken.fitnessterra.toInstant
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.viewmodel.HomeViewModel
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequenceHelper
 import java.time.Instant
-import java.time.LocalTime
+import java.time.LocalDate
 
 @Composable
 fun HomeScreen(
@@ -51,9 +54,8 @@ fun HomeScreen(
 ) {
     val scrollState = rememberScrollState()
     val todaySchedules = remember { mutableStateListOf<Schedule>() }
+    val todaySequenced = remember { mutableStateListOf<TimedWorkout>() }
     val latestHistory = remember { mutableStateListOf<History>() }
-
-    println("18 00 ${LocalTime.of(18, 0).toSecondOfDay()}")
 
     LaunchedEffect(Unit) {
         viewModel.getTodaySchedules().collect { schedules ->
@@ -73,6 +75,17 @@ fun HomeScreen(
         }
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.getSequences().collect { seq ->
+            todaySequenced.clear()
+            val sequence = seq
+                .map { s -> viewModel.fromEntity(s) }
+                .filter { s -> s.weekdays.contains(LocalDate.now().dayOfWeek)}
+            val workouts = WorkoutSequenceHelper.getTimedWorkoutsFromToday(0, sequence, latestHistory)
+            todaySequenced.addAll(workouts[LocalDate.now()].orEmpty())
+        }
+    }
+
     Column(
         Modifier
             .fillMaxSize()
@@ -83,7 +96,7 @@ fun HomeScreen(
                 .padding(all = 12.dp)
                 .verticalScroll(scrollState)
         ) {
-            if (todaySchedules.isNotEmpty()) {
+            if (todaySchedules.isNotEmpty() || todaySequenced.isNotEmpty()) {
                 Text(
                     text = stringResource(R.string.scheduled_for_today_title),
                     Modifier.padding(bottom = 12.dp),
@@ -98,10 +111,16 @@ fun HomeScreen(
             }
             todaySchedules.forEach {
                 ScheduledWorkoutPreviewBlock(
-                    { gotoWorkout(it.workout.id) },
-                    it.scheduledAt,
-                    it.workout
+                    onClick = { gotoWorkout(it.workout.id) },
+                    scheduledAt = it.scheduledAt,
+                    workout = it.workout
                 )
+            }
+            todaySequenced.forEach {
+                ScheduledWorkoutPreviewBlock(
+                    onClick = { gotoWorkout(it.workout.id) },
+                    scheduledAt = it.scheduledAt.atDate(LocalDate.now()).toInstant(),
+                    workout = it.workout)
             }
 
             Divider()
