@@ -7,7 +7,7 @@ import exp.yaremchuken.fitnessterra.data.entity.WorkoutSequenceLinkEntity
 import exp.yaremchuken.fitnessterra.data.model.Exercise
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSequence
 import exp.yaremchuken.fitnessterra.util.Utils
-import java.time.Instant
+import java.time.LocalTime
 
 class WorkoutSequenceRepository(
     private val dao: WorkoutSequenceDao
@@ -20,7 +20,7 @@ class WorkoutSequenceRepository(
     companion object {
         fun fromEntity(entity: WorkoutSequenceEntityWrapper, exercises: List<Exercise>) =
             WorkoutSequence(
-                Instant.ofEpochMilli(entity.workoutSequenceEntity.scheduledAt),
+                LocalTime.ofSecondOfDay(entity.workoutSequenceEntity.scheduledAt),
                 entity.workoutLinks.map { it.workout }.map { WorkoutRepository.fromEntity(it, exercises) },
                 Utils.flagsToWeekdays(
                     listOf(

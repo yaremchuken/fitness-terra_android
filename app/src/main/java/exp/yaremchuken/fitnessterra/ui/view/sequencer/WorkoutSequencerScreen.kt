@@ -4,6 +4,8 @@ import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -32,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSequence
 import exp.yaremchuken.fitnessterra.ui.UIConstants
@@ -40,6 +43,9 @@ import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.library.workout.WorkoutBlock
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequencerViewModel
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.format.TextStyle
 
 @Composable
 fun WorkoutSequencerScreen(
@@ -103,11 +109,15 @@ fun WorkoutSequencerScreen(
     }
 }
 
+@OptIn(ExperimentalStdlibApi::class)
 @Composable
 fun WorkoutSequenceBlock(
     sequence: WorkoutSequence,
     gotoWorkout: (workoutId: Long) -> Unit
 ) {
+    var firstWeekday: LocalDate = LocalDate.now()
+    firstWeekday = firstWeekday.minusDays(firstWeekday.dayOfWeek.value.toLong()-1)
+
     Column(
         Modifier
             .fillMaxWidth()
@@ -127,14 +137,6 @@ fun WorkoutSequenceBlock(
                 .height(IntrinsicSize.Min),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Spacer(Modifier.padding(start = 12.dp))
-            Image(
-                painter = painterResource(R.drawable.ic_clock),
-                contentDescription = null,
-                Modifier
-                    .width(24.dp)
-                    .height(24.dp)
-            )
             Text(
                 text =
                 Utils.TIME_FORMAT.format(sequence.scheduledAt),
@@ -148,6 +150,41 @@ fun WorkoutSequenceBlock(
                     .width(1.dp)
                     .background(color = Color.LightGray)
             )
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                DayOfWeek.entries.forEach {
+                    Box(
+                        Modifier
+                            .weight(1F)
+                            .padding(horizontal = 2.dp)
+                            .background(
+                                color = if (sequence.weekdays.contains(it)) Color.Green else Color.Transparent,
+                                shape = UIConstants.ROUNDED_CORNER
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = Color.LightGray,
+                                UIConstants.ROUNDED_CORNER
+                            )
+                    ) {
+                        Text(
+                            text = firstWeekday
+                                .plusDays((it.value - 1).toLong())
+                                .dayOfWeek
+                                .getDisplayName(TextStyle.SHORT, AppSettings.locale())
+                                .lowercase(),
+                            Modifier
+                                .align(Alignment.Center)
+                                .padding(vertical = 8.dp),
+                            style = Typography.bodyLarge
+                        )
+                    }
+                }
+            }
         }
         Divider()
         Column(

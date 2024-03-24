@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,11 +35,14 @@ import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.TimedWorkout
 import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel.Companion.DAYS_IN_WEEK
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleCalendarViewModel.Companion.WEEKS_IN_CALENDAR
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequenceHelper
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequenceHelper.SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -54,15 +58,36 @@ fun ScheduleCalendarScreen(
 ) {
     var yearMonth by remember { mutableStateOf(YearMonth.now()) }
     val schedules = remember { mutableStateListOf<Schedule>() }
+    val sequences = remember { mutableStateMapOf<LocalDate, List<TimedWorkout>>() }
     val histories = remember { mutableStateListOf<History>() }
 
     val dates = viewModel.getDatesForMonth(yearMonth)
+
 
     LaunchedEffect(Unit) {
         viewModel.getSchedules(dates[0], dates[dates.size-1]).collect { sch ->
             schedules.clear()
             schedules.addAll(
                 sch.map { e -> viewModel.fromEntity(e) }
+            )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.getSequences().collect { seqs ->
+            sequences.clear()
+
+            if (dates.last().isBefore(LocalDate.now()) ||
+                dates.first().isAfter(LocalDate.now().plusDays(SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY))) {
+                return@collect
+            }
+
+            sequences.putAll(
+                WorkoutSequenceHelper.getTimedWorkoutsFromToday(
+                    SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY,
+                    seqs.map { e -> viewModel.fromEntity(e) },
+                    histories
+                )
             )
         }
     }
@@ -172,11 +197,7 @@ fun ScheduleCalendarScreen(
                                 width = calendarDateWidth,
                                 date = onDate,
                                 month = yearMonth,
-                                scheduled = schedules.filter { schedule ->
-                                    (schedule.scheduledAt.toLocalDate() == onDate && schedule.weekdays.isEmpty()) ||
-                                        (onDate >= LocalDate.now() && schedule.weekdays.contains(onDate.dayOfWeek)
-                                    )
-                                },
+                                scheduled = viewModel.getWorkoutsForDate(onDate, schedules, sequences[onDate]),
                                 histories = histories.filter { history ->
                                     history.startedAt.toLocalDate() == onDate
                                 }

@@ -37,6 +37,7 @@ import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.viewmodel.HomeViewModel
 import java.time.Instant
+import java.time.LocalTime
 
 @Composable
 fun HomeScreen(
@@ -51,6 +52,8 @@ fun HomeScreen(
     val scrollState = rememberScrollState()
     val todaySchedules = remember { mutableStateListOf<Schedule>() }
     val latestHistory = remember { mutableStateListOf<History>() }
+
+    println("18 00 ${LocalTime.of(18, 0).toSecondOfDay()}")
 
     LaunchedEffect(Unit) {
         viewModel.getTodaySchedules().collect { schedules ->

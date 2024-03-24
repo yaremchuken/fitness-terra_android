@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.data.model.WorkoutSequence
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
@@ -38,14 +40,14 @@ fun ScheduleCalendarDateView(
     width: Dp,
     date: LocalDate,
     month: YearMonth,
-    scheduled: List<Schedule>,
+    scheduled: List<Workout>,
     histories: List<History>
 ) {
     val isNotInMonth = date.isBefore(month.atDay(1)) || date.isAfter(month.atEndOfMonth())
 
     val preview =
         if (scheduled.isEmpty()) null
-        else Utils.getWorkoutPreview(LocalContext.current, scheduled[0].workout)
+        else Utils.getWorkoutPreview(LocalContext.current, scheduled[0])
 
     Column(
         Modifier
