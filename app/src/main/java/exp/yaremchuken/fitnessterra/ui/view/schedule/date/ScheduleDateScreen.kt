@@ -47,6 +47,7 @@ import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleDateViewModel
 import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequenceHelper
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequenceHelper.SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -114,9 +115,10 @@ fun ScheduleDateScreen(
             sequenced.clear()
             val sequence = seq
                 .map { s -> viewModel.fromEntity(s) }
-                .filter { s -> s.weekdays.contains(LocalDate.now().dayOfWeek)}
-            val workouts = WorkoutSequenceHelper.getTimedWorkoutsFromToday(0, sequence, histories)
-            sequenced.addAll(workouts[LocalDate.now()].orEmpty())
+                .filter { s -> s.weekdays.contains(date.dayOfWeek)}
+            val workouts = WorkoutSequenceHelper
+                .getTimedWorkoutsFromToday(SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY, sequence, histories)
+            sequenced.addAll(workouts[date].orEmpty())
         }
     }
 
