@@ -100,7 +100,7 @@ fun ScheduleCalendarDateView(
                         text = "${scheduled.size}",
                         Modifier.align(Alignment.Center),
                         style = Typography.titleLarge,
-                        fontSize = 42.sp,
+                        fontSize = 36.sp,
                         color = Color.White
                     )
                 }

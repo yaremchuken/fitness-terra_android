@@ -16,6 +16,7 @@
     <string name="yes_btn_title">да</string>
     <string name="no_btn_title">нет</string>
     <string name="scheduled_for_today_title">Запланированно на сегодня</string>
+    <string name="today_workouts_completed_title">Сегдняшние тренировки завершены</string>
     <string name="to_workout_schedules_link">Расписание тренировок</string>
     <string name="to_workout_sequences_link">Последовательность тренировок</string>
     <string name="get_ready_title">Приготовьтесь</string>

@@ -17,6 +17,7 @@
     <string name="yes_btn_title">yes</string>
     <string name="no_btn_title">no</string>
     <string name="scheduled_for_today_title">Scheduled for today</string>
+    <string name="today_workouts_completed_title">Today workouts completed</string>
     <string name="to_workout_schedules_link">Workout schedules</string>
     <string name="to_workout_sequences_link">Workout sequences</string>
     <string name="get_ready_title">Get ready</string>

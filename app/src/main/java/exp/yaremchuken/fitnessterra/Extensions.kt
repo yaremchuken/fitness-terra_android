@@ -9,6 +9,7 @@ import java.io.IOException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
 
 const val EXTENSION_PNG = ".png"
@@ -49,6 +50,8 @@ fun Context.muscle(muscle: MuscleGroupType?) =
 
 fun LocalDate.toInstant(): Instant = this.atStartOfDay(ZoneId.systemDefault()).toInstant()
 fun Instant.toLocalDate(): LocalDate = this.atZone(ZoneId.systemDefault()).toLocalDate()
+
+fun Instant.toLocalTime(): LocalTime = this.atZone(ZoneId.systemDefault()).toLocalTime()
 
 fun LocalDateTime.toInstant(): Instant = this.atZone(ZoneId.systemDefault()).toInstant()
 

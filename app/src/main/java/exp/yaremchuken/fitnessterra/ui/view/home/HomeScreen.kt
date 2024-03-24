@@ -67,7 +67,7 @@ fun HomeScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.getLatestHistory(7).collect { his ->
+        viewModel.getLatestHistory(31).collect { his ->
             latestHistory.clear()
             latestHistory.addAll(
                 his.map { e -> viewModel.fromEntity(e) }
@@ -97,30 +97,33 @@ fun HomeScreen(
                 .verticalScroll(scrollState)
         ) {
             if (todaySchedules.isNotEmpty() || todaySequenced.isNotEmpty()) {
-                Text(
-                    text = stringResource(R.string.scheduled_for_today_title),
-                    Modifier.padding(bottom = 12.dp),
-                    style = Typography.titleLarge
-                )
+                val notCompleted = viewModel.getNotCompleted(latestHistory, todaySchedules, todaySequenced)
+                if (notCompleted.isEmpty()) {
+                    Text(
+                        text = stringResource(R.string.today_workouts_completed_title),
+                        Modifier.padding(bottom = 12.dp),
+                        style = Typography.titleLarge
+                    )
+                } else {
+                    Text(
+                        text = stringResource(R.string.scheduled_for_today_title),
+                        Modifier.padding(bottom = 12.dp),
+                        style = Typography.titleLarge
+                    )
+                    notCompleted.forEach {
+                        ScheduledWorkoutPreviewBlock(
+                            onClick = { gotoWorkout(it.workout.id) },
+                            scheduledAt = it.scheduledAt.atDate(LocalDate.now()).toInstant(),
+                            workout = it.workout
+                        )
+                    }
+                }
             } else {
                 Text(
                     text = stringResource(R.string.no_schedules_today_title),
                     Modifier.padding(bottom = 12.dp),
                     style = Typography.titleLarge
                 )
-            }
-            todaySchedules.forEach {
-                ScheduledWorkoutPreviewBlock(
-                    onClick = { gotoWorkout(it.workout.id) },
-                    scheduledAt = it.scheduledAt,
-                    workout = it.workout
-                )
-            }
-            todaySequenced.forEach {
-                ScheduledWorkoutPreviewBlock(
-                    onClick = { gotoWorkout(it.workout.id) },
-                    scheduledAt = it.scheduledAt.atDate(LocalDate.now()).toInstant(),
-                    workout = it.workout)
             }
 
             Divider()
@@ -174,7 +177,7 @@ fun HomeScreen(
                     style = Typography.titleLarge
                 )
             }
-            latestHistory.forEach {
+            latestHistory.take(7).forEach {
                 ScheduledWorkoutPreviewBlock(
                     { gotoHistory(it.startedAt) },
                     it.startedAt,

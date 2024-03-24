@@ -39,13 +39,15 @@ import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.TimedWorkout
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.toInstant
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
 import exp.yaremchuken.fitnessterra.viewmodel.ScheduleDateViewModel
+import exp.yaremchuken.fitnessterra.viewmodel.WorkoutSequenceHelper
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
@@ -69,6 +71,7 @@ fun ScheduleDateScreen(
     var editedSchedule by remember { mutableStateOf<ScheduleTemplate?>(null) }
 
     val schedules = remember { mutableStateListOf<Schedule>() }
+    val sequenced = remember { mutableStateListOf<TimedWorkout>() }
     val histories = remember { mutableStateListOf<History>() }
     val existedWorkouts = remember { mutableStateListOf<Workout>() }
 
@@ -103,6 +106,17 @@ fun ScheduleDateScreen(
             histories.addAll(
                 his.map { e -> viewModel.fromEntity(e) }
             )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.getSequences().collect { seq ->
+            sequenced.clear()
+            val sequence = seq
+                .map { s -> viewModel.fromEntity(s) }
+                .filter { s -> s.weekdays.contains(LocalDate.now().dayOfWeek)}
+            val workouts = WorkoutSequenceHelper.getTimedWorkoutsFromToday(0, sequence, histories)
+            sequenced.addAll(workouts[LocalDate.now()].orEmpty())
         }
     }
 
@@ -186,19 +200,26 @@ fun ScheduleDateScreen(
                 if (date >= LocalDate.now()) {
                     schedules.forEach {
                         ScheduledWorkoutBlockView(
-                            { editedSchedule = ScheduleTemplate.toTemplate(it) },
-                            it.scheduledAt,
-                            it.workout,
-                            false
+                            onClick = { editedSchedule = ScheduleTemplate.toTemplate(it) },
+                            scheduledAt = it.scheduledAt,
+                            workout = it.workout,
+                            isEditable = true
+                        )
+                    }
+                    sequenced.forEach {
+                        ScheduledWorkoutBlockView(
+                            onClick = { /* nothing */ },
+                            scheduledAt = it.scheduledAt.atDate(date).toInstant(),
+                            workout = it.workout
                         )
                     }
                 }
                 histories.forEach {
                     ScheduledWorkoutBlockView(
-                        { gotoHistory(it.startedAt) },
-                        it.startedAt,
-                        it.workout,
-                        true
+                        onClick = { gotoHistory(it.startedAt) },
+                        scheduledAt = it.startedAt,
+                        workout = it.workout,
+                        isHistory = true
                     )
                 }
             }

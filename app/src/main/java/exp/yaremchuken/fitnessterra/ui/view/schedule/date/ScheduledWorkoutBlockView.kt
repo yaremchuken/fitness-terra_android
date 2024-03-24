@@ -18,14 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.getHour
 import exp.yaremchuken.fitnessterra.ui.UIConstants
+import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
-import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
 import java.time.Instant
 
@@ -34,7 +33,8 @@ fun ScheduledWorkoutBlockView(
     onClick: () -> Unit,
     scheduledAt: Instant,
     workout: Workout,
-    isHistory: Boolean
+    isEditable: Boolean = false,
+    isHistory: Boolean = false
 ) {
     Row(
         Modifier
@@ -43,7 +43,7 @@ fun ScheduledWorkoutBlockView(
             .offset(y = HOUR_BLOCK_HEIGHT * scheduledAt.getHour() + 10.dp)
             .clickable { onClick() }
             .background(
-                color = Color.Cyan,
+                color = if (isEditable) Color.Cyan else AppColor.LightestGray,
                 shape = UIConstants.ROUNDED_CORNER
             )
     ) {
@@ -58,13 +58,23 @@ fun ScheduledWorkoutBlockView(
                     contentScale = ContentScale.Fit
                 )
             }
-        } else {
+        } else if (isEditable) {
             Column(
                 Modifier
                     .width(12.dp)
                     .fillMaxHeight()
                     .background(
                         color = Color.Blue,
+                        shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
+                    )
+            ) { }
+        } else {
+            Column(
+                Modifier
+                    .width(12.dp)
+                    .fillMaxHeight()
+                    .background(
+                        color = Color.LightGray,
                         shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
                     )
             ) { }

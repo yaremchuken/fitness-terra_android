@@ -5,6 +5,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
 import exp.yaremchuken.fitnessterra.data.entity.ScheduleEntityWrapper
 import exp.yaremchuken.fitnessterra.data.entity.WorkoutSequenceEntityWrapper
+import exp.yaremchuken.fitnessterra.data.model.History
+import exp.yaremchuken.fitnessterra.data.model.Schedule
+import exp.yaremchuken.fitnessterra.data.model.TimedWorkout
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseSetupRepository
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
@@ -13,6 +16,8 @@ import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutSectionRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutSequenceRepository
 import exp.yaremchuken.fitnessterra.service.TextToSpeechHelper
+import exp.yaremchuken.fitnessterra.toLocalDate
+import exp.yaremchuken.fitnessterra.toLocalTime
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -41,4 +46,26 @@ class HomeViewModel @Inject constructor(
 
     fun fromEntity(entity: WorkoutSequenceEntityWrapper) =
         WorkoutSequenceRepository.fromEntity(entity, exerciseRepository.getAll())
+
+    fun getNotCompleted(
+        history: List<History>,
+        scheduled: List<Schedule>,
+        sequenced: List<TimedWorkout>
+    ): List<TimedWorkout> {
+        val notCompleted: MutableList<TimedWorkout> = mutableListOf()
+
+        notCompleted.addAll(sequenced)
+        notCompleted.addAll(scheduled.map { TimedWorkout(it.scheduledAt.toLocalTime(), it.workout) })
+
+        val completed = history
+            .filter { it.startedAt.toLocalDate() == LocalDate.now() }
+            .sortedBy { it.finishedAt }
+            .map { it.workout }
+
+        completed.forEach { w ->
+            notCompleted.removeAt(notCompleted.indexOfFirst { n -> n.workout.id == w.id })
+        }
+
+        return notCompleted
+    }
 }
