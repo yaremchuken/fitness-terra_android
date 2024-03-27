@@ -57,5 +57,6 @@
     <string name="hour_short_title">hr</string>
     <string name="save_btn_title">Save</string>
     <string name="exercise_details_title">Exercise details</string>
+    <string name="workout_plan_title">Workout plan</string>
     <string name="grams_divider">.</string>
 </resources>

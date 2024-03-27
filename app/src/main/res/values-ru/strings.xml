@@ -56,5 +56,6 @@
     <string name="hour_short_title">час</string>
     <string name="save_btn_title">Сохранить</string>
     <string name="exercise_details_title">Детали упражнения</string>
+    <string name="workout_plan_title">План тренировки</string>
     <string name="grams_divider">и</string>
 </resources>

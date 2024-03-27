@@ -61,8 +61,8 @@ class WorkoutPerformViewModel @Inject constructor(
 
         if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_SET && !sideSwitched) {
             return NextExerciseDto(
-                workout.sections[sectionIdx],
-                workout.sections[sectionIdx].setups[setupIdx].exercise,
+                workout,
+                sectionIdx,
                 setupIdx,
                 setIdx,
                 true
@@ -86,8 +86,8 @@ class WorkoutPerformViewModel @Inject constructor(
         }
 
         return NextExerciseDto(
-            workout.sections[newSectionIdx],
-            workout.sections[newSectionIdx].setups[newSetupIdx].exercise,
+            workout,
+            newSectionIdx,
             newSetupIdx,
             newSetIdx,
             false,
