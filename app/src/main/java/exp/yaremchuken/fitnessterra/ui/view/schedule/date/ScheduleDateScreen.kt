@@ -42,6 +42,7 @@ import exp.yaremchuken.fitnessterra.data.model.Schedule
 import exp.yaremchuken.fitnessterra.data.model.TimedWorkout
 import exp.yaremchuken.fitnessterra.data.model.Workout
 import exp.yaremchuken.fitnessterra.toInstant
+import exp.yaremchuken.fitnessterra.toLocalDate
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.ui.view.schedule.dialog.ScheduleEditDialog
 import exp.yaremchuken.fitnessterra.util.Utils
@@ -102,7 +103,7 @@ fun ScheduleDateScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.getHistories(date).collect { his ->
+        viewModel.getHistories(date.minusDays(SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY), date).collect { his ->
             histories.clear()
             histories.addAll(
                 his.map { e -> viewModel.fromEntity(e) }
@@ -214,14 +215,16 @@ fun ScheduleDateScreen(
                         )
                     }
                 }
-                histories.forEach {
-                    ScheduledWorkoutBlockView(
-                        onClick = { gotoHistory(it.finishedAt) },
-                        scheduledAt = it.startedAt,
-                        workout = it.workout,
-                        isHistory = true
-                    )
-                }
+                histories
+                    .filter { it.finishedAt.toLocalDate() == date }
+                    .forEach {
+                        ScheduledWorkoutBlockView(
+                            onClick = { gotoHistory(it.finishedAt) },
+                            scheduledAt = it.startedAt,
+                            workout = it.workout,
+                            isHistory = true
+                        )
+                    }
             }
             if (date == LocalDate.now()) {
                 Box(

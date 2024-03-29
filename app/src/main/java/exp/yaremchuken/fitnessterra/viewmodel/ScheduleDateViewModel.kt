@@ -43,7 +43,7 @@ class ScheduleDateViewModel @Inject constructor(
     fun fromEntity(entity: ScheduleEntityWrapper) =
         scheduleRepository.fromEntity(entity, exerciseRepository.getAll())
 
-    fun getHistories(onDate: LocalDate) = historyRepository.getInPeriod(onDate, onDate)
+    fun getHistories(from: LocalDate, to: LocalDate) = historyRepository.getInPeriod(from, to)
 
     fun fromEntity(entity: HistoryEntity) =
         HistoryRepository.fromEntity(entity, exerciseRepository.getAll())
