@@ -98,6 +98,21 @@ fun ScheduleCalendarScreen(
             histories.addAll(
                 his.map { e -> viewModel.fromEntity(e) }
             )
+
+            viewModel.getSequences().collect { seqs ->
+                sequences.clear()
+                if (dates.first().isBefore(LocalDate.now().plusDays(SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY)) &&
+                    dates.last().isAfter(LocalDate.now().minusDays(1))
+                ){
+                    sequences.putAll(
+                        WorkoutSequenceHelper.getTimedWorkoutsFromToday(
+                            SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY,
+                            seqs.map { e -> viewModel.fromEntity(e) },
+                            histories
+                        )
+                    )
+                }
+            }
         }
     }
 

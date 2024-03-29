@@ -309,27 +309,30 @@ fun ExerciseBlock(
         }
 
     Column(
-        Modifier
-            .padding(horizontal = 8.dp)
-            .alpha(alpha = if (isCompleted) .5F else 1F)
+        Modifier.padding(horizontal = 8.dp)
     ) {
         Row(
-            Modifier
-                .border(
-                    width = 2.dp,
-                    color = if (isCurrent) Color.Gray else Color.Transparent,
-                    shape = UIConstants.ROUNDED_CORNER
-                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Image(
+                painter = painterResource(id = if (isCurrent) R.drawable.ic_exercise_current else R.drawable.ic_exercise_completed),
+                contentDescription = null,
+                Modifier
+                    .width(32.dp)
+                    .padding(horizontal = 6.dp),
+                alpha = if (isCurrent || isCompleted) 1F else 0F
+            )
             GifImage(
                 Utils.exerciseGifPath(setup.exercise),
                 Modifier
                     .height(64.dp)
                     .clip(UIConstants.ROUNDED_CORNER)
+                    .alpha(alpha = if (isCompleted) .7F else 1F)
             )
             Row(
-                Modifier.fillMaxWidth(),
+                Modifier
+                    .fillMaxWidth()
+                    .alpha(alpha = if (isCompleted) .7F else 1F),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(

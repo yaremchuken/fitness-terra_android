@@ -3,6 +3,7 @@ package exp.yaremchuken.fitnessterra.viewmodel
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.TimedWorkout
 import exp.yaremchuken.fitnessterra.data.model.WorkoutSequence
+import exp.yaremchuken.fitnessterra.toLocalDate
 import java.time.LocalDate
 
 object WorkoutSequenceHelper {
@@ -30,17 +31,26 @@ object WorkoutSequenceHelper {
 
         val recentHistory =
             histories
-                .filter { workouts.contains(it.workout) }
+                .filter { h -> workouts.find { it.id == h.workout.id } != null }
                 .maxByOrNull { it.finishedAt }
 
         var idxOffset =
-            if (recentHistory == null || workouts.indexOf(recentHistory.workout) == workouts.size) 0
-            else (workouts.indexOf(recentHistory.workout) + 1)
+            if (recentHistory == null || workouts.indexOfFirst { it.id == recentHistory.workout.id }  == workouts.size) 0
+            else workouts.indexOfFirst { it.id == recentHistory.workout.id } + 1
 
         var currDate = startDate
+
+        if (histories
+            .filter { it.finishedAt.toLocalDate() == LocalDate.now() }
+            .any { workouts.indexOfFirst { w -> w.id == it.workout.id } != -1 }
+        ) {
+            currDate = currDate.plusDays(1)
+        }
+
         while (currDate <= endDate) {
             if (sequence.weekdays.contains(currDate.dayOfWeek)) {
                 sequencedDates[currDate] = TimedWorkout(sequence.scheduledAt, workouts[idxOffset])
+                println("$currDate -> $idxOffset")
                 idxOffset = if (idxOffset == workouts.size-1) 0 else (idxOffset + 1)
             }
 
