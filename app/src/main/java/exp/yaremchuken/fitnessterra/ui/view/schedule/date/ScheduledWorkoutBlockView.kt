@@ -74,7 +74,7 @@ fun ScheduledWorkoutBlockView(
                     .width(12.dp)
                     .fillMaxHeight()
                     .background(
-                        color = Color.LightGray,
+                        color = Color.Magenta,
                         shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
                     )
             ) { }

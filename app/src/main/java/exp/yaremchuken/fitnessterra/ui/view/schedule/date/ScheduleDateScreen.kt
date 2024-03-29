@@ -209,7 +209,7 @@ fun ScheduleDateScreen(
                     }
                     sequenced.forEach {
                         ScheduledWorkoutBlockView(
-                            onClick = { /* nothing */ },
+                            onClick = { gotoWorkout(it.workout.id) },
                             scheduledAt = it.scheduledAt.atDate(date).toInstant(),
                             workout = it.workout
                         )
