@@ -72,17 +72,15 @@ fun HomeScreen(
             latestHistory.addAll(
                 his.map { e -> viewModel.fromEntity(e) }
             )
-        }
-    }
 
-    LaunchedEffect(Unit) {
-        viewModel.getSequences().collect { seq ->
-            todaySequenced.clear()
-            val sequence = seq
-                .map { s -> viewModel.fromEntity(s) }
-                .filter { s -> s.weekdays.contains(LocalDate.now().dayOfWeek)}
-            val workouts = WorkoutSequenceHelper.getTimedWorkoutsFromToday(0, sequence, latestHistory)
-            todaySequenced.addAll(workouts[LocalDate.now()].orEmpty())
+            viewModel.getSequences().collect { seq ->
+                todaySequenced.clear()
+                val sequence = seq
+                    .map { s -> viewModel.fromEntity(s) }
+                    .filter { s -> s.weekdays.contains(LocalDate.now().dayOfWeek)}
+                val workouts = WorkoutSequenceHelper.getTimedWorkoutsFromToday(0, sequence, latestHistory)
+                todaySequenced.addAll(workouts[LocalDate.now()].orEmpty())
+            }
         }
     }
 

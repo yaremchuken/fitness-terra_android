@@ -107,18 +107,16 @@ fun ScheduleDateScreen(
             histories.addAll(
                 his.map { e -> viewModel.fromEntity(e) }
             )
-        }
-    }
 
-    LaunchedEffect(Unit) {
-        viewModel.getSequences().collect { seq ->
-            sequenced.clear()
-            val sequence = seq
-                .map { s -> viewModel.fromEntity(s) }
-                .filter { s -> s.weekdays.contains(date.dayOfWeek)}
-            val workouts = WorkoutSequenceHelper
-                .getTimedWorkoutsFromToday(SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY, sequence, histories)
-            sequenced.addAll(workouts[date].orEmpty())
+            viewModel.getSequences().collect { seq ->
+                sequenced.clear()
+                val sequence = seq
+                    .map { s -> viewModel.fromEntity(s) }
+                    .filter { s -> s.weekdays.contains(date.dayOfWeek)}
+                val workouts = WorkoutSequenceHelper
+                    .getTimedWorkoutsFromToday(SEQUENCE_DEFAULT_PERIOD_FOR_DISPLAY, sequence, histories)
+                sequenced.addAll(workouts[date].orEmpty())
+            }
         }
     }
 
