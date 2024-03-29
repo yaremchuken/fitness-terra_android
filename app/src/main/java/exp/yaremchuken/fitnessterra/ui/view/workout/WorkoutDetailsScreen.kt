@@ -72,7 +72,7 @@ fun WorkoutDetailsScreen(
                 workout = history!!.workout
             }
         } else {
-            throw IllegalArgumentException("Workout.id or history.startedAt must be provided")
+            throw IllegalArgumentException("Workout.id or history.finishedAt must be provided")
         }
     }
 

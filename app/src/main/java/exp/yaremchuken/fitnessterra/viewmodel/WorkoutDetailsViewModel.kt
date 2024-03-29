@@ -27,7 +27,7 @@ class WorkoutDetailsViewModel @Inject constructor(
             exerciseRepository.getAll()
         )
 
-    fun getHistory(startedAt: Instant) = historyRepository.getByStartedAt(startedAt)
+    fun getHistory(finishedAt: Instant) = historyRepository.getByFinishedAt(finishedAt)
 
     fun fromEntity(entity: HistoryEntity) = HistoryRepository.fromEntity(entity, exerciseRepository.getAll())
 

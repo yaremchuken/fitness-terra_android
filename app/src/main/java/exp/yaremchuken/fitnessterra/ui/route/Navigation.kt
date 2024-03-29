@@ -78,7 +78,7 @@ fun Navigation() {
             )
         }
         composable(
-            route = Screen.WORKOUT_DETAILS_SCREEN.name + "?workoutId={workoutId}&startedAt={startedAt}",
+            route = Screen.WORKOUT_DETAILS_SCREEN.name + "?workoutId={workoutId}&finishedAt={finishedAt}",
             arguments = listOf(
                 navArgument(name = "workoutId") {
                     type = NavType.StringType

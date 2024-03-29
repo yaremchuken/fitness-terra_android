@@ -15,7 +15,7 @@ class HistoryRepository(
 ) {
     suspend fun insert(history: History) = dao.insert(toEntity(history))
 
-    fun getByStartedAt(startedAt: Instant) = dao.getByStartedAt(startedAt.toEpochMilli())
+    fun getByFinishedAt(finishedAt: Instant) = dao.getByFinishedAt(finishedAt.toEpochMilli())
 
     fun getInPeriod(from: LocalDate, to: LocalDate) =
         dao.getInPeriod(

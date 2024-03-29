@@ -16,8 +16,8 @@ interface HistoryDao {
     @Delete
     suspend fun delete(entity: HistoryEntity)
 
-    @Query("select * from history where started_at = :millis")
-    fun getByStartedAt(millis: Long): Flow<HistoryEntity>
+    @Query("select * from history where finished_at = :millis")
+    fun getByFinishedAt(millis: Long): Flow<HistoryEntity>
 
     @Query("select * from history where started_at >= :fromMillis and finished_at < :toMillis")
     fun getInPeriod(fromMillis: Long, toMillis: Long): Flow<List<HistoryEntity>>
