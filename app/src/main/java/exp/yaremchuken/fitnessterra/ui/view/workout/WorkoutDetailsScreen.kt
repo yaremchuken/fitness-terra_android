@@ -54,7 +54,7 @@ fun WorkoutDetailsScreen(
     gotoExerciseDetails: (exerciseId: Long) -> Unit,
     beginWorkout: (workoutId: Long) -> Unit,
     workoutId: Long? = null,
-    startedAt: Instant? = null,
+    finishedAt: Instant? = null,
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -66,8 +66,8 @@ fun WorkoutDetailsScreen(
     LaunchedEffect(Unit) {
         if (workoutId != null) {
             viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
-        } else if (startedAt != null) {
-            viewModel.getHistory(startedAt).collect {
+        } else if (finishedAt != null) {
+            viewModel.getHistory(finishedAt).collect {
                 history = viewModel.fromEntity(it)
                 workout = history!!.workout
             }

@@ -44,7 +44,7 @@ fun Navigation() {
                 gotoExerciseLibrary = { navController.navigate(Screen.EXERCISE_LIBRARY_SCREEN.name) },
                 gotoWorkoutLibrary = { navController.navigate(Screen.WORKOUT_LIBRARY_SCREEN.name) },
                 gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
-                gotoHistory = { startedAt -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?startedAt=${startedAt.toEpochMilli()}") }
+                gotoHistory = { finishedAt -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?finishedAt=${finishedAt.toEpochMilli()}") }
             )
         }
         composable(route = Screen.SCHEDULE_CALENDAR_SCREEN.name) {
@@ -73,7 +73,7 @@ fun Navigation() {
         ) {
             ScheduleDateScreen(
                 gotoWorkout = { id -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?workoutId=$id") },
-                gotoHistory = { startedAt -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?startedAt=${startedAt.toEpochMilli()}") },
+                gotoHistory = { finishedAt -> navController.navigate("${Screen.WORKOUT_DETAILS_SCREEN.name}?finishedAt=${finishedAt.toEpochMilli()}") },
                 date = LocalDate.parse(it.arguments!!.getString("date"))
             )
         }
@@ -84,7 +84,7 @@ fun Navigation() {
                     type = NavType.StringType
                     nullable = true
                 },
-                navArgument(name = "startedAt") {
+                navArgument(name = "finishedAt") {
                     type = NavType.StringType
                     nullable = true
                 }
@@ -95,7 +95,7 @@ fun Navigation() {
                 gotoExerciseDetails = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
                 beginWorkout = { id -> navController.navigate("${Screen.WORKOUT_PERFORM_SCREEN}/$id") },
                 workoutId = it.arguments?.getString("workoutId")?.toLong(),
-                startedAt = it.arguments?.getString("startedAt")?.toLong()?.let { i -> Instant.ofEpochMilli(i) }
+                finishedAt = it.arguments?.getString("finishedAt")?.toLong()?.let { i -> Instant.ofEpochMilli(i) }
             )
         }
         composable(

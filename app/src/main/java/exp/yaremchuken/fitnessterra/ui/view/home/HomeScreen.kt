@@ -49,7 +49,7 @@ fun HomeScreen(
     gotoExerciseLibrary: () -> Unit,
     gotoWorkoutLibrary: () -> Unit,
     gotoWorkout: (workoutId: Long) -> Unit,
-    gotoHistory: (startedAt: Instant) -> Unit,
+    gotoHistory: (finishedAt: Instant) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -179,7 +179,7 @@ fun HomeScreen(
             }
             latestHistory.take(7).forEach {
                 ScheduledWorkoutPreviewBlock(
-                    { gotoHistory(it.startedAt) },
+                    { gotoHistory(it.finishedAt) },
                     it.startedAt,
                     it.workout,
                     true

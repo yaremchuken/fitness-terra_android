@@ -18,7 +18,7 @@ import exp.yaremchuken.fitnessterra.data.entity.WorkoutSequenceEntity
 import exp.yaremchuken.fitnessterra.data.entity.WorkoutSequenceLinkEntity
 
 @Database(
-    version = 21,
+    version = 24,
     entities = [
         ScheduleEntity::class,
         HistoryEntity::class,

@@ -62,7 +62,7 @@ val REFRESH_TIMER_DELAY: Duration = 5.seconds
 @Composable
 fun ScheduleDateScreen(
     gotoWorkout: (workoutId: Long) -> Unit,
-    gotoHistory: (startedAt: Instant) -> Unit,
+    gotoHistory: (finishedAt: Instant) -> Unit,
     date: LocalDate,
     viewModel: ScheduleDateViewModel = hiltViewModel()
 ) {
@@ -218,7 +218,7 @@ fun ScheduleDateScreen(
                 }
                 histories.forEach {
                     ScheduledWorkoutBlockView(
-                        onClick = { gotoHistory(it.startedAt) },
+                        onClick = { gotoHistory(it.finishedAt) },
                         scheduledAt = it.startedAt,
                         workout = it.workout,
                         isHistory = true

@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 @Entity("history")
 data class HistoryEntity(
     @PrimaryKey
-    @ColumnInfo("started_at")
-    val startedAt: Long,
-
     @ColumnInfo("finished_at")
     val finishedAt: Long,
+
+    @ColumnInfo("started_at")
+    val startedAt: Long,
 
     /**
      * JSON description of performed workout.
