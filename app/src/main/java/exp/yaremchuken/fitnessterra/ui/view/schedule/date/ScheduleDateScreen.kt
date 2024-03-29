@@ -198,8 +198,9 @@ fun ScheduleDateScreen(
                     .fillMaxSize()
                     .padding(start = 64.dp, end = 8.dp)
             ) {
-                if (date >= LocalDate.now()) {
-                    schedules.forEach {
+                schedules
+                    .filter { it.scheduledAt.toLocalDate() >= LocalDate.now() || it.weekdays.isEmpty() }
+                    .forEach {
                         ScheduledWorkoutBlockView(
                             onClick = { editedSchedule = ScheduleTemplate.toTemplate(it) },
                             scheduledAt = it.scheduledAt,
@@ -207,6 +208,7 @@ fun ScheduleDateScreen(
                             isEditable = true
                         )
                     }
+                if (date >= LocalDate.now()) {
                     sequenced.forEach {
                         ScheduledWorkoutBlockView(
                             onClick = { gotoWorkout(it.workout.id) },

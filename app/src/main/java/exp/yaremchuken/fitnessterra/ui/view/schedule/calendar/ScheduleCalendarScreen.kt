@@ -63,7 +63,6 @@ fun ScheduleCalendarScreen(
 
     val dates = viewModel.getDatesForMonth(yearMonth)
 
-
     LaunchedEffect(Unit) {
         viewModel.getSchedules(dates[0], dates[dates.size-1]).collect { sch ->
             schedules.clear()

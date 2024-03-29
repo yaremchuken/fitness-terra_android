@@ -48,7 +48,6 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
 
-@OptIn(ExperimentalStdlibApi::class)
 @Composable
 fun ScheduleEditDialog(
     onApprove: (template: ScheduleTemplate) -> Unit,
@@ -170,7 +169,7 @@ fun ScheduleEditDialog(
                     WorkoutSelectableRowView(
                         { chosenWorkout = workout },
                         { onBackPressedDispatcher?.onBackPressed(); onInfo(workout.id) },
-                        selected = chosenWorkout == workout,
+                        selected = chosenWorkout?.id == workout.id,
                         workout = workout
                     )
                 }

@@ -63,7 +63,7 @@ fun ScheduleCalendarDateView(
                 if (scheduled.isEmpty()) Color.Transparent else Color.LightGray,
                 shape = UIConstants.ROUNDED_CORNER
             )
-            .clickable { if(date >= LocalDate.now() || histories.isNotEmpty()) onClick() }
+            .clickable { if(date >= LocalDate.now() || histories.isNotEmpty() || scheduled.isNotEmpty()) onClick() }
     ) {
         Box(
             Modifier
