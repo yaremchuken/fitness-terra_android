@@ -71,6 +71,7 @@ fun ScheduleEditDialog(
 
     Column(
         Modifier
+            .padding(all = 12.dp)
             .background(
                 color = AppColor.LightestGray,
                 shape = UIConstants.ROUNDED_CORNER

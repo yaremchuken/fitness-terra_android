@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.Equipment
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSetup
@@ -214,7 +215,10 @@ fun NextExerciseBlock(
             )
         }
         if (showWorkoutPlanDialog) {
-            Dialog(onDismissRequest = { showWorkoutPlanDialog = false }) {
+            Dialog(
+                onDismissRequest = { showWorkoutPlanDialog = false },
+                properties = DialogProperties(usePlatformDefaultWidth = false)
+            ) {
                 WorkoutPlanDialog(workout = dto.workout, sectionIdx = dto.sectionIdx, setupIdx = dto.setupIdx)
             }
         }
@@ -232,6 +236,7 @@ fun WorkoutPlanDialog(
 
     Column(
         Modifier
+            .padding(all = 12.dp)
             .background(
                 color = AppColor.LightestGray,
                 shape = UIConstants.ROUNDED_CORNER

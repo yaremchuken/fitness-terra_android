@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.AppSettings
 import exp.yaremchuken.fitnessterra.R
@@ -146,7 +147,10 @@ fun ScheduleDateScreen(
             .background(color = Color.White)
     ) {
         if (editedSchedule != null) {
-            Dialog(onDismissRequest = { editedSchedule = null }) {
+            Dialog(
+                onDismissRequest = { editedSchedule = null },
+                properties = DialogProperties(usePlatformDefaultWidth = false)
+            ) {
                 ScheduleEditDialog(
                     onApprove = { viewModel.insertSchedule(it.toSchedule()) },
                     onCancel = { viewModel.deleteSchedule(it.toSchedule()); editedSchedule = null },
