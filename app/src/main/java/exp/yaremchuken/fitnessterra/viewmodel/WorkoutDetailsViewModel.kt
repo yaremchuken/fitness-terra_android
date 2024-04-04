@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import exp.yaremchuken.fitnessterra.data.entity.HistoryEntity
 import exp.yaremchuken.fitnessterra.data.entity.WorkoutEntityWrapper
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.data.model.WorkoutPlan
 import exp.yaremchuken.fitnessterra.data.repository.ExerciseRepository
 import exp.yaremchuken.fitnessterra.data.repository.HistoryRepository
 import exp.yaremchuken.fitnessterra.data.repository.WorkoutRepository
@@ -41,5 +42,6 @@ class WorkoutDetailsViewModel @Inject constructor(
             .map { it.exercise.equipment.map { e -> e.type }.distinct() }
             .flatten()
             .distinct()
+            .sorted()
             .toList()
 }

@@ -25,24 +25,24 @@ data class ExerciseSetup(
     /**
      * Setup for equipment used in sets.
      */
-    val equipment: List<Equipment> = listOf(),
+    val equipment: List<Equipment>,
 
     /**
      * Amount of repeats for exercise.
      * Not needed if the duration is specified.
      */
-    val sets: List<Long> = listOf(),
+    val sets: List<Long>,
 
     /**
      * Duration of exercise performing.
      * Not needed if the repeats is specified.
      */
-    val duration: Duration = 0.seconds,
+    val duration: Duration,
 
     /**
      * Amount ot time to rest after performing this setup.
      */
-    val recovery: Duration = 0.seconds
+    val recovery: Duration
 ) {
     /**
      * Get total duration of this set, including recovery time.

@@ -40,6 +40,7 @@ import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.EquipmentType
 import exp.yaremchuken.fitnessterra.data.model.History
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.data.model.WorkoutPlan
 import exp.yaremchuken.fitnessterra.equipment
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
@@ -52,7 +53,7 @@ import java.time.Instant
 fun WorkoutDetailsScreen(
     gotoExerciseSetupDetails: (sectionId: Long, exerciseId: Long) -> Unit,
     gotoExerciseDetails: (exerciseId: Long) -> Unit,
-    beginWorkout: (workoutId: Long) -> Unit,
+    beginWorkout: (workoutId: Long, workoutPlan: WorkoutPlan) -> Unit,
     workoutId: Long? = null,
     finishedAt: Instant? = null,
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
@@ -109,11 +110,21 @@ fun WorkoutDetailsScreen(
                 onClick = { onBackPressedDispatcher?.onBackPressed() },
                 Modifier
                     .align(Alignment.TopStart)
-                    .padding(top = 12.dp, start = 12.dp)
+                    .padding(all = 12.dp)
                     .width(30.dp)
                     .height(30.dp)
             ) {
                 Image(painter = painterResource(id = R.drawable.ic_back_filled), contentDescription = null)
+            }
+            IconButton(
+                onClick = { workout = workout?.shuffled() },
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(all = 12.dp)
+                    .width(48.dp)
+                    .height(48.dp)
+            ) {
+                Image(painter = painterResource(id = R.drawable.ic_shuffle_full), contentDescription = null)
             }
         }
         Divider()
@@ -196,7 +207,7 @@ fun WorkoutDetailsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { beginWorkout(workoutId) },
+                    onClick = { if (workout != null) beginWorkout(workoutId, WorkoutPlan.convert(workout!!)) },
                     Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp, horizontal = 50.dp),

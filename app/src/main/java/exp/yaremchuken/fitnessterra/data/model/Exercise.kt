@@ -27,35 +27,35 @@ data class Exercise(
     /**
      * Additional muscles affected by exercise.
      */
-    val muscles: List<MuscleGroupType> = listOf(),
+    val muscles: List<MuscleGroupType>,
 
     /**
      * Equipment used during the exercise.
      */
-    val equipment: List<EquipmentBase> = listOf(),
+    val equipment: List<EquipmentBase>,
 
     /**
      * Does the trainee have to switch sides, while performing exercises.
      */
-    val sideSwitchType: ExerciseSwitchType = ExerciseSwitchType.NO_SIDE_SWITCH,
+    val sideSwitchType: ExerciseSwitchType,
 
     /**
      * Steps of exercise performing.
      */
-    val steps: List<String> = listOf(),
+    val steps: List<String>,
 
     /**
      * Tips and advises about exercise perform.
      */
-    val advises: List<String> = listOf(),
+    val advises: List<String>,
 
     /**
      * Some warnings about incorrect performing of exercise and danger it can present.
      */
-    val warnings: List<String> = listOf(),
+    val warnings: List<String>,
 
     /**
      * Time, in which one repeat of exercise have to be performed.
      */
-    val performTime: Duration = 0.seconds
+    val performTime: Duration
 )

@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.gson.Gson
+import exp.yaremchuken.fitnessterra.data.model.WorkoutPlan
 import exp.yaremchuken.fitnessterra.ui.view.exercise.ExerciseDetailsScreen
 import exp.yaremchuken.fitnessterra.ui.view.exercisesetup.ExerciseSetupDetailsScreen
 import exp.yaremchuken.fitnessterra.ui.view.home.HomeScreen
@@ -93,7 +95,7 @@ fun Navigation() {
             WorkoutDetailsScreen(
                 gotoExerciseSetupDetails = { sectionId, exerciseId -> navController.navigate("${Screen.EXERCISE_SETUP_DETAILS_SCREEN.name}?sectionId=$sectionId&exerciseId=$exerciseId") },
                 gotoExerciseDetails = { id -> navController.navigate("${Screen.EXERCISE_DETAILS_SCREEN.name}/$id") },
-                beginWorkout = { id -> navController.navigate("${Screen.WORKOUT_PERFORM_SCREEN}/$id") },
+                beginWorkout = { id, plan -> navController.navigate("${Screen.WORKOUT_PERFORM_SCREEN}?id=$id&plan=${Gson().toJson(plan)}") },
                 workoutId = it.arguments?.getString("workoutId")?.toLong(),
                 finishedAt = it.arguments?.getString("finishedAt")?.toLong()?.let { i -> Instant.ofEpochMilli(i) }
             )
@@ -124,15 +126,22 @@ fun Navigation() {
             ExerciseDetailsScreen(it.arguments!!.getLong("id"))
         }
         composable(
-            route = Screen.WORKOUT_PERFORM_SCREEN.name + "/{id}",
-            arguments = listOf(Arg.id)
+            route = Screen.WORKOUT_PERFORM_SCREEN.name + "?id={id}&plan={plan}",
+            arguments = listOf(
+                Arg.id,
+                navArgument(name = "plan") {
+                    type = NavType.StringType
+                    nullable = false
+                }
+            )
         ) {
             WorkoutPerformScreen(
                 goHome = {
                             navController.popBackStack(Screen.HOME_SCREEN.name, true)
                             navController.navigate(Screen.HOME_SCREEN.name)
                          },
-                workoutId = it.arguments!!.getLong("id")
+                workoutId = it.arguments!!.getLong("id"),
+                plan = Gson().fromJson(it.arguments!!.getString("plan"), WorkoutPlan::class.java)
             )
         }
     }

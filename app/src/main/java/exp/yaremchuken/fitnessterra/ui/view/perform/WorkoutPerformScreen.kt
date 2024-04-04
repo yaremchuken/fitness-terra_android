@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import exp.yaremchuken.fitnessterra.R
 import exp.yaremchuken.fitnessterra.data.model.ExerciseSwitchType
 import exp.yaremchuken.fitnessterra.data.model.Workout
+import exp.yaremchuken.fitnessterra.data.model.WorkoutPlan
 import exp.yaremchuken.fitnessterra.ui.UIConstants
 import exp.yaremchuken.fitnessterra.ui.element.GifImage
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
@@ -44,6 +45,7 @@ import exp.yaremchuken.fitnessterra.viewmodel.WorkoutPerformViewModel
 fun WorkoutPerformScreen(
     goHome: () -> Unit,
     workoutId: Long,
+    plan: WorkoutPlan,
     viewModel: WorkoutPerformViewModel = hiltViewModel()
 ) {
     var state by remember { mutableStateOf(GET_READY) }
@@ -56,7 +58,9 @@ fun WorkoutPerformScreen(
     var sideSwitched by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.getWorkout(workoutId).collect { workout = viewModel.fromEntity(it) }
+        viewModel.getWorkout(workoutId).collect {
+            workout = WorkoutPlan.rebuild(viewModel.fromEntity(it), plan)
+        }
     }
 
     if (workout == null) {

@@ -23,6 +23,18 @@ data class Workout(
      */
     val sections: List<WorkoutSection> = listOf()
 ) {
+    /**
+     * Returns a new instance of workout with randomly shuffled exercises and sections
+     */
+    fun shuffled(): Workout {
+        var shuffled: MutableList<WorkoutSection> = ArrayList()
+        for (section in sections) {
+            shuffled.add(WorkoutSection(section.id, section.order, section.title, section.setups.shuffled()))
+        }
+        shuffled = shuffled.shuffled().toMutableList()
+        return Workout(id, title, type, shuffled.toList())
+    }
+
     fun totalDuration(): Duration {
         var total = Duration.ZERO
         sections.forEachIndexed { index, section ->
