@@ -51,6 +51,7 @@ import exp.yaremchuken.fitnessterra.ui.theme.AppColor
 import exp.yaremchuken.fitnessterra.ui.theme.AppType
 import exp.yaremchuken.fitnessterra.ui.theme.Typography
 import exp.yaremchuken.fitnessterra.util.Utils
+import kotlin.text.StringBuilder
 
 data class NextExerciseDto (
     val workout: Workout,
@@ -75,23 +76,25 @@ fun NextExerciseBlock(
     val exercise = setup.exercise
 
     if (!spoken) {
+        val speech: StringBuilder = java.lang.StringBuilder()
+
         if (dto.isSideSwitch) {
-            speakOut(
-                stringResource(id = R.string.speak_side_switch)
-            )
+            speech.append(stringResource(id = R.string.speak_side_switch)).append(" ")
         }
+
         if (dto.isNewSection) {
-            speakOut(
+            speech.append(
                 stringResource(id = R.string.speak_next_section_block)
                     .replace(":section", section.title)
-            )
+            ).append(" ")
         }
+
         if (dto.isNewExercise) {
-            speakOut(
+            speech.append(
                 stringResource(id = R.string.speak_next_exercise_block)
                     .replace(":exercise", exercise.title)
                     .replace(":weight",
-                        getWeightSpeak(setup.equipment, stringResource(R.string.speak_next_exercise_block))
+                        getWeightSpeak(setup.equipment, stringResource(R.string.grams_divider))
                     )
                     .replace(":sets", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
@@ -99,18 +102,21 @@ fun NextExerciseBlock(
                         if (setup.exercise.sideSwitchType != ExerciseSwitchType.SIDE_SWITCH_ON_SET) ""
                         else stringResource(id = R.string.speak_each_side)
                     )
-            )
+            ).append(" ")
         } else if (!dto.isSideSwitch){
-            speakOut(
+            speech.append(
                 stringResource(id = R.string.speak_next_set_block)
                     .replace(":setnum", "${dto.setIdx + 1}")
                     .replace(":settotal", "${setup.sets.size}")
                     .replace(":set", "${setup.sets[dto.setIdx]}")
-            )
+            ).append(" ")
+
             if (setup.exercise.sideSwitchType == ExerciseSwitchType.SIDE_SWITCH_ON_REPEAT) {
-                speakOut(stringResource(id = R.string.speak_each_side))
+                speech.append(stringResource(id = R.string.speak_each_side)).append(" ")
             }
         }
+
+        speakOut(speech.toString())
         spoken = true
     }
 

@@ -35,7 +35,8 @@ object WorkoutSequenceHelper {
                 .maxByOrNull { it.finishedAt }
 
         var idxOffset =
-            if (recentHistory == null || workouts.indexOfFirst { it.id == recentHistory.workout.id }  == workouts.size) 0
+            if (recentHistory == null) 0
+            else if (workouts.indexOfFirst { it.id == recentHistory.workout.id }  == (workouts.size-1)) 0
             else workouts.indexOfFirst { it.id == recentHistory.workout.id } + 1
 
         var currDate = startDate
